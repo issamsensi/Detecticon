@@ -2,12 +2,15 @@ import Phaser from 'phaser';
 import type { PublicPuzzle, PublicSuspect } from '../../../shared/types';
 import { createInitialGameState, type GameState } from '../../../shared/game';
 import { ApiError, NetworkError, accuse } from '../api';
+import { getSuspectSpriteKey } from '../assets';
 import { reloadToday } from '../reload';
+import { createCharacter, type Character } from '../ui/Character';
 import { createSpeechBubble, type SpeechBubble } from '../ui/text';
 
 type SuspectCard = {
   suspect: PublicSuspect;
   container: Phaser.GameObjects.Container;
+  character: Character;
 };
 
 export class AccuseScene extends Phaser.Scene {
@@ -104,13 +107,13 @@ export class AccuseScene extends Phaser.Scene {
 
   private renderSuspects(): void {
     for (const card of this.cards) {
-      card.container.destroy(true);
+      card.character.destroy();
     }
     this.cards = [];
 
-    const visible = this.puzzle.suspects.filter(
-      (suspect) => !this.state.eliminatedIds.includes(suspect.id)
-    );
+    const visible = this.puzzle.suspects
+      .map((suspect, originalIndex) => ({ suspect, originalIndex }))
+      .filter(({ suspect }) => !this.state.eliminatedIds.includes(suspect.id));
 
     const { width } = this.scale;
     const cardWidth = 76;
@@ -119,10 +122,8 @@ export class AccuseScene extends Phaser.Scene {
     const startX = (width - totalWidth) / 2 + cardWidth / 2;
     const y = 300;
 
-    visible.forEach((suspect, index) => {
+    visible.forEach(({ suspect, originalIndex }, index) => {
       const x = startX + index * (cardWidth + gap);
-      const portrait = this.add.rectangle(0, 0, 64, 80, suspect.color);
-      portrait.setStrokeStyle(3, 0xf4f1de);
 
       const nameText = this.add
         .text(0, 56, suspect.name.split(' ')[0] ?? suspect.name, {
@@ -140,8 +141,21 @@ export class AccuseScene extends Phaser.Scene {
         void this.accuse(suspect);
       });
 
-      const container = this.add.container(x, y, [hit, portrait, nameText]);
-      this.cards.push({ suspect, container });
+      const container = this.add.container(x, y, [hit, nameText]);
+      const character = createCharacter({
+        scene: this,
+        x,
+        y,
+        textureKey: getSuspectSpriteKey(this.puzzle.id, originalIndex),
+        fallbackColor: suspect.color,
+        width: 64,
+        height: 80,
+        displayWidth: 64,
+        displayHeight: 80,
+      });
+      // Keep name/hit in container, character manages its own container with idle animation.
+      container.add([hit, nameText]);
+      this.cards.push({ suspect, container, character });
     });
   }
 

@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import type { PublicPuzzle } from '../../../shared/types';
 import type { GameState } from '../../../shared/game';
+import { DETECTIVE_KEY } from '../assets';
+import { createCharacter } from '../ui/Character';
 import { createTextBlock } from '../ui/text';
 
 export class IntroScene extends Phaser.Scene {
@@ -23,8 +25,20 @@ export class IntroScene extends Phaser.Scene {
     const { width, height } = this.scale;
     this.cameras.main.setBackgroundColor('#1b1f2a');
 
+    createCharacter({
+      scene: this,
+      x: width / 2,
+      y: 78,
+      textureKey: DETECTIVE_KEY,
+      fallbackColor: 0x81b29a,
+      width: 56,
+      height: 64,
+      displayWidth: 64,
+      displayHeight: 64,
+    });
+
     this.add
-      .text(width / 2, 72, 'Inspector Quill', {
+      .text(width / 2, 128, 'Inspector Quill', {
         fontFamily: 'monospace',
         fontSize: '18px',
         color: '#a7b1c2',
@@ -33,7 +47,7 @@ export class IntroScene extends Phaser.Scene {
 
     createTextBlock(this, {
       x: width / 2,
-      y: 150,
+      y: 160,
       text: this.puzzle.title,
       maxWidth: width - 48,
       style: {
@@ -49,7 +63,7 @@ export class IntroScene extends Phaser.Scene {
 
     createTextBlock(this, {
       x: 24,
-      y: 220,
+      y: 230,
       text: this.puzzle.scene,
       maxWidth: width - 48,
       style: {

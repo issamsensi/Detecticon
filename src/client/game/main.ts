@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { fetchToday } from './api';
-import { applyTodayData } from './reload';
+import { PreloadScene } from './scenes/PreloadScene';
 import type { PublicPuzzle } from '../../shared/types';
 import type { GameState } from '../../shared/game';
 
@@ -37,15 +37,19 @@ export const startGame = async (parentId: string): Promise<Phaser.Game | void> =
     type: Phaser.AUTO,
     parent: parentId,
     backgroundColor: '#1b1f2a',
+    pixelArt: true,
+    roundPixels: true,
     scale: {
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH,
+      autoRound: true,
       width: 360,
       height: 640,
     },
+    scene: [new PreloadScene()],
   });
 
-  applyTodayData(game, data.puzzle, data.state);
+  game.scene.start('PreloadScene', data);
 
   return game;
 };

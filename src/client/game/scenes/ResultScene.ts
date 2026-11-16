@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import { buildShareText, type GameState } from '../../../shared/game';
+import { DETECTIVE_KEY } from '../assets';
+import { createCharacter } from '../ui/Character';
 
 export class ResultScene extends Phaser.Scene {
   private countdownText: Phaser.GameObjects.Text | undefined;
@@ -17,16 +19,28 @@ export class ResultScene extends Phaser.Scene {
     const solved = state.solved;
     const shareText = state.shareText ?? buildShareText(state);
 
+    createCharacter({
+      scene: this,
+      x: width / 2,
+      y: 52,
+      textureKey: DETECTIVE_KEY,
+      fallbackColor: 0x81b29a,
+      width: 48,
+      height: 56,
+      displayWidth: 56,
+      displayHeight: 56,
+    });
+
     this.add
-      .text(width / 2, 60, solved ? 'Case Solved' : 'Case Closed', {
+      .text(width / 2, 95, solved ? 'Case Solved' : 'Case Closed', {
         fontFamily: 'monospace',
-        fontSize: '34px',
+        fontSize: '32px',
         color: solved ? '#81b29a' : '#e07a5f',
       })
       .setOrigin(0.5);
 
     this.add
-      .text(width / 2, 112, `Attempts used: ${state.attemptsUsed} / 3`, {
+      .text(width / 2, 135, `Attempts used: ${state.attemptsUsed} / 3`, {
         fontFamily: 'monospace',
         fontSize: '22px',
         color: '#f4f1de',
@@ -35,7 +49,7 @@ export class ResultScene extends Phaser.Scene {
 
     if (state.culprit) {
       this.add
-        .text(width / 2, 150, `Culprit: ${state.culprit.name}`, {
+        .text(width / 2, 170, `Culprit: ${state.culprit.name}`, {
           fontFamily: 'monospace',
           fontSize: '18px',
           color: '#a7b1c2',

@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import type { PublicPuzzle, PublicSuspect } from '../../../shared/types';
 import type { GameState } from '../../../shared/game';
 import { createInitialGameState } from '../../../shared/game';
+import { getSuspectSpriteKey } from '../assets';
+import { createCharacter, type Character } from '../ui/Character';
 import { createSpeechBubble, type SpeechBubble } from '../ui/text';
 
 export class TestimonyScene extends Phaser.Scene {
@@ -11,7 +13,7 @@ export class TestimonyScene extends Phaser.Scene {
   private nameText!: Phaser.GameObjects.Text;
   private roleText!: Phaser.GameObjects.Text;
   private hintText!: Phaser.GameObjects.Text;
-  private portrait!: Phaser.GameObjects.Rectangle;
+  private portrait: Character | null = null;
   private progressText!: Phaser.GameObjects.Text;
   private done = false;
   private state!: GameState;
@@ -39,9 +41,6 @@ export class TestimonyScene extends Phaser.Scene {
         color: '#a7b1c2',
       })
       .setOrigin(0.5);
-
-    this.portrait = this.add.rectangle(width / 2, 170, 120, 120, 0xffffff);
-    this.portrait.setStrokeStyle(4, 0xf4f1de);
 
     this.nameText = this.add
       .text(width / 2, 250, '', {
@@ -79,10 +78,17 @@ export class TestimonyScene extends Phaser.Scene {
       this.handleAdvance();
     });
 
+    this.events.on(Phaser.Scenes.Events.UPDATE, this.syncTalking, this);
+
     this.suspectIndex = 0;
     this.done = false;
     this.showSuspect(this.puzzle.suspects[this.suspectIndex]);
   }
+
+  private syncTalking = (): void => {
+    if (!this.portrait) return;
+    this.portrait.setTalking(!!this.bubble?.isTyping());
+  };
 
   private handleAdvance(): void {
     if (this.done || !this.bubble) {
@@ -91,6 +97,7 @@ export class TestimonyScene extends Phaser.Scene {
 
     if (this.bubble.isTyping()) {
       this.bubble.skip();
+      this.portrait?.setTalking(false);
       return;
     }
 
@@ -101,6 +108,7 @@ export class TestimonyScene extends Phaser.Scene {
     }
 
     this.done = true;
+    this.portrait?.setTalking(false);
     console.log('testimonies done');
     this.scene.start('AccuseScene', { state: this.state });
   }
@@ -113,9 +121,23 @@ export class TestimonyScene extends Phaser.Scene {
     this.progressText.setText(
       `Suspect ${this.suspectIndex + 1} of ${this.puzzle.suspects.length}`
     );
-    this.portrait.setFillStyle(suspect.color);
     this.nameText.setText(suspect.name);
     this.roleText.setText(suspect.role);
+
+    if (this.portrait) {
+      this.portrait.destroy();
+    }
+    this.portrait = createCharacter({
+      scene: this,
+      x: this.scale.width / 2,
+      y: 170,
+      textureKey: getSuspectSpriteKey(this.puzzle.id, this.suspectIndex),
+      fallbackColor: suspect.color,
+      width: 120,
+      height: 120,
+      displayWidth: 120,
+      displayHeight: 120,
+    });
 
     if (this.bubble) {
       this.bubble.destroy();
@@ -139,5 +161,6 @@ export class TestimonyScene extends Phaser.Scene {
         speedMs: 28,
       },
     });
+    this.portrait.setTalking(true);
   }
 }
