@@ -126,7 +126,7 @@ export class AccuseScene extends Phaser.Scene {
       const x = startX + index * (cardWidth + gap);
 
       const nameText = this.add
-        .text(0, 56, suspect.name.split(' ')[0] ?? suspect.name, {
+        .text(0, 48, suspect.name.split(' ')[0] ?? suspect.name, {
           fontFamily: 'monospace',
           fontSize: '14px',
           color: '#f4f1de',
@@ -142,6 +142,7 @@ export class AccuseScene extends Phaser.Scene {
       });
 
       const container = this.add.container(x, y, [hit, nameText]);
+      // 64x64 sprite at integer 1x scale so 4 suspects fit across 360x640 without blur.
       const character = createCharacter({
         scene: this,
         x,
@@ -149,12 +150,10 @@ export class AccuseScene extends Phaser.Scene {
         textureKey: getSuspectSpriteKey(this.puzzle.id, originalIndex),
         fallbackColor: suspect.color,
         width: 64,
-        height: 80,
-        displayWidth: 64,
-        displayHeight: 80,
+        height: 64,
+        scale: 1,
       });
       // Keep name/hit in container, character manages its own container with idle animation.
-      container.add([hit, nameText]);
       this.cards.push({ suspect, container, character });
     });
   }

@@ -25,20 +25,20 @@ export class IntroScene extends Phaser.Scene {
     const { width, height } = this.scale;
     this.cameras.main.setBackgroundColor('#1b1f2a');
 
+    // Detective sprite: 64x64 at integer 2x scale (128px) for crisp pixel art in 360x640.
     createCharacter({
       scene: this,
       x: width / 2,
-      y: 78,
+      y: 72,
       textureKey: DETECTIVE_KEY,
       fallbackColor: 0x81b29a,
       width: 56,
       height: 64,
-      displayWidth: 64,
-      displayHeight: 64,
+      scale: 2,
     });
 
     this.add
-      .text(width / 2, 128, 'Inspector Quill', {
+      .text(width / 2, 150, 'Inspector Quill', {
         fontFamily: 'monospace',
         fontSize: '18px',
         color: '#a7b1c2',
@@ -47,7 +47,7 @@ export class IntroScene extends Phaser.Scene {
 
     createTextBlock(this, {
       x: width / 2,
-      y: 160,
+      y: 175,
       text: this.puzzle.title,
       maxWidth: width - 48,
       style: {
@@ -63,7 +63,7 @@ export class IntroScene extends Phaser.Scene {
 
     createTextBlock(this, {
       x: 24,
-      y: 230,
+      y: 245,
       text: this.puzzle.scene,
       maxWidth: width - 48,
       style: {
@@ -78,12 +78,12 @@ export class IntroScene extends Phaser.Scene {
     });
 
     const button = this.add
-      .rectangle(width / 2, height - 90, 220, 56, 0xe07a5f)
+      .rectangle(width / 2, height - 110, 220, 52, 0xe07a5f)
       .setStrokeStyle(4, 0xf4f1de)
       .setInteractive({ useHandCursor: true });
 
     const buttonText = this.add
-      .text(width / 2, height - 90, 'Start', {
+      .text(width / 2, height - 110, 'Start', {
         fontFamily: 'monospace',
         fontSize: '24px',
         color: '#1b1f2a',
@@ -102,8 +102,26 @@ export class IntroScene extends Phaser.Scene {
     buttonText.setInteractive({ useHandCursor: true });
     buttonText.on('pointerdown', start);
 
+    const creditsButton = this.add
+      .rectangle(width / 2, height - 58, 160, 36, 0x3d405b)
+      .setStrokeStyle(2, 0xf4f1de)
+      .setInteractive({ useHandCursor: true });
+    const creditsText = this.add
+      .text(width / 2, height - 58, 'Credits', {
+        fontFamily: 'monospace',
+        fontSize: '16px',
+        color: '#f4f1de',
+      })
+      .setOrigin(0.5)
+      .setInteractive({ useHandCursor: true });
+    const openCredits = (): void => {
+      this.scene.start('CreditsScene');
+    };
+    creditsButton.on('pointerdown', openCredits);
+    creditsText.on('pointerdown', openCredits);
+
     this.add
-      .text(width / 2, height - 40, 'Tap Start to hear testimonies', {
+      .text(width / 2, height - 20, 'Tap Start to hear testimonies', {
         fontFamily: 'monospace',
         fontSize: '14px',
         color: '#a7b1c2',

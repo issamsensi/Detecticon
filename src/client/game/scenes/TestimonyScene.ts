@@ -43,7 +43,7 @@ export class TestimonyScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.nameText = this.add
-      .text(width / 2, 250, '', {
+      .text(width / 2, 228, '', {
         fontFamily: 'monospace',
         fontSize: '24px',
         color: '#f4f1de',
@@ -51,7 +51,7 @@ export class TestimonyScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.roleText = this.add
-      .text(width / 2, 280, '', {
+      .text(width / 2, 252, '', {
         fontFamily: 'monospace',
         fontSize: '16px',
         color: '#a7b1c2',
@@ -127,16 +127,16 @@ export class TestimonyScene extends Phaser.Scene {
     if (this.portrait) {
       this.portrait.destroy();
     }
+    // 64x64 sprite at integer 2x scale (128px) fits 360x640 and stays crisp.
     this.portrait = createCharacter({
       scene: this,
       x: this.scale.width / 2,
-      y: 170,
+      y: 145,
       textureKey: getSuspectSpriteKey(this.puzzle.id, this.suspectIndex),
       fallbackColor: suspect.color,
       width: 120,
       height: 120,
-      displayWidth: 120,
-      displayHeight: 120,
+      scale: 2,
     });
 
     if (this.bubble) {

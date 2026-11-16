@@ -8,6 +8,7 @@ export type CharacterOptions = {
   fallbackColor: number;
   width?: number;
   height?: number;
+  scale?: number;
   displayWidth?: number;
   displayHeight?: number;
 };
@@ -27,6 +28,7 @@ export const createCharacter = (options: CharacterOptions): Character => {
     fallbackColor,
     width = 64,
     height = 80,
+    scale,
     displayWidth,
     displayHeight,
   } = options;
@@ -36,7 +38,10 @@ export const createCharacter = (options: CharacterOptions): Character => {
 
   if (scene.textures.exists(textureKey)) {
     const image = scene.add.image(0, 0, textureKey);
-    if (displayWidth != null && displayHeight != null) {
+    if (scale != null) {
+      // Integer scaling for crisp pixel-art rendering (no blur).
+      image.setScale(Math.round(scale));
+    } else if (displayWidth != null && displayHeight != null) {
       image.setDisplaySize(displayWidth, displayHeight);
     } else if (displayWidth != null || displayHeight != null) {
       image.setDisplaySize(displayWidth ?? image.width, displayHeight ?? image.height);

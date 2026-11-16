@@ -3,6 +3,7 @@ import { IntroScene } from './scenes/IntroScene';
 import { TestimonyScene } from './scenes/TestimonyScene';
 import { AccuseScene } from './scenes/AccuseScene';
 import { ResultScene } from './scenes/ResultScene';
+import { CreditsScene } from './scenes/CreditsScene';
 import { fetchToday } from './api';
 import type { PublicPuzzle } from '../../shared/types';
 import type { GameState } from '../../shared/game';
@@ -12,7 +13,7 @@ export const applyTodayData = (
   puzzle: PublicPuzzle,
   state: GameState
 ): void => {
-  for (const key of ['IntroScene', 'TestimonyScene', 'AccuseScene', 'ResultScene']) {
+  for (const key of ['IntroScene', 'TestimonyScene', 'AccuseScene', 'ResultScene', 'CreditsScene']) {
     if (game.scene.getScene(key)) {
       game.scene.remove(key);
     }
@@ -22,6 +23,7 @@ export const applyTodayData = (
   game.scene.add('TestimonyScene', new TestimonyScene(puzzle), false);
   game.scene.add('AccuseScene', new AccuseScene(puzzle), false);
   game.scene.add('ResultScene', new ResultScene(), false);
+  game.scene.add('CreditsScene', new CreditsScene(), false);
 
   if (state.finished) {
     game.scene.start('ResultScene', { puzzle, state });
