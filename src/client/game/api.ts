@@ -37,13 +37,44 @@ export type StatsResponse = {
   };
 };
 
-const request = async <T>(url: string, init?: RequestInit): Promise<T> => {
-  const response = await fetch(url, init);
-  const data = (await response.json()) as T & { error?: string };
-  if (!response.ok) {
-    throw new Error((data as { error?: string }).error ?? 'Request failed');
+export class ApiError extends Error {
+  status: number;
+  constructor(message: string, status: number) {
+    super(message);
+    this.status = status;
   }
-  return data;
+}
+
+export class NetworkError extends Error {
+  constructor(message = 'Network request failed') {
+    super(message);
+  }
+}
+
+const request = async <T>(url: string, init?: RequestInit): Promise<T> => {
+  let response: Response;
+  try {
+    response = await fetch(url, init);
+  } catch {
+    throw new NetworkError();
+  }
+
+  let data: unknown;
+  try {
+    data = await response.json();
+  } catch {
+    data = {};
+  }
+
+  if (!response.ok) {
+    const message =
+      typeof data === 'object' && data !== null && 'error' in data && typeof (data as { error?: unknown }).error === 'string'
+        ? (data as { error: string }).error
+        : 'Request failed';
+    throw new ApiError(message, response.status);
+  }
+
+  return data as T;
 };
 
 export const fetchToday = async (): Promise<TodayResponse> =>

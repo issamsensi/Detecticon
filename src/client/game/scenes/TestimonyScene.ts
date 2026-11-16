@@ -5,7 +5,7 @@ import { createInitialGameState } from '../../../shared/game';
 import { createSpeechBubble, type SpeechBubble } from '../ui/text';
 
 export class TestimonyScene extends Phaser.Scene {
-  private readonly puzzle: PublicPuzzle;
+  private puzzle: PublicPuzzle;
   private suspectIndex = 0;
   private bubble: SpeechBubble | null = null;
   private nameText!: Phaser.GameObjects.Text;
@@ -21,7 +21,10 @@ export class TestimonyScene extends Phaser.Scene {
     this.puzzle = puzzle;
   }
 
-  public init(data: { state?: GameState }): void {
+  public init(data: { state?: GameState; puzzle?: PublicPuzzle }): void {
+    if (data.puzzle) {
+      this.puzzle = data.puzzle;
+    }
     this.state = data.state ?? createInitialGameState(this.puzzle.id, this.puzzle.number);
   }
 

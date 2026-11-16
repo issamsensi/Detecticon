@@ -1,9 +1,6 @@
 import Phaser from 'phaser';
-import { IntroScene } from './scenes/IntroScene';
-import { TestimonyScene } from './scenes/TestimonyScene';
-import { AccuseScene } from './scenes/AccuseScene';
-import { ResultScene } from './scenes/ResultScene';
 import { fetchToday } from './api';
+import { applyTodayData } from './reload';
 import type { PublicPuzzle } from '../../shared/types';
 import type { GameState } from '../../shared/game';
 
@@ -36,8 +33,6 @@ export const startGame = async (parentId: string): Promise<Phaser.Game | void> =
     return;
   }
 
-  const { puzzle, state } = data;
-
   const game = new Phaser.Game({
     type: Phaser.AUTO,
     parent: parentId,
@@ -50,16 +45,7 @@ export const startGame = async (parentId: string): Promise<Phaser.Game | void> =
     },
   });
 
-  game.scene.add('IntroScene', new IntroScene(puzzle));
-  game.scene.add('TestimonyScene', new TestimonyScene(puzzle));
-  game.scene.add('AccuseScene', new AccuseScene(puzzle));
-  game.scene.add('ResultScene', new ResultScene());
-
-  if (state.finished) {
-    game.scene.start('ResultScene', { state });
-  } else {
-    game.scene.start('IntroScene', { state });
-  }
+  applyTodayData(game, data.puzzle, data.state);
 
   return game;
 };

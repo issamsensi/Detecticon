@@ -4,7 +4,7 @@ import type { GameState } from '../../../shared/game';
 import { createTextBlock } from '../ui/text';
 
 export class IntroScene extends Phaser.Scene {
-  private readonly puzzle: PublicPuzzle;
+  private puzzle: PublicPuzzle;
   private state: GameState | undefined;
 
   constructor(puzzle: PublicPuzzle) {
@@ -12,7 +12,10 @@ export class IntroScene extends Phaser.Scene {
     this.puzzle = puzzle;
   }
 
-  public init(data: { state?: GameState }): void {
+  public init(data: { state?: GameState; puzzle?: PublicPuzzle }): void {
+    if (data.puzzle) {
+      this.puzzle = data.puzzle;
+    }
     this.state = data.state;
   }
 

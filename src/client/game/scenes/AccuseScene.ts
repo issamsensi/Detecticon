@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import type { PublicPuzzle, PublicSuspect } from '../../../shared/types';
 import { createInitialGameState, type GameState } from '../../../shared/game';
-import { accuse } from '../api';
+import { ApiError, NetworkError, accuse } from '../api';
+import { reloadToday } from '../reload';
 import { createSpeechBubble, type SpeechBubble } from '../ui/text';
 
 type SuspectCard = {
@@ -10,7 +11,7 @@ type SuspectCard = {
 };
 
 export class AccuseScene extends Phaser.Scene {
-  private readonly puzzle: PublicPuzzle;
+  private puzzle: PublicPuzzle;
   private state!: GameState;
   private cards: SuspectCard[] = [];
   private infoText!: Phaser.GameObjects.Text;
@@ -25,7 +26,10 @@ export class AccuseScene extends Phaser.Scene {
     this.puzzle = puzzle;
   }
 
-  public init(data: { state?: GameState }): void {
+  public init(data: { state?: GameState; puzzle?: PublicPuzzle }): void {
+    if (data.puzzle) {
+      this.puzzle = data.puzzle;
+    }
     this.state = data.state ?? createInitialGameState(this.puzzle.id, this.puzzle.number);
   }
 
@@ -63,6 +67,16 @@ export class AccuseScene extends Phaser.Scene {
         wordWrap: { width: width - 32 },
       })
       .setOrigin(0.5);
+
+    this.infoText.setInteractive({ useHandCursor: true });
+    this.infoText.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+      if (this.pendingAction && !this.feedbackBubble && !this.busy) {
+        pointer.event?.stopPropagation?.();
+        const action = this.pendingAction;
+        this.pendingAction = null;
+        action();
+      }
+    });
 
     this.hintText = this.add
       .text(width / 2, 610, '', {
@@ -177,12 +191,49 @@ export class AccuseScene extends Phaser.Scene {
         }
       );
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Something went wrong';
-      this.infoText.setText(message);
-      this.hintText.setText('');
+      if (error instanceof ApiError && error.status === 401) {
+        // Keep flow intact: show clear login message without changing game state.
+        this.infoText.setColor('#f2cc8f');
+        this.infoText.setText('Log in to Reddit to play');
+        this.hintText.setText('');
+      } else if (
+        error instanceof ApiError &&
+        (error.status === 400 || error.status === 404)
+      ) {
+        // State/puzzle may have changed (finished, eliminated, or new day): reload and route.
+        this.infoText.setText('Syncing latest puzzle...');
+        this.hintText.setText('');
+        try {
+          await reloadToday(this.game);
+          return;
+        } catch {
+          this.infoText.setColor('#e07a5f');
+          this.infoText.setText('Could not sync. Tap to retry.');
+          this.hintText.setText('tap to continue');
+          this.pendingAction = () => {
+            this.pendingAction = null;
+            this.hintText.setText('');
+            void this.accuse(suspect);
+          };
+        }
+      } else if (error instanceof NetworkError || error instanceof TypeError) {
+        this.infoText.setColor('#e07a5f');
+        this.infoText.setText('Connection problem, tap to retry');
+        this.hintText.setText('tap to continue');
+        this.pendingAction = () => {
+          this.pendingAction = null;
+          this.hintText.setText('');
+          void this.accuse(suspect);
+        };
+      } else {
+        const message = error instanceof Error ? error.message : 'Something went wrong';
+        this.infoText.setColor('#e07a5f');
+        this.infoText.setText(message);
+        this.hintText.setText('');
+      }
     } finally {
       this.busy = false;
-      if (!this.feedbackBubble && !this.state.finished) {
+      if (!this.feedbackBubble && !this.state.finished && !this.pendingAction) {
         this.updateHud();
       }
     }
@@ -221,16 +272,23 @@ export class AccuseScene extends Phaser.Scene {
   }
 
   private handleGlobalTap(): void {
-    if (!this.feedbackBubble) {
+    if (this.feedbackBubble) {
+      if (this.feedbackBubble.isTyping()) {
+        this.feedbackBubble.skip();
+        this.infoText.setText(this.hintText.text || 'tap to continue');
+        return;
+      }
+      const action = this.pendingAction;
+      if (action) {
+        action();
+      }
       return;
     }
-    if (this.feedbackBubble.isTyping()) {
-      this.feedbackBubble.skip();
-      this.infoText.setText(this.hintText.text || 'tap to continue');
-      return;
-    }
-    const action = this.pendingAction;
-    if (action) {
+
+    // Handle tap-to-retry actions when no feedback bubble is shown (e.g. network/sync errors).
+    if (this.pendingAction && !this.busy) {
+      const action = this.pendingAction;
+      this.pendingAction = null;
       action();
     }
   }
