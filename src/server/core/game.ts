@@ -1,4 +1,4 @@
-import { reddit, redis } from '@devvit/web/server';
+import { context, reddit, redis } from '@devvit/web/server';
 import type { Puzzle } from '../../shared/types';
 import { buildShareText, type AttemptResult, type GameState } from '../../shared/game';
 import { getPuzzleById, getTodayInfo } from './puzzle';
@@ -12,6 +12,7 @@ type StoredProgress = {
   solved: boolean;
   revealedKillerId?: string;
   statsCounted: boolean;
+  sharedToComments: boolean;
 };
 
 type Stats = {
@@ -29,6 +30,7 @@ const defaultProgress = (): StoredProgress => ({
   finished: false,
   solved: false,
   statsCounted: false,
+  sharedToComments: false,
 });
 
 const parseJsonArray = <T>(value: string | undefined, fallback: T[]): T[] => {
@@ -76,6 +78,7 @@ const readProgressRecord = (data: Record<string, string> | undefined): StoredPro
   const finished = data.finished === '1';
   const solved = data.solved === '1';
   const statsCounted = data.statsCounted === '1';
+  const sharedToComments = data.sharedToComments === '1';
   const revealedKillerId = data.revealedKillerId || undefined;
 
   return {
@@ -86,6 +89,7 @@ const readProgressRecord = (data: Record<string, string> | undefined): StoredPro
     finished,
     solved,
     statsCounted,
+    sharedToComments,
     ...(revealedKillerId ? { revealedKillerId } : {}),
   };
 };
@@ -98,6 +102,7 @@ const progressHash = (progress: StoredProgress): Record<string, string> => ({
   finished: progress.finished ? '1' : '0',
   solved: progress.solved ? '1' : '0',
   statsCounted: progress.statsCounted ? '1' : '0',
+  sharedToComments: progress.sharedToComments ? '1' : '0',
   revealedKillerId: progress.revealedKillerId ?? '',
 });
 
@@ -286,6 +291,7 @@ export const toGameState = (puzzle: Puzzle, progress: StoredProgress): GameState
     eliminatedIds: progress.eliminatedIds,
     results: progress.results,
     solved: progress.solved,
+    sharedToComments: progress.sharedToComments,
     ...(progress.revealedKillerId ? { revealedKillerId: progress.revealedKillerId } : {}),
     finished: progress.finished,
     ...(showCulprit ? { culprit: { id: killer.id, name: killer.name } } : {}),
@@ -297,5 +303,66 @@ export const toGameState = (puzzle: Puzzle, progress: StoredProgress): GameState
           }),
         }
       : {}),
+  };
+};
+
+export type ShareResult = {
+  progress: StoredProgress;
+  state: GameState;
+};
+
+export const shareResultToComments = async (puzzleId: string): Promise<ShareResult> => {
+  const player = await getPlayerId();
+  if (!player) {
+    throw new GameError('Log in to play', 401);
+  }
+
+  const puzzle = getPuzzleById(puzzleId);
+  if (!puzzle) {
+    throw new GameError('Puzzle not found', 404);
+  }
+
+  const { date, puzzle: todayPuzzle } = getTodayInfo();
+  if (todayPuzzle.id !== puzzleId) {
+    throw new GameError('Puzzle not found', 404);
+  }
+
+  const pKey = progressKey(date, puzzleId, player);
+  const data = await redis.hGetAll(pKey);
+  const current = readProgressRecord(data);
+
+  if (!current.finished) {
+    throw new GameError('Finish the puzzle before sharing', 400);
+  }
+  if (current.sharedToComments) {
+    throw new GameError('Result already posted', 409);
+  }
+
+  const postId = context.postId;
+  if (!postId) {
+    throw new GameError('Post context unavailable', 400);
+  }
+
+  // Comment must contain only attempts and the puzzle number (no killer/evidence/puzzle text).
+  const text = buildShareText({
+    puzzleNumber: puzzle.number,
+    results: current.results,
+  });
+
+  await reddit.submitComment({
+    id: postId as `t3_${string}`,
+    text,
+    runAs: 'USER',
+  });
+
+  const next: StoredProgress = {
+    ...current,
+    sharedToComments: true,
+  };
+  await redis.hSet(pKey, progressHash(next));
+
+  return {
+    progress: next,
+    state: toGameState(puzzle, next),
   };
 };

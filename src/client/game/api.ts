@@ -8,6 +8,7 @@ export type ProgressPayload = {
   results: Array<'wrong' | 'correct'>;
   finished: boolean;
   solved: boolean;
+  sharedToComments: boolean;
   revealedKillerId?: string;
 };
 
@@ -80,6 +81,11 @@ const request = async <T>(url: string, init?: RequestInit): Promise<T> => {
 export const fetchToday = async (): Promise<TodayResponse> =>
   request<TodayResponse>('/api/puzzle/today');
 
+export type ShareResponse = {
+  progress: ProgressPayload;
+  state: GameState;
+};
+
 export const accuse = async (
   puzzleId: string,
   suspectId: string
@@ -88,6 +94,13 @@ export const accuse = async (
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ puzzleId, suspectId }),
+  });
+
+export const shareResult = async (puzzleId: string): Promise<ShareResponse> =>
+  request<ShareResponse>('/api/share', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ puzzleId }),
   });
 
 export const fetchTodayStats = async (): Promise<StatsResponse> =>

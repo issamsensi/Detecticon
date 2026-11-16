@@ -1,5 +1,12 @@
 import { Hono } from 'hono';
-import { GameError, accuseSuspect, getProgress, getStats, toGameState } from '../core/game';
+import {
+  GameError,
+  accuseSuspect,
+  getProgress,
+  getStats,
+  shareResultToComments,
+  toGameState,
+} from '../core/game';
 import { getTodayInfo, toClientPuzzle } from '../core/puzzle';
 
 export const game = new Hono();
@@ -45,6 +52,36 @@ game.post('/accuse', async (c) => {
       return c.json({ error: error.message }, { status: error.status });
     }
     const message = error instanceof Error ? error.message : 'Accuse failed';
+    return c.json({ error: message }, { status: 400 });
+  }
+});
+
+game.post('/share', async (c) => {
+  let body: unknown;
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ error: 'Invalid JSON body' }, 400);
+  }
+
+  const { puzzleId } =
+    typeof body === 'object' && body !== null ? (body as { puzzleId?: unknown }) : {};
+
+  if (typeof puzzleId !== 'string') {
+    return c.json({ error: 'puzzleId is required' }, 400);
+  }
+
+  try {
+    const result = await shareResultToComments(puzzleId);
+    return c.json({
+      progress: result.progress,
+      state: result.state,
+    });
+  } catch (error) {
+    if (error instanceof GameError) {
+      return c.json({ error: error.message }, { status: error.status });
+    }
+    const message = error instanceof Error ? error.message : 'Could not post result';
     return c.json({ error: message }, { status: 400 });
   }
 });

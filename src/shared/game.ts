@@ -14,6 +14,7 @@ export type GameState = {
   results: AttemptResult[];
   solved: boolean;
   finished: boolean;
+  sharedToComments: boolean;
   revealedKillerId?: string;
   shareText?: string;
   culprit?: CulpritInfo;
@@ -31,6 +32,7 @@ export const createInitialGameState = (
   results: [],
   solved: false,
   finished: false,
+  sharedToComments: false,
 });
 
 export const buildShareText = (
