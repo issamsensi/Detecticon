@@ -1,43 +1,43 @@
 {
   "id": "001",
   "number": 1,
-  "title": "The Midnight Teacup",
-  "scene": "At 12:10 AM, the manor's prized teacup was found shattered in the study. Inspector Quill gathered four people who were nearby. One of them is lying.",
+  "title": "The Vanished Crown",
+  "scene": "At 7:45 PM, the glitter crown vanished from the prop table. The theater power was out from 7:30 to 7:50. One of the four is lying.",
   "suspects": [
     {
-      "id": "mara",
-      "name": "Mara Finch",
-      "role": "Cook",
+      "id": "dana",
+      "name": "Dana Reyes",
+      "role": "Director",
       "color": 14540253,
-      "testimony": "I was in the kitchen washing pots from midnight until 12:20. I never stepped into the study.",
-      "alibiProof": "Soap suds were still on her apron at 12:15, matching the kitchen sink she used.",
+      "testimony": "I was giving the cast a pep talk onstage from 7:35 to 7:50. I never went near the prop table.",
+      "alibiProof": "The cast's group selfie is timestamped 7:44, with Dana standing in the middle onstage.",
       "isKiller": false
     },
     {
-      "id": "jonah",
-      "name": "Jonah Pike",
-      "role": "Gardener",
+      "id": "felix",
+      "name": "Felix Moran",
+      "role": "Lighting Tech",
       "color": 3903359,
-      "testimony": "I was locking the greenhouse at midnight. I heard the crash but stayed outside the whole time.",
-      "alibiProof": "The greenhouse lock log shows his key turned at 12:01, and mud on his boots matches only the garden path.",
-      "isKiller": false
-    },
-    {
-      "id": "elise",
-      "name": "Elise Rowe",
-      "role": "Librarian",
-      "color": 11393254,
-      "testimony": "I was in the study reading until 12:05, then left to my room. The teacup was perfectly fine when I left.",
-      "contradiction": "A bookmark from the book she claimed to read was found under the shattered teacup, placed there after the cup broke.",
+      "testimony": "I was testing the spotlights in the booth from 7:35 to 7:50. I stayed there the whole time.",
+      "contradiction": "The booth log shows no power draw until 7:50, and glitter was stuck to his sleeve.",
       "isKiller": true
     },
     {
-      "id": "bram",
-      "name": "Bram Cole",
-      "role": "Driver",
+      "id": "nell",
+      "name": "Nell Ashby",
+      "role": "Costume Designer",
+      "color": 11393254,
+      "testimony": "I was hemming a cloak by the wardrobe window, since it was the only light. I was there at 7:40.",
+      "alibiProof": "Her phone photo of the half-hemmed cloak is timestamped 7:41, taken at the wardrobe window.",
+      "isKiller": false
+    },
+    {
+      "id": "owen",
+      "name": "Owen Hart",
+      "role": "Stage Manager",
       "color": 16758861,
-      "testimony": "I was in the garage polishing the car from 11:50 to 12:30. I didn't come inside at all.",
-      "alibiProof": "Oil polish on the steering wheel was still wet at 12:25, showing he had been working there continuously.",
+      "testimony": "I was fetching candles from the storage closet for the outage. I got back around 7:45.",
+      "alibiProof": "The candle sign-out sheet is signed 7:42, and the janitor saw him in the closet.",
       "isKiller": false
     }
   ]

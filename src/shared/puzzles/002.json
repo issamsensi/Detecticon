@@ -1,0 +1,44 @@
+{
+  "id": "002",
+  "number": 2,
+  "title": "The Salted Pie",
+  "scene": "At 1:20 PM, the dining car's apple pie was found full of salt, not sugar. The train was in a tunnel from 1:10 to 1:25.",
+  "suspects": [
+    {
+      "id": "greta",
+      "name": "Greta Lund",
+      "role": "Chef",
+      "color": 5763719,
+      "testimony": "I was rolling dough in the galley from 1:10 to 1:30. I left the pie cooling on the rack.",
+      "alibiProof": "The galley camera shows her rolling dough nonstop from 1:10 to 1:30.",
+      "isKiller": false
+    },
+    {
+      "id": "milo",
+      "name": "Milo Baxter",
+      "role": "Conductor",
+      "color": 15844367,
+      "testimony": "I was punching tickets in carriage four around 1:15. I never entered the dining car.",
+      "alibiProof": "Three passengers' tickets in carriage four are punched between 1:14 and 1:18.",
+      "isKiller": false
+    },
+    {
+      "id": "agnes",
+      "name": "Agnes Whitlow",
+      "role": "Retired Teacher",
+      "color": 10181046,
+      "testimony": "I was napping in my sleeper cabin during the tunnel. I woke up when we came out.",
+      "alibiProof": "The cabin door lock log shows it stayed shut from 1:05 to 1:30.",
+      "isKiller": false
+    },
+    {
+      "id": "silas",
+      "name": "Silas Crane",
+      "role": "Photographer",
+      "color": 3447003,
+      "testimony": "I was snapping photos of the mountain view from my window seat at 1:15. It was lovely.",
+      "contradiction": "His camera has no photos from 1:08 to 1:26, and salt dust was on his cuff.",
+      "isKiller": true
+    }
+  ]
+}

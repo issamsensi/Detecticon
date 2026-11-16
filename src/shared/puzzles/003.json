@@ -1,0 +1,44 @@
+{
+  "id": "003",
+  "number": 3,
+  "title": "The Missing Mittens",
+  "scene": "At 3:30 PM, every guest's left mitten vanished from the lodge drying rack. A snowstorm kept the front door shut from 3:00 to 3:40.",
+  "suspects": [
+    {
+      "id": "rolf",
+      "name": "Rolf Hayes",
+      "role": "Ski Instructor",
+      "color": 16744192,
+      "testimony": "I was out on the slope teaching a lesson from 3:10 to 3:40. I only came in afterward.",
+      "contradiction": "The door lock log shows no exits, and the rack camera caught his sleeve at 3:22.",
+      "isKiller": true
+    },
+    {
+      "id": "pia",
+      "name": "Pia Moreau",
+      "role": "Lodge Cook",
+      "color": 14540253,
+      "testimony": "I was stirring chili in the kitchen all afternoon. I stepped out for nothing.",
+      "alibiProof": "The stove timer was reset by her badge at 3:12 and again at 3:28.",
+      "isKiller": false
+    },
+    {
+      "id": "wanda",
+      "name": "Wanda Pell",
+      "role": "Guest",
+      "color": 11393254,
+      "testimony": "I was soaking in the hot tub room from 3:00 to 3:40. I only left to fetch a towel.",
+      "alibiProof": "Her towel slip reads 3:02 in and 3:38 out, signed at the spa desk.",
+      "isKiller": false
+    },
+    {
+      "id": "theo",
+      "name": "Theo Marsh",
+      "role": "Front Desk Clerk",
+      "color": 5763719,
+      "testimony": "I was at the front desk answering phones all afternoon. I never touched the drying rack.",
+      "alibiProof": "The desk phone log shows five calls under his login between 3:05 and 3:35.",
+      "isKiller": false
+    }
+  ]
+}
