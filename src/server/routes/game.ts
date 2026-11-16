@@ -1,11 +1,11 @@
 import { Hono } from 'hono';
-import { accuseSuspect, getProgress, getStats, toGameState } from '../core/game';
-import { getTodaysPuzzle, toClientPuzzle } from '../core/puzzle';
+import { GameError, accuseSuspect, getProgress, getStats, toGameState } from '../core/game';
+import { getTodayInfo, toClientPuzzle } from '../core/puzzle';
 
 export const game = new Hono();
 
 game.get('/puzzle/today', async (c) => {
-  const puzzle = getTodaysPuzzle();
+  const { puzzle } = getTodayInfo();
   const progress = await getProgress(puzzle.id);
   const state = toGameState(puzzle, progress);
   return c.json({
@@ -39,17 +39,18 @@ game.post('/accuse', async (c) => {
       reveal: result.reveal,
       progress: result.progress,
       state: result.state,
-      ...(result.alreadyFinished ? { alreadyFinished: true } : {}),
     });
   } catch (error) {
+    if (error instanceof GameError) {
+      return c.json({ error: error.message }, { status: error.status });
+    }
     const message = error instanceof Error ? error.message : 'Accuse failed';
-    const status = message === 'Puzzle not found' || message === 'Suspect not found' ? 404 : 400;
-    return c.json({ error: message }, status);
+    return c.json({ error: message }, { status: 400 });
   }
 });
 
 game.get('/stats/today', async (c) => {
-  const puzzle = getTodaysPuzzle();
+  const { puzzle } = getTodayInfo();
   const stats = await getStats(puzzle.id);
   return c.json({
     puzzleId: puzzle.id,

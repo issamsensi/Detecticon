@@ -1,7 +1,7 @@
-import { context, reddit, redis } from '@devvit/web/server';
+import { reddit, redis } from '@devvit/web/server';
 import type { Puzzle } from '../../shared/types';
 import { buildShareText, type AttemptResult, type GameState } from '../../shared/game';
-import { getPuzzleById } from './puzzle';
+import { getPuzzleById, getTodayInfo } from './puzzle';
 
 type StoredProgress = {
   attemptsLeft: number;
@@ -11,6 +11,7 @@ type StoredProgress = {
   finished: boolean;
   solved: boolean;
   revealedKillerId?: string;
+  statsCounted: boolean;
 };
 
 type Stats = {
@@ -27,6 +28,7 @@ const defaultProgress = (): StoredProgress => ({
   results: [],
   finished: false,
   solved: false,
+  statsCounted: false,
 });
 
 const parseJsonArray = <T>(value: string | undefined, fallback: T[]): T[] => {
@@ -39,50 +41,41 @@ const parseJsonArray = <T>(value: string | undefined, fallback: T[]): T[] => {
   }
 };
 
-const getScopeIds = () => {
-  const postId = context.postId ?? 'no-post';
-  return { postId };
-};
-
-const getPlayerId = async (): Promise<string> => {
+const getPlayerId = async (): Promise<string | null> => {
   const username = await reddit.getCurrentUsername();
-  return username ?? 'anonymous';
+  return username ?? null;
 };
 
-// Redis key: detecticon:progress:{postId}:{puzzleId}:{player}
-// - "detecticon" namespace avoids collisions with other app/template keys.
-// - "progress" identifies per-player puzzle state (not aggregate stats).
-// - {postId} scopes data to this specific Reddit post/installation.
-// - {puzzleId} scopes to the puzzle/day so multiple days can coexist.
-// - {player} (Reddit username, or "anonymous") identifies the player.
-// Stored as a Redis hash for atomic field updates and easy partial reads.
-const progressKey = (postId: string, puzzleId: string, player: string): string =>
-  `detecticon:progress:${postId}:${puzzleId}:${player}`;
+// Redis key: detecticon:progress:{date}:{puzzleId}:{player}
+// - "detecticon": app namespace to avoid collisions.
+// - "progress": per-player puzzle state.
+// - {date}: UTC day (YYYY-MM-DD) for the puzzle instance, so each day is isolated.
+// - {puzzleId}: puzzle identifier for that day.
+// - {player}: logged-in Reddit username; anonymous users are never persisted.
+// Value: hash of attempts/results/elimination/finish flags.
+const progressKey = (date: string, puzzleId: string, player: string): string =>
+  `detecticon:progress:${date}:${puzzleId}:${player}`;
 
-// Redis key: detecticon:stats:{postId}:{puzzleId}
-// - "detecticon" namespace avoids collisions.
-// - "stats" identifies aggregate solve counters.
-// - {postId} scopes stats to this post so each post tracks its own audience.
-// - {puzzleId} scopes to the puzzle/day being measured.
-// Stored as a Redis hash with numeric counter fields (solved1/2/3, failed).
-const statsKey = (postId: string, puzzleId: string): string =>
-  `detecticon:stats:${postId}:${puzzleId}`;
+// Redis key: detecticon:stats:{date}:{puzzleId}
+// - "detecticon": app namespace.
+// - "stats": aggregate solve counters.
+// - {date}: UTC day (YYYY-MM-DD) matching today's puzzle instance.
+// - {puzzleId}: puzzle identifier.
+// Value: hash counters solved1/solved2/solved3/failed.
+const statsKey = (date: string, puzzleId: string): string =>
+  `detecticon:stats:${date}:${puzzleId}`;
 
-export const getProgress = async (puzzleId: string): Promise<StoredProgress> => {
-  const { postId } = getScopeIds();
-  const player = await getPlayerId();
-  const data = await redis.hGetAll(progressKey(postId, puzzleId, player));
-
+const readProgressRecord = (data: Record<string, string> | undefined): StoredProgress => {
   if (!data || Object.keys(data).length === 0) {
     return defaultProgress();
   }
-
   const attemptsUsed = Number(data.attemptsUsed ?? 0);
   const attemptsLeft = Number(data.attemptsLeft ?? 3);
   const results = parseJsonArray<AttemptResult>(data.results, []);
   const eliminatedIds = parseJsonArray<string>(data.eliminatedIds, []);
   const finished = data.finished === '1';
   const solved = data.solved === '1';
+  const statsCounted = data.statsCounted === '1';
   const revealedKillerId = data.revealedKillerId || undefined;
 
   return {
@@ -92,30 +85,47 @@ export const getProgress = async (puzzleId: string): Promise<StoredProgress> => 
     results,
     finished,
     solved,
+    statsCounted,
     ...(revealedKillerId ? { revealedKillerId } : {}),
   };
+};
+
+const progressHash = (progress: StoredProgress): Record<string, string> => ({
+  attemptsUsed: String(progress.attemptsUsed),
+  attemptsLeft: String(progress.attemptsLeft),
+  eliminatedIds: JSON.stringify(progress.eliminatedIds),
+  results: JSON.stringify(progress.results),
+  finished: progress.finished ? '1' : '0',
+  solved: progress.solved ? '1' : '0',
+  statsCounted: progress.statsCounted ? '1' : '0',
+  revealedKillerId: progress.revealedKillerId ?? '',
+});
+
+export const getProgress = async (puzzleId: string): Promise<StoredProgress> => {
+  const player = await getPlayerId();
+  if (!player) {
+    return defaultProgress();
+  }
+  const { date } = getTodayInfo();
+  const data = await redis.hGetAll(progressKey(date, puzzleId, player));
+  return readProgressRecord(data);
 };
 
 export const saveProgress = async (
   puzzleId: string,
   progress: StoredProgress
 ): Promise<void> => {
-  const { postId } = getScopeIds();
   const player = await getPlayerId();
-  await redis.hSet(progressKey(postId, puzzleId, player), {
-    attemptsUsed: String(progress.attemptsUsed),
-    attemptsLeft: String(progress.attemptsLeft),
-    eliminatedIds: JSON.stringify(progress.eliminatedIds),
-    results: JSON.stringify(progress.results),
-    finished: progress.finished ? '1' : '0',
-    solved: progress.solved ? '1' : '0',
-    revealedKillerId: progress.revealedKillerId ?? '',
-  });
+  if (!player) {
+    return; // do not persist anonymous/logged-out users
+  }
+  const { date } = getTodayInfo();
+  await redis.hSet(progressKey(date, puzzleId, player), progressHash(progress));
 };
 
 export const getStats = async (puzzleId: string): Promise<Stats> => {
-  const { postId } = getScopeIds();
-  const data = await redis.hGetAll(statsKey(postId, puzzleId));
+  const { date } = getTodayInfo();
+  const data = await redis.hGetAll(statsKey(date, puzzleId));
   return {
     solved1: Number(data?.solved1 ?? 0) || 0,
     solved2: Number(data?.solved2 ?? 0) || 0,
@@ -124,12 +134,10 @@ export const getStats = async (puzzleId: string): Promise<Stats> => {
   };
 };
 
-const incrementStat = async (
-  puzzleId: string,
-  field: keyof Stats
-): Promise<void> => {
-  const { postId } = getScopeIds();
-  await redis.hIncrBy(statsKey(postId, puzzleId), field, 1);
+const attemptsField = (attemptsUsed: number): keyof Stats => {
+  if (attemptsUsed <= 1) return 'solved1';
+  if (attemptsUsed === 2) return 'solved2';
+  return 'solved3';
 };
 
 export type AccuseResult = {
@@ -137,87 +145,134 @@ export type AccuseResult = {
   reveal: string;
   progress: StoredProgress;
   state: GameState;
-  alreadyFinished?: boolean;
+};
+
+export type GameErrorStatus = 400 | 401 | 404 | 409;
+
+export class GameError extends Error {
+  status: GameErrorStatus;
+  constructor(message: string, status: GameErrorStatus = 400) {
+    super(message);
+    this.status = status;
+  }
+}
+
+const applyAccusation = (
+  puzzle: Puzzle,
+  progress: StoredProgress,
+  suspectId: string
+): { correct: boolean; reveal: string; next: StoredProgress; finishedNow: boolean; statField?: keyof Stats } => {
+  if (progress.finished) {
+    throw new GameError('Game is already finished', 400);
+  }
+  if (progress.eliminatedIds.includes(suspectId)) {
+    throw new GameError('Suspect already eliminated', 400);
+  }
+
+  const suspect = puzzle.suspects.find((s) => s.id === suspectId);
+  if (!suspect) {
+    throw new GameError('Suspect not found', 404);
+  }
+
+  const next: StoredProgress = {
+    ...progress,
+    eliminatedIds: [...progress.eliminatedIds],
+    results: [...progress.results],
+  };
+
+  next.attemptsUsed += 1;
+  next.attemptsLeft = Math.max(0, next.attemptsLeft - 1);
+
+  if (suspect.isKiller) {
+    next.results.push('correct');
+    next.solved = true;
+    next.finished = true;
+    return {
+      correct: true,
+      reveal: suspect.contradiction ?? 'Contradiction revealed.',
+      next,
+      finishedNow: true,
+      statField: attemptsField(next.attemptsUsed),
+    };
+  }
+
+  next.results.push('wrong');
+  next.eliminatedIds.push(suspectId);
+  const reveal = suspect.alibiProof ?? 'Alibi confirmed.';
+  if (next.attemptsLeft <= 0) {
+    next.finished = true;
+    next.solved = false;
+    const killer = puzzle.suspects.find((s) => s.isKiller);
+    if (killer) {
+      next.revealedKillerId = killer.id;
+    }
+    return { correct: false, reveal, next, finishedNow: true, statField: 'failed' };
+  }
+
+  return { correct: false, reveal, next, finishedNow: false };
 };
 
 export const accuseSuspect = async (
   puzzleId: string,
   suspectId: string
 ): Promise<AccuseResult> => {
+  const player = await getPlayerId();
+  if (!player) {
+    throw new GameError('Log in to play', 401);
+  }
+
   const puzzle = getPuzzleById(puzzleId);
   if (!puzzle) {
-    throw new Error('Puzzle not found');
-  }
-  const suspect = puzzle.suspects.find((s) => s.id === suspectId);
-  if (!suspect) {
-    throw new Error('Suspect not found');
+    throw new GameError('Puzzle not found', 404);
   }
 
-  const progress = await getProgress(puzzleId);
-  if (progress.finished) {
-    return {
-      correct: suspect.isKiller,
-      reveal: suspect.isKiller
-        ? (suspect.contradiction ?? 'Contradiction revealed.')
-        : (suspect.alibiProof ?? 'Alibi confirmed.'),
-      progress,
-      state: toGameState(puzzle, progress),
-      alreadyFinished: true,
-    };
-  }
+  const { date } = getTodayInfo();
+  const pKey = progressKey(date, puzzleId, player);
+  const sKey = statsKey(date, puzzleId);
 
-  // ignore duplicate accusations of eliminated suspects
-  if (progress.eliminatedIds.includes(suspectId) && !suspect.isKiller) {
-    return {
-      correct: false,
-      reveal: suspect.alibiProof ?? 'Alibi confirmed.',
-      progress,
-      state: toGameState(puzzle, progress),
-    };
-  }
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const txn = await redis.watch(pKey);
+    try {
+      const data = await redis.hGetAll(pKey);
+      const current = readProgressRecord(data);
+      const { correct, reveal, next, finishedNow, statField } = applyAccusation(
+        puzzle,
+        current,
+        suspectId
+      );
 
-  let reveal = '';
-  if (suspect.isKiller) {
-    progress.attemptsUsed += 1;
-    progress.attemptsLeft = Math.max(0, progress.attemptsLeft - 1);
-    progress.results = [...progress.results, 'correct'];
-    progress.solved = true;
-    progress.finished = true;
-    reveal = suspect.contradiction ?? 'Contradiction revealed.';
-    await incrementStat(puzzleId, attemptsField(progress.attemptsUsed));
-  } else {
-    progress.attemptsUsed += 1;
-    progress.attemptsLeft = Math.max(0, progress.attemptsLeft - 1);
-    progress.results = [...progress.results, 'wrong'];
-    if (!progress.eliminatedIds.includes(suspectId)) {
-      progress.eliminatedIds = [...progress.eliminatedIds, suspectId];
-    }
-    reveal = suspect.alibiProof ?? 'Alibi confirmed.';
-    if (progress.attemptsLeft <= 0) {
-      progress.finished = true;
-      progress.solved = false;
-      const killer = puzzle.suspects.find((s) => s.isKiller);
-      if (killer) {
-        progress.revealedKillerId = killer.id;
+      if (finishedNow && statField && !current.statsCounted) {
+        next.statsCounted = true;
       }
-      await incrementStat(puzzleId, 'failed');
+
+      await txn.multi();
+      await txn.hSet(pKey, progressHash(next));
+      if (finishedNow && statField && !current.statsCounted) {
+        await txn.hIncrBy(sKey, statField, 1);
+      }
+      const execResult = await txn.exec();
+      // If transaction aborted (watched key modified), retry.
+      if (execResult == null) {
+        continue;
+      }
+
+      return {
+        correct,
+        reveal,
+        progress: next,
+        state: toGameState(puzzle, next),
+      };
+    } catch (error) {
+      try {
+        await txn.unwatch();
+      } catch {
+        // ignore
+      }
+      throw error;
     }
   }
 
-  await saveProgress(puzzleId, progress);
-
-  return {
-    correct: suspect.isKiller,
-    reveal,
-    progress,
-    state: toGameState(puzzle, progress),
-  };
-};
-
-const attemptsField = (attemptsUsed: number): keyof Stats => {
-  if (attemptsUsed <= 1) return 'solved1';
-  if (attemptsUsed === 2) return 'solved2';
-  return 'solved3';
+  throw new GameError('Could not save progress, please try again', 409);
 };
 
 export const toGameState = (puzzle: Puzzle, progress: StoredProgress): GameState => {
