@@ -28,8 +28,23 @@
         "location": "subreddit",
         "forUserType": "moderator",
         "endpoint": "/internal/menu/post-create"
+      },
+      {
+        "label": "Create today’s Detectivo post",
+        "description": "Create today's daily Detectivo post (skips if already created for this UTC date)",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/post-create-today"
       }
     ]
+  },
+  "scheduler": {
+    "tasks": {
+      "daily-detectivo-post": {
+        "endpoint": "/internal/scheduler/daily-post",
+        "cron": "5 0 * * *"
+      }
+    }
   },
   "permissions": {
     "reddit": {

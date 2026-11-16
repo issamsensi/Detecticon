@@ -1,7 +1,7 @@
 import { context, reddit, redis } from '@devvit/web/server';
 import type { Puzzle } from '../../shared/types';
 import { buildShareText, type AttemptResult, type GameState } from '../../shared/game';
-import { getPuzzleById, getTodayInfo } from './puzzle';
+import { getDisplayPuzzleNumber, getPuzzleById, getTodayInfo } from './puzzle';
 
 type StoredProgress = {
   attemptsLeft: number;
@@ -283,9 +283,11 @@ export const accuseSuspect = async (
 export const toGameState = (puzzle: Puzzle, progress: StoredProgress): GameState => {
   const killer = puzzle.suspects.find((s) => s.isKiller);
   const showCulprit = progress.finished && killer;
+  const { date } = getTodayInfo();
+  const displayNumber = getDisplayPuzzleNumber(date);
   return {
     puzzleId: puzzle.id,
-    puzzleNumber: puzzle.number,
+    puzzleNumber: displayNumber,
     attemptsLeft: progress.attemptsLeft,
     attemptsUsed: progress.attemptsUsed,
     eliminatedIds: progress.eliminatedIds,
@@ -298,7 +300,7 @@ export const toGameState = (puzzle: Puzzle, progress: StoredProgress): GameState
     ...(progress.finished
       ? {
           shareText: buildShareText({
-            puzzleNumber: puzzle.number,
+            puzzleNumber: displayNumber,
             results: progress.results,
           }),
         }
@@ -345,7 +347,7 @@ export const shareResultToComments = async (puzzleId: string): Promise<ShareResu
 
   // Comment must contain only attempts and the puzzle number (no killer/evidence/puzzle text).
   const text = buildShareText({
-    puzzleNumber: puzzle.number,
+    puzzleNumber: getDisplayPuzzleNumber(date),
     results: current.results,
   });
 

@@ -25,6 +25,8 @@ api.use(
 const internal = new Hono();
 internal.route('/menu', menu);
 internal.route('/triggers', triggers);
+// Scheduler task handlers are served under /internal/scheduler/* (see devvit.json scheduler.tasks).
+internal.route('/scheduler', triggers);
 
 app.route('/api', api);
 app.route('/internal', internal);
