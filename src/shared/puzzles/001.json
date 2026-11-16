@@ -1,0 +1,44 @@
+{
+  "id": "001",
+  "number": 1,
+  "title": "The Midnight Teacup",
+  "scene": "At 12:10 AM, the manor's prized teacup was found shattered in the study. Inspector Quill gathered four people who were nearby. One of them is lying.",
+  "suspects": [
+    {
+      "id": "mara",
+      "name": "Mara Finch",
+      "role": "Cook",
+      "color": 14540253,
+      "testimony": "I was in the kitchen washing pots from midnight until 12:20. I never stepped into the study.",
+      "alibiProof": "Soap suds were still on her apron at 12:15, matching the kitchen sink she used.",
+      "isKiller": false
+    },
+    {
+      "id": "jonah",
+      "name": "Jonah Pike",
+      "role": "Gardener",
+      "color": 3903359,
+      "testimony": "I was locking the greenhouse at midnight. I heard the crash but stayed outside the whole time.",
+      "alibiProof": "The greenhouse lock log shows his key turned at 12:01, and mud on his boots matches only the garden path.",
+      "isKiller": false
+    },
+    {
+      "id": "elise",
+      "name": "Elise Rowe",
+      "role": "Librarian",
+      "color": 11393254,
+      "testimony": "I was in the study reading until 12:05, then left to my room. The teacup was perfectly fine when I left.",
+      "contradiction": "A bookmark from the book she claimed to read was found under the shattered teacup, placed there after the cup broke.",
+      "isKiller": true
+    },
+    {
+      "id": "bram",
+      "name": "Bram Cole",
+      "role": "Driver",
+      "color": 16758861,
+      "testimony": "I was in the garage polishing the car from 11:50 to 12:30. I didn't come inside at all.",
+      "alibiProof": "Oil polish on the steering wheel was still wet at 12:25, showing he had been working there continuously.",
+      "isKiller": false
+    }
+  ]
+}
