@@ -1,13 +1,19 @@
 import Phaser from 'phaser';
-import type { Puzzle } from '../../../shared/types';
+import type { PublicPuzzle } from '../../../shared/types';
+import type { GameState } from '../../../shared/game';
 import { createTextBlock } from '../ui/text';
 
 export class IntroScene extends Phaser.Scene {
-  private readonly puzzle: Puzzle;
+  private readonly puzzle: PublicPuzzle;
+  private state: GameState | undefined;
 
-  constructor(puzzle: Puzzle) {
+  constructor(puzzle: PublicPuzzle) {
     super('IntroScene');
     this.puzzle = puzzle;
+  }
+
+  public init(data: { state?: GameState }): void {
+    this.state = data.state;
   }
 
   public create(): void {
@@ -68,7 +74,11 @@ export class IntroScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     const start = (): void => {
-      this.scene.start('TestimonyScene');
+      if (this.state && (this.state.attemptsUsed > 0 || this.state.finished)) {
+        this.scene.start('AccuseScene', { state: this.state });
+      } else {
+        this.scene.start('TestimonyScene', { state: this.state });
+      }
     };
 
     button.on('pointerdown', start);

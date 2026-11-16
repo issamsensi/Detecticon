@@ -1,10 +1,11 @@
 import Phaser from 'phaser';
-import type { Puzzle, Suspect } from '../../../shared/types';
+import type { PublicPuzzle, PublicSuspect } from '../../../shared/types';
+import type { GameState } from '../../../shared/game';
+import { createInitialGameState } from '../../../shared/game';
 import { createSpeechBubble, type SpeechBubble } from '../ui/text';
-import { createInitialGameState } from '../state';
 
 export class TestimonyScene extends Phaser.Scene {
-  private readonly puzzle: Puzzle;
+  private readonly puzzle: PublicPuzzle;
   private suspectIndex = 0;
   private bubble: SpeechBubble | null = null;
   private nameText!: Phaser.GameObjects.Text;
@@ -13,10 +14,15 @@ export class TestimonyScene extends Phaser.Scene {
   private portrait!: Phaser.GameObjects.Rectangle;
   private progressText!: Phaser.GameObjects.Text;
   private done = false;
+  private state!: GameState;
 
-  constructor(puzzle: Puzzle) {
+  constructor(puzzle: PublicPuzzle) {
     super('TestimonyScene');
     this.puzzle = puzzle;
+  }
+
+  public init(data: { state?: GameState }): void {
+    this.state = data.state ?? createInitialGameState(this.puzzle.id, this.puzzle.number);
   }
 
   public create(): void {
@@ -70,6 +76,8 @@ export class TestimonyScene extends Phaser.Scene {
       this.handleAdvance();
     });
 
+    this.suspectIndex = 0;
+    this.done = false;
     this.showSuspect(this.puzzle.suspects[this.suspectIndex]);
   }
 
@@ -91,12 +99,10 @@ export class TestimonyScene extends Phaser.Scene {
 
     this.done = true;
     console.log('testimonies done');
-    this.scene.start('AccuseScene', {
-      state: createInitialGameState(this.puzzle.id, this.puzzle.number),
-    });
+    this.scene.start('AccuseScene', { state: this.state });
   }
 
-  private showSuspect(suspect: Suspect | undefined): void {
+  private showSuspect(suspect: PublicSuspect | undefined): void {
     if (!suspect) {
       return;
     }

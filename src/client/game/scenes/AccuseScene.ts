@@ -1,17 +1,16 @@
 import Phaser from 'phaser';
-import type { Puzzle, Suspect } from '../../../shared/types';
+import type { PublicPuzzle, PublicSuspect } from '../../../shared/types';
+import { createInitialGameState, type GameState } from '../../../shared/game';
+import { accuse } from '../api';
 import { createSpeechBubble, type SpeechBubble } from '../ui/text';
-import { createInitialGameState, type GameState } from '../state';
 
 type SuspectCard = {
-  suspect: Suspect;
+  suspect: PublicSuspect;
   container: Phaser.GameObjects.Container;
-  portrait: Phaser.GameObjects.Rectangle;
-  nameText: Phaser.GameObjects.Text;
 };
 
 export class AccuseScene extends Phaser.Scene {
-  private readonly puzzle: Puzzle;
+  private readonly puzzle: PublicPuzzle;
   private state!: GameState;
   private cards: SuspectCard[] = [];
   private infoText!: Phaser.GameObjects.Text;
@@ -19,17 +18,22 @@ export class AccuseScene extends Phaser.Scene {
   private hintText!: Phaser.GameObjects.Text;
   private feedbackBubble: SpeechBubble | null = null;
   private pendingAction: (() => void) | null = null;
+  private busy = false;
 
-  constructor(puzzle: Puzzle) {
+  constructor(puzzle: PublicPuzzle) {
     super('AccuseScene');
     this.puzzle = puzzle;
   }
 
-  public create(data: { state?: GameState }): void {
+  public init(data: { state?: GameState }): void {
     this.state = data.state ?? createInitialGameState(this.puzzle.id, this.puzzle.number);
+  }
+
+  public create(): void {
     this.cards = [];
     this.pendingAction = null;
     this.feedbackBubble = null;
+    this.busy = false;
     this.cameras.main.setBackgroundColor('#1b1f2a');
 
     const { width } = this.scale;
@@ -74,6 +78,10 @@ export class AccuseScene extends Phaser.Scene {
 
     this.renderSuspects();
     this.updateHud();
+
+    if (this.state.finished) {
+      this.scene.start('ResultScene', { state: this.state });
+    }
   }
 
   private updateHud(): void {
@@ -101,11 +109,6 @@ export class AccuseScene extends Phaser.Scene {
       const x = startX + index * (cardWidth + gap);
       const portrait = this.add.rectangle(0, 0, 64, 80, suspect.color);
       portrait.setStrokeStyle(3, 0xf4f1de);
-      portrait.setInteractive({ useHandCursor: true });
-      portrait.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-        pointer.event?.stopPropagation?.();
-        this.accuse(suspect);
-      });
 
       const nameText = this.add
         .text(0, 56, suspect.name.split(' ')[0] ?? suspect.name, {
@@ -120,70 +123,69 @@ export class AccuseScene extends Phaser.Scene {
       hit.setInteractive({ useHandCursor: true });
       hit.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
         pointer.event?.stopPropagation?.();
-        this.accuse(suspect);
+        void this.accuse(suspect);
       });
 
       const container = this.add.container(x, y, [hit, portrait, nameText]);
-      this.cards.push({ suspect, container, portrait, nameText });
+      this.cards.push({ suspect, container });
     });
   }
 
-  private accuse(suspect: Suspect): void {
-    if (this.feedbackBubble || this.pendingAction || this.state.attemptsLeft <= 0) {
+  private async accuse(suspect: PublicSuspect): Promise<void> {
+    if (this.feedbackBubble || this.pendingAction || this.busy || this.state.finished) {
       return;
     }
 
-    if (suspect.isKiller) {
-      this.state.attemptsUsed += 1;
-      this.state.attemptsLeft -= 1;
-      this.state.results.push('correct');
-      this.state.solved = true;
+    this.busy = true;
+    this.infoText.setText('Checking...');
+    try {
+      const response = await accuse(this.puzzle.id, suspect.id);
+      this.state = response.state;
       this.updateHud();
+
+      if (response.correct) {
+        this.showFeedback(
+          `${suspect.name}'s story falls apart:\n${response.reveal}`,
+          'tap to continue',
+          () => {
+            this.scene.start('ResultScene', { state: this.state });
+          }
+        );
+        return;
+      }
+
+      if (this.state.finished) {
+        const culpritName = this.state.culprit?.name ?? 'The culprit';
+        this.showFeedback(
+          `${suspect.name} has an alibi:\n${response.reveal}\n\nNo attempts left. ${culpritName} was the culprit.`,
+          'tap to see result',
+          () => {
+            this.scene.start('ResultScene', { state: this.state });
+          }
+        );
+        return;
+      }
+
       this.showFeedback(
-        `${suspect.name}'s story falls apart:\n${suspect.contradiction ?? 'Their contradiction is revealed.'}`,
+        `${suspect.name} has an alibi:\n${response.reveal}`,
         'tap to continue',
         () => {
-          this.scene.start('ResultScene', { puzzle: this.puzzle, state: this.state });
+          this.clearFeedback();
+          this.renderSuspects();
+          this.infoText.setText('Not them. Tap another suspect.');
+          this.hintText.setText('');
         }
       );
-      return;
-    }
-
-    this.state.attemptsUsed += 1;
-    this.state.attemptsLeft -= 1;
-    this.state.results.push('wrong');
-    if (!this.state.eliminatedIds.includes(suspect.id)) {
-      this.state.eliminatedIds.push(suspect.id);
-    }
-    this.updateHud();
-
-    if (this.state.attemptsLeft <= 0) {
-      const killer = this.puzzle.suspects.find((s) => s.isKiller);
-      if (killer) {
-        this.state.revealedKillerId = killer.id;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Something went wrong';
+      this.infoText.setText(message);
+      this.hintText.setText('');
+    } finally {
+      this.busy = false;
+      if (!this.feedbackBubble && !this.state.finished) {
+        this.updateHud();
       }
-      this.showFeedback(
-        `${suspect.name} has an alibi:\n${suspect.alibiProof ?? 'They are cleared.'}\n\nNo attempts left. ${
-          killer ? `${killer.name} was the culprit.` : 'The culprit is revealed.'
-        }`,
-        'tap to see result',
-        () => {
-          this.scene.start('ResultScene', { puzzle: this.puzzle, state: this.state });
-        }
-      );
-      return;
     }
-
-    this.showFeedback(
-      `${suspect.name} has an alibi:\n${suspect.alibiProof ?? 'They are cleared.'}`,
-      'tap to continue',
-      () => {
-        this.clearFeedback();
-        this.renderSuspects();
-        this.infoText.setText('Not them. Tap another suspect.');
-        this.hintText.setText('');
-      }
-    );
   }
 
   private showFeedback(text: string, hint: string, onContinue: () => void): void {

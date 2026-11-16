@@ -1,13 +1,9 @@
 import Phaser from 'phaser';
-import type { Puzzle } from '../../../shared/types';
-import { buildShareText, type GameState } from '../state';
+import { buildShareText, type GameState } from '../../../shared/game';
 
 export class ResultScene extends Phaser.Scene {
-  private readonly puzzle: Puzzle;
-
-  constructor(puzzle: Puzzle) {
+  constructor() {
     super('ResultScene');
-    this.puzzle = puzzle;
   }
 
   public create(data: { state: GameState }): void {
@@ -15,9 +11,8 @@ export class ResultScene extends Phaser.Scene {
     const { width, height } = this.scale;
     this.cameras.main.setBackgroundColor('#1b1f2a');
 
-    const killer = this.puzzle.suspects.find((s) => s.isKiller);
     const solved = state.solved;
-    const shareText = buildShareText(state);
+    const shareText = state.shareText ?? buildShareText(state);
 
     this.add
       .text(width / 2, 70, solved ? 'Case Solved' : 'Case Closed', {
@@ -35,9 +30,9 @@ export class ResultScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
 
-    if (killer) {
+    if (state.culprit) {
       this.add
-        .text(width / 2, 175, `Culprit: ${killer.name}`, {
+        .text(width / 2, 175, `Culprit: ${state.culprit.name}`, {
           fontFamily: 'monospace',
           fontSize: '18px',
           color: '#a7b1c2',

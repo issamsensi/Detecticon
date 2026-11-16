@@ -5,12 +5,14 @@ import { trpcServer } from '@hono/trpc-server';
 import { createServer, getServerPort } from '@devvit/web/server';
 import { menu } from './routes/menu';
 import { triggers } from './routes/triggers';
+import { game } from './routes/game';
 import { appRouter } from './trpc';
 import { createContext } from './context';
 
 const app = new Hono();
 
 const api = new Hono();
+api.route('/', game);
 api.use(
   '/trpc/*',
   trpcServer({

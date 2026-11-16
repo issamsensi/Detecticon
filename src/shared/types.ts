@@ -16,3 +16,14 @@ export type Puzzle = {
   scene: string;
   suspects: Suspect[];
 };
+
+export type PublicSuspect = Pick<Suspect, 'id' | 'name' | 'role' | 'color' | 'testimony'>;
+
+export type PublicPuzzle = {
+  id: string;
+  number: number;
+  title: string;
+  scene: string;
+  suspects: PublicSuspect[];
+};
+
