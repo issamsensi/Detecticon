@@ -225,3 +225,120 @@ torso/jacket/trench
 
 export const EXTRA_CREDITS_TEXT = `Phaser — HTML5 game framework (https://phaser.io)
 Devvit — Reddit developer platform (https://developers.reddit.com/)`;
+
+export type CompactCredits = {
+  intro: string;
+  authors: string[];
+  licenses: string[];
+  sources: string[];
+  tools: string[];
+  note: string;
+};
+
+const unique = (values: string[]): string[] => {
+  const seen = new Set<string>();
+  const result: string[] = [];
+  for (const value of values) {
+    const key = value.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    result.push(value);
+  }
+  return result;
+};
+
+const domainOf = (url: string): string =>
+  url.replace(/^https?:\/\//, '').split('/')[0]?.replace(/^www\./, '') ?? '';
+
+/** Builds the short, in-game credits from the full per-file credit data above. */
+export const getCompactCredits = (): CompactCredits => {
+  const authors: string[] = [];
+  const licenses: string[] = [];
+  const sources: string[] = [];
+
+  for (const line of LPC_CREDITS_TEXT.split('\n')) {
+    const match = line.match(/^\s*(authors|licenses|urls):\s*(.*)$/);
+    if (!match) continue;
+    const values = (match[2] ?? '')
+      .split(',')
+      .map((value) => value.trim())
+      .filter((value) => value.length > 0);
+    if (match[1] === 'authors') authors.push(...values);
+    else if (match[1] === 'licenses') licenses.push(...values);
+    else if (match[1] === 'urls') sources.push(...values.map(domainOf));
+  }
+
+  // Keep the Phaser / Devvit lines, but shorten their URLs to the domain too.
+  const tools = EXTRA_CREDITS_TEXT.split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0)
+    .map((line) =>
+      line.replace(/\((https?:\/\/[^)]+)\)/, (_full, url: string) => `(${domainOf(url)})`)
+    );
+  for (const line of EXTRA_CREDITS_TEXT.split('\n')) {
+    const match = line.match(/\((https?:\/\/[^)]+)\)/);
+    const url = match?.[1];
+    if (url) sources.push(domainOf(url));
+  }
+
+  return {
+    intro: 'Art: Liberated Pixel Cup / LPC Universal Spritesheet Generator contributors',
+    authors: unique(authors),
+    licenses: unique(licenses),
+    sources: unique(sources).filter((source) => source.length > 0),
+    tools,
+    note: 'Full per-file credits are in CREDITS.md in the project repo.',
+  };
+};
+
+const wrapText = (text: string, maxCharsPerLine: number): string[] => {
+  const lines: string[] = [];
+  let current = '';
+  for (const word of text.split(/\s+/).filter((part) => part.length > 0)) {
+    const candidate = current ? `${current} ${word}` : word;
+    if (candidate.length <= maxCharsPerLine) {
+      current = candidate;
+      continue;
+    }
+    if (current) lines.push(current);
+    current = word;
+  }
+  if (current) lines.push(current);
+  return lines;
+};
+
+const wrapList = (values: string[], maxCharsPerLine: number): string[] => {
+  const lines: string[] = [];
+  let current = '';
+  for (const value of values) {
+    const candidate = current ? `${current}, ${value}` : value;
+    if (candidate.length <= maxCharsPerLine) {
+      current = candidate;
+      continue;
+    }
+    if (current) lines.push(`${current},`);
+    current = value;
+  }
+  if (current) lines.push(current);
+  return lines;
+};
+
+/** Four fixed pages, generated from the credits data so nothing is hard-coded by hand. */
+export const getCompactCreditPages = (maxCharsPerLine = 36): string[] => {
+  const { intro, authors, licenses, sources, tools, note } = getCompactCredits();
+  const authorLines = wrapList(authors, maxCharsPerLine);
+  const splitAt = Math.ceil(authorLines.length / 2);
+
+  return [
+    ['About the art', ...wrapText(intro, maxCharsPerLine), '', 'Authors', ...authorLines.slice(0, splitAt)].join('\n'),
+    ['Authors (cont.)', ...authorLines.slice(splitAt)].join('\n'),
+    [
+      'Licenses',
+      ...wrapList(licenses, maxCharsPerLine),
+      '',
+      'Sources',
+      ...wrapList(sources, maxCharsPerLine),
+    ].join('\n'),
+    ['Tools', ...tools.flatMap((tool) => wrapText(tool, maxCharsPerLine)), '', ...wrapText(note, maxCharsPerLine)].join('\n'),
+  ];
+};

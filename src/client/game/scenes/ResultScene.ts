@@ -105,25 +105,8 @@ export class ResultScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
 
-    // Copy result (always available fallback)
-    const copyButton = this.add
-      .rectangle(width / 2, height - 150, 240, 48, 0x81b29a)
-      .setStrokeStyle(4, 0xf4f1de)
-      .setInteractive({ useHandCursor: true });
-    const copyLabel = this.add
-      .text(width / 2, height - 150, 'Copy result', {
-        fontFamily: 'monospace',
-        fontSize: '20px',
-        color: '#1b1f2a',
-      })
-      .setOrigin(0.5)
-      .setInteractive({ useHandCursor: true });
-    const doCopy = (): void => {
-      void copyResult(shareText, feedback);
-    };
-    copyButton.on('pointerdown', doCopy);
-    copyLabel.on('pointerdown', doCopy);
-
+    // No "Copy result" button: the clipboard API isn't available in the Reddit
+    // webview, so "Post to comments" is the only sharing action offered.
     // Post to comments (share text only: attempts + puzzle number). One post per player per puzzle.
     const postButton = this.add
       .rectangle(width / 2, height - 94, 240, 48, 0xe07a5f)
@@ -220,7 +203,7 @@ export class ResultScene extends Phaser.Scene {
         resetPostButton();
         if (error instanceof ApiError && error.status === 401) {
           feedback.setColor('#f2cc8f');
-          feedback.setText('Log in to Reddit to post. You can still copy your result.');
+          feedback.setText('Log in to Reddit to post your result.');
         } else if (error instanceof ApiError && error.status === 409) {
           // Already posted (e.g. from another session) - disable to enforce once per player per puzzle.
           markPosted();
@@ -228,11 +211,11 @@ export class ResultScene extends Phaser.Scene {
           feedback.setText('Result already posted to comments.');
         } else if (error instanceof NetworkError || error instanceof TypeError) {
           feedback.setColor('#e07a5f');
-          feedback.setText('Could not post (connection problem). Tap to try again or copy result.');
+          feedback.setText('Could not post (connection problem). Tap to try again.');
         } else {
           const message = error instanceof Error ? error.message : 'Could not post to comments';
           feedback.setColor('#e07a5f');
-          feedback.setText(`${message}. You can still copy your result.`);
+          feedback.setText(`${message}.`);
         }
       }
     };
@@ -278,20 +261,3 @@ export class ResultScene extends Phaser.Scene {
   }
 }
 
-const copyResult = async (
-  shareText: string,
-  feedback: Phaser.GameObjects.Text
-): Promise<void> => {
-  try {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(shareText);
-      feedback.setColor('#81b29a');
-      feedback.setText('Copied! (You can also post to comments)');
-      return;
-    }
-  } catch {
-    // fall through to fallback message
-  }
-  feedback.setColor('#f2cc8f');
-  feedback.setText('Copy not available here. Try posting to comments.');
-};
