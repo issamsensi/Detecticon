@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import type { PublicPuzzle } from '../../../shared/types';
 import type { GameState } from '../../../shared/game';
 import { DETECTIVE_KEY } from '../assets';
+import { createInterrogationBackdrop } from '../ui/backdrop';
 import { createCharacter } from '../ui/Character';
 import { createTextBlock } from '../ui/text';
 
@@ -24,6 +25,7 @@ export class IntroScene extends Phaser.Scene {
   public create(): void {
     const { width, height } = this.scale;
     this.cameras.main.setBackgroundColor('#1b1f2a');
+    createInterrogationBackdrop(this, this.puzzle.id, { simple: true });
 
     // Detective sprite: 64x64 at integer 2x scale (128px) for crisp pixel art in 360x640.
     createCharacter({

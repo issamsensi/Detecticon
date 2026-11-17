@@ -20,7 +20,7 @@ export const DETECTIVE_ASSET: CharacterAsset = {
   path: 'assets/detective.png',
 };
 
-const hashString = (value: string): number => {
+export const hashString = (value: string): number => {
   let hash = 0;
   for (let i = 0; i < value.length; i++) {
     hash = (hash * 31 + value.charCodeAt(i)) | 0;

@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { buildShareText, type GameState } from '../../../shared/game';
 import { ApiError, NetworkError, shareResult } from '../api';
 import { DETECTIVE_KEY } from '../assets';
+import { createInterrogationBackdrop } from '../ui/backdrop';
 import { createCharacter } from '../ui/Character';
 
 export class ResultScene extends Phaser.Scene {
@@ -16,6 +17,7 @@ export class ResultScene extends Phaser.Scene {
     let currentState = data.state;
     const { width, height } = this.scale;
     this.cameras.main.setBackgroundColor('#1b1f2a');
+    createInterrogationBackdrop(this, currentState.puzzleId, { simple: true });
 
     const solved = currentState.solved;
     const shareText = currentState.shareText ?? buildShareText(currentState);

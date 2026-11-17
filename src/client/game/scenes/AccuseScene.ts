@@ -4,6 +4,7 @@ import { createInitialGameState, type GameState } from '../../../shared/game';
 import { ApiError, NetworkError, accuse } from '../api';
 import { getSuspectSpriteKey } from '../assets';
 import { reloadToday } from '../reload';
+import { createInterrogationBackdrop } from '../ui/backdrop';
 import { createCharacter, type Character } from '../ui/Character';
 import { createSpeechBubble, type SpeechBubble } from '../ui/text';
 
@@ -42,6 +43,7 @@ export class AccuseScene extends Phaser.Scene {
     this.feedbackBubble = null;
     this.busy = false;
     this.cameras.main.setBackgroundColor('#1b1f2a');
+    createInterrogationBackdrop(this, this.puzzle.id);
 
     const { width } = this.scale;
 
@@ -170,13 +172,19 @@ export class AccuseScene extends Phaser.Scene {
       this.state = response.state;
       this.updateHud();
 
+      // Aim the bubble tail at the accused suspect's column in the lineup.
+      const tailX =
+        this.cards.find((card) => card.suspect.id === suspect.id)?.character.container.x ??
+        this.scale.width / 2;
+
       if (response.correct) {
         this.showFeedback(
           `${suspect.name}'s story falls apart:\n${response.reveal}`,
           'tap to continue',
           () => {
             this.scene.start('ResultScene', { state: this.state });
-          }
+          },
+          tailX
         );
         return;
       }
@@ -188,7 +196,8 @@ export class AccuseScene extends Phaser.Scene {
           'tap to see result',
           () => {
             this.scene.start('ResultScene', { state: this.state });
-          }
+          },
+          tailX
         );
         return;
       }
@@ -201,7 +210,8 @@ export class AccuseScene extends Phaser.Scene {
           this.renderSuspects();
           this.infoText.setText('Not them. Tap another suspect.');
           this.hintText.setText('');
-        }
+        },
+        tailX
       );
     } catch (error) {
       if (error instanceof ApiError && error.status === 401) {
@@ -252,22 +262,34 @@ export class AccuseScene extends Phaser.Scene {
     }
   }
 
-  private showFeedback(text: string, hint: string, onContinue: () => void): void {
+  private showFeedback(
+    text: string,
+    hint: string,
+    onContinue: () => void,
+    tailX: number
+  ): void {
     if (this.feedbackBubble) {
       this.feedbackBubble.destroy();
     }
+    const maxWidth = this.scale.width - 40;
+    const padding = 14;
+    // Sits below the lineup (sprites end at y=332) with a small upward tail.
     this.feedbackBubble = createSpeechBubble(this, {
       x: 20,
-      y: 380,
-      width: this.scale.width - 40,
-      height: 210,
+      y: 356,
+      width: maxWidth,
+      centerX: true,
+      padding,
+      minHeight: 80,
+      maxHeight: 210,
       text,
+      tail: { direction: 'up', x: tailX, width: 24, height: 14 },
       textStyle: {
         fontFamily: 'monospace',
-        fontSize: '16px',
+        fontSize: '15px',
         color: '#1b1f2a',
-        lineSpacing: 5,
-        wordWrap: { width: this.scale.width - 72 },
+        lineSpacing: 4,
+        wordWrap: { width: maxWidth - padding * 2 },
       },
       typewriter: { speedMs: 18 },
     });
