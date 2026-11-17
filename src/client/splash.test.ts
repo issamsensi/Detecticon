@@ -1,49 +1,50 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 let requestExpandedModeMock: ReturnType<typeof vi.fn>;
-let navigateToMock: ReturnType<typeof vi.fn>;
 
 vi.mock('@devvit/web/client', () => {
   requestExpandedModeMock = vi.fn();
-  navigateToMock = vi.fn();
-
   return {
-    // used in the footer
-    navigateTo: navigateToMock,
-    // used in the greeting
     context: {
       username: 'test-user',
     },
-    // used by the "Tap to Start" button
     requestExpandedMode: requestExpandedModeMock,
   };
 });
 
+const flush = async () => {
+  await new Promise((r) => setTimeout(r, 0));
+  await new Promise((r) => setTimeout(r, 0));
+};
+
+beforeEach(() => {
+  vi.resetModules();
+  document.body.innerHTML = '<div id="root"></div>';
+  // Default: fail fetches so splash falls back to default state
+  vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('network')));
+});
+
 afterEach(() => {
   requestExpandedModeMock?.mockReset();
-  navigateToMock?.mockReset();
+  vi.unstubAllGlobals();
 });
 
 describe('Splash', () => {
-  it('clicking the "Docs" footer button calls navigateTo(...)', async () => {
-    document.body.innerHTML = '<div id="root"></div>';
-
-    // `src/splash.tsx` renders immediately on import (createRoot(...).render(...))
+  it('shows default state and Play still opens game when fetch fails', async () => {
     await import('./splash');
+    await flush();
 
-    // Let React commit the initial render.
-    await new Promise((r) => setTimeout(r, 0));
+    expect(document.body.textContent).toContain('Detectivo');
+    expect(document.body.textContent).toContain('4 suspects. 1 liar. 3 tries.');
+    expect(document.body.textContent).toContain('New case today');
 
-    const docsButton = Array.from(document.querySelectorAll('button')).find(
-      (b) => /docs/i.test(b.textContent ?? '')
+    const playButton = Array.from(document.querySelectorAll('button')).find((b) =>
+      /play/i.test(b.textContent ?? '')
     );
-    expect(docsButton).toBeTruthy();
+    expect(playButton).toBeTruthy();
 
-    docsButton!.click();
-
-    expect(navigateToMock).toHaveBeenCalledTimes(1);
-    expect(navigateToMock).toHaveBeenCalledWith(
-      'https://developers.reddit.com/docs'
-    );
+    playButton!.click();
+    expect(requestExpandedModeMock).toHaveBeenCalledTimes(1);
+    expect(requestExpandedModeMock.mock.calls[0]?.[1]).toBe('game');
   });
 });
