@@ -1,7 +1,7 @@
 import { context, reddit, redis } from '@devvit/web/server';
 import type { Puzzle } from '../../shared/types';
 import { buildShareText, type AttemptResult, type GameState } from '../../shared/game';
-import { getDisplayPuzzleNumber, getPuzzleById, getTodayInfo } from './puzzle';
+import { getDisplayPuzzleNumber, getPuzzleById, getTodayInfo, getUtcDateString } from './puzzle';
 
 type StoredProgress = {
   attemptsLeft: number;
@@ -55,7 +55,7 @@ const getPlayerId = async (): Promise<string | null> => {
 // - {puzzleId}: puzzle identifier for that day.
 // - {player}: logged-in Reddit username; anonymous users are never persisted.
 // Value: hash of attempts/results/elimination/finish flags.
-const progressKey = (date: string, puzzleId: string, player: string): string =>
+export const progressKey = (date: string, puzzleId: string, player: string): string =>
   `detecticon:progress:${date}:${puzzleId}:${player}`;
 
 // Redis key: detecticon:stats:{date}:{puzzleId}
@@ -64,7 +64,7 @@ const progressKey = (date: string, puzzleId: string, player: string): string =>
 // - {date}: UTC day (YYYY-MM-DD) matching today's puzzle instance.
 // - {puzzleId}: puzzle identifier.
 // Value: hash counters solved1/solved2/solved3/failed.
-const statsKey = (date: string, puzzleId: string): string =>
+export const statsKey = (date: string, puzzleId: string): string =>
   `detecticon:stats:${date}:${puzzleId}`;
 
 const readProgressRecord = (data: Record<string, string> | undefined): StoredProgress => {
@@ -111,7 +111,7 @@ export const getProgress = async (puzzleId: string): Promise<StoredProgress> => 
   if (!player) {
     return defaultProgress();
   }
-  const { date } = getTodayInfo();
+  const { date } = await getTodayInfo();
   const data = await redis.hGetAll(progressKey(date, puzzleId, player));
   return readProgressRecord(data);
 };
@@ -124,12 +124,12 @@ export const saveProgress = async (
   if (!player) {
     return; // do not persist anonymous/logged-out users
   }
-  const { date } = getTodayInfo();
+  const { date } = await getTodayInfo();
   await redis.hSet(progressKey(date, puzzleId, player), progressHash(progress));
 };
 
 export const getStats = async (puzzleId: string): Promise<Stats> => {
-  const { date } = getTodayInfo();
+  const { date } = await getTodayInfo();
   const data = await redis.hGetAll(statsKey(date, puzzleId));
   return {
     solved1: Number(data?.solved1 ?? 0) || 0,
@@ -231,7 +231,7 @@ export const accuseSuspect = async (
     throw new GameError('Puzzle not found', 404);
   }
 
-  const { date } = getTodayInfo();
+  const { date } = await getTodayInfo();
   const pKey = progressKey(date, puzzleId, player);
   const sKey = statsKey(date, puzzleId);
 
@@ -283,8 +283,8 @@ export const accuseSuspect = async (
 export const toGameState = (puzzle: Puzzle, progress: StoredProgress): GameState => {
   const killer = puzzle.suspects.find((s) => s.isKiller);
   const showCulprit = progress.finished && killer;
-  const { date } = getTodayInfo();
-  const displayNumber = getDisplayPuzzleNumber(date);
+  // Display numbering is date-based only; use the pure helper so this stays sync.
+  const displayNumber = getDisplayPuzzleNumber(getUtcDateString());
   return {
     puzzleId: puzzle.id,
     puzzleNumber: displayNumber,
@@ -324,7 +324,7 @@ export const shareResultToComments = async (puzzleId: string): Promise<ShareResu
     throw new GameError('Puzzle not found', 404);
   }
 
-  const { date, puzzle: todayPuzzle } = getTodayInfo();
+  const { date, puzzle: todayPuzzle } = await getTodayInfo();
   if (todayPuzzle.id !== puzzleId) {
     throw new GameError('Puzzle not found', 404);
   }

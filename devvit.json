@@ -35,8 +35,39 @@
         "location": "subreddit",
         "forUserType": "moderator",
         "endpoint": "/internal/menu/post-create-today"
+      },
+      {
+        "label": "Dev: reset my progress for today",
+        "description": "Clear your saved attempts and share flags so you can replay and reshare today's puzzle",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/dev-reset-progress"
+      },
+      {
+        "label": "Dev: reset today's stats",
+        "description": "Delete today's solve counters so test plays don't pollute the stats",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/dev-reset-stats"
+      },
+      {
+        "label": "Dev: test puzzle override",
+        "description": "Choose a puzzle id to replace today's puzzle for testing",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/dev-set-override"
+      },
+      {
+        "label": "Dev: clear puzzle override",
+        "description": "Remove the test puzzle override and restore the normal daily rotation",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/dev-clear-override"
       }
     ]
+  },
+  "forms": {
+    "devPuzzleOverride": "/internal/form/dev-puzzle-override"
   },
   "scheduler": {
     "tasks": {

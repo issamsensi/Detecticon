@@ -1,5 +1,10 @@
+import { redis } from '@devvit/web/server';
 import { puzzles } from '../../shared/puzzles';
 import type { Puzzle, PublicPuzzle, Suspect } from '../../shared/types';
+
+// Redis key for the moderator-only test puzzle override. The key only exists while
+// an override is active; deleting it restores the normal daily rotation.
+export const DEV_PUZZLE_OVERRIDE_KEY = 'detecticon:dev:puzzle-override';
 
 // Past epoch so (days since epoch) stays non-negative for current/future dates.
 const START_DATE_UTC = Date.UTC(2026, 0, 1); // 2026-01-01 UTC
@@ -33,7 +38,11 @@ export const getDisplayPuzzleNumber = (date: string): number => {
 
 export const getAllPuzzles = (): Puzzle[] => puzzles;
 
-export const getTodayInfo = (now: Date = new Date()): TodayPuzzle => {
+/** Pure UTC date string helper, so callers that only need the date don't read Redis. */
+export const getUtcDateString = (now: Date = new Date()): string =>
+  toUtcDateString(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+
+export const getTodayInfo = async (now: Date = new Date()): Promise<TodayPuzzle> => {
   const year = now.getUTCFullYear();
   const month = now.getUTCMonth();
   const day = now.getUTCDate();
@@ -41,15 +50,35 @@ export const getTodayInfo = (now: Date = new Date()): TodayPuzzle => {
   const daysSinceStart = Math.floor((nowUtc - START_DATE_UTC) / 86_400_000);
   const n = puzzles.length;
   const index = ((daysSinceStart % n) + n) % n;
-  const puzzle = puzzles[index];
-  if (!puzzle) {
+  const rotationPuzzle = puzzles[index];
+  if (!rotationPuzzle) {
     throw new Error('No puzzles available');
   }
   const date = toUtcDateString(year, month, day);
-  return { puzzle, date, displayNumber: getDisplayPuzzleNumber(date) };
+
+  // The rotation above is intentionally unchanged. A moderator-only Redis key can
+  // replace the puzzle for testing; it is ignored when absent or invalid.
+  const overrideId = await redis.get(DEV_PUZZLE_OVERRIDE_KEY);
+  if (overrideId) {
+    const overridePuzzle = getPuzzleById(overrideId);
+    if (overridePuzzle) {
+      console.warn(
+        `⚠️  [DETECTICON DEV] PUZZLE OVERRIDE ACTIVE — serving puzzle ${overridePuzzle.id} ` +
+          `instead of the daily rotation puzzle ${rotationPuzzle.id} for ${date}. ` +
+          `Clear it with "Dev: clear puzzle override" (or delete ${DEV_PUZZLE_OVERRIDE_KEY}) before submission.`
+      );
+      return { puzzle: overridePuzzle, date, displayNumber: getDisplayPuzzleNumber(date) };
+    }
+    console.warn(
+      `⚠️  [DETECTICON DEV] Ignoring invalid puzzle override "${overrideId}" at ${DEV_PUZZLE_OVERRIDE_KEY}.`
+    );
+  }
+
+  return { puzzle: rotationPuzzle, date, displayNumber: getDisplayPuzzleNumber(date) };
 };
 
-export const getTodaysPuzzle = (now: Date = new Date()): Puzzle => getTodayInfo(now).puzzle;
+export const getTodaysPuzzle = async (now: Date = new Date()): Promise<Puzzle> =>
+  (await getTodayInfo(now)).puzzle;
 
 export const toClientPuzzle = (puzzle: Puzzle): PublicPuzzle => ({
   id: puzzle.id,

@@ -4,6 +4,7 @@ import { trpcServer } from '@hono/trpc-server';
 
 import { createServer, getServerPort } from '@devvit/web/server';
 import { menu } from './routes/menu';
+import { dev } from './routes/dev';
 import { triggers } from './routes/triggers';
 import { game } from './routes/game';
 import { appRouter } from './trpc';
@@ -27,6 +28,8 @@ internal.route('/menu', menu);
 internal.route('/triggers', triggers);
 // Scheduler task handlers are served under /internal/scheduler/* (see devvit.json scheduler.tasks).
 internal.route('/scheduler', triggers);
+// Dev routes define /menu/dev-* and /form/dev-* paths under /internal.
+internal.route('/', dev);
 
 app.route('/api', api);
 app.route('/internal', internal);

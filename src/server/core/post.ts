@@ -19,7 +19,7 @@ export const createPost = async () => {
 };
 
 export const createTodaysDetectivoPost = async (): Promise<DailyPostResult> => {
-  const { puzzle, date, displayNumber } = getTodayInfo();
+  const { puzzle, date, displayNumber } = await getTodayInfo();
   const title = `Detecticon #${displayNumber}: ${puzzle.title}`;
   const key = dailyPostKey(date);
 

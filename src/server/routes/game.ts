@@ -12,7 +12,7 @@ import { getTodayInfo, toClientPuzzle } from '../core/puzzle';
 export const game = new Hono();
 
 game.get('/puzzle/today', async (c) => {
-  const { puzzle } = getTodayInfo();
+  const { puzzle } = await getTodayInfo();
   const progress = await getProgress(puzzle.id);
   const state = toGameState(puzzle, progress);
   return c.json({
@@ -87,7 +87,7 @@ game.post('/share', async (c) => {
 });
 
 game.get('/stats/today', async (c) => {
-  const { puzzle } = getTodayInfo();
+  const { puzzle } = await getTodayInfo();
   const stats = await getStats(puzzle.id);
   return c.json({
     puzzleId: puzzle.id,
