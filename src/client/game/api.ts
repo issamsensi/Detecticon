@@ -1,5 +1,8 @@
 import type { PublicPuzzle } from '../../shared/types';
 import type { GameState } from '../../shared/game';
+import type { LeaderboardResponse } from '../../shared/leaderboard';
+
+export type { LeaderboardResponse };
 
 export type ProgressPayload = {
   attemptsLeft: number;
@@ -105,3 +108,7 @@ export const shareResult = async (puzzleId: string): Promise<ShareResponse> =>
 
 export const fetchTodayStats = async (): Promise<StatsResponse> =>
   request<StatsResponse>('/api/stats/today');
+
+/** Fresh data on every call; the leaderboard scene never caches results. */
+export const fetchLeaderboard = async (): Promise<LeaderboardResponse> =>
+  request<LeaderboardResponse>('/api/leaderboard');

@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { buildShareText, type GameState } from '../../../shared/game';
+import { formatPointsEarned } from '../../../shared/scoring';
 import { ApiError, NetworkError, shareResult } from '../api';
 import { DETECTIVE_KEY } from '../assets';
 import { createInterrogationBackdrop } from '../ui/backdrop';
@@ -62,6 +63,14 @@ export class ResultScene extends Phaser.Scene {
     }
 
     this.add
+      .text(width / 2, 202, `+${formatPointsEarned(currentState.pointsEarned)}`, {
+        fontFamily: 'monospace',
+        fontSize: '20px',
+        color: '#f2cc8f',
+      })
+      .setOrigin(0.5);
+
+    this.add
       .rectangle(width / 2, 245, width - 48, 80, 0xf4f1de)
       .setStrokeStyle(4, 0x3d405b);
 
@@ -104,6 +113,28 @@ export class ResultScene extends Phaser.Scene {
         wordWrap: { width: width - 32 },
       })
       .setOrigin(0.5);
+
+    const rankingButton = this.add
+      .rectangle(width / 2, 430, 220, 44, 0x3d405b)
+      .setStrokeStyle(2, 0xf4f1de)
+      .setInteractive({ useHandCursor: true });
+    const rankingLabel = this.add
+      .text(width / 2, 430, 'Weekly ranking', {
+        fontFamily: 'monospace',
+        fontSize: '18px',
+        color: '#f4f1de',
+      })
+      .setOrigin(0.5)
+      .setInteractive({ useHandCursor: true });
+    const openLeaderboard = (): void => {
+      this.scene.start('LeaderboardScene', {
+        from: 'ResultScene',
+        puzzleId: currentState.puzzleId,
+        state: currentState,
+      });
+    };
+    rankingButton.on('pointerdown', openLeaderboard);
+    rankingLabel.on('pointerdown', openLeaderboard);
 
     // No "Copy result" button: the clipboard API isn't available in the Reddit
     // webview, so "Post to comments" is the only sharing action offered.

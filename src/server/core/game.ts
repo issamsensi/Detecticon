@@ -1,9 +1,16 @@
 import { context, reddit, redis } from '@devvit/web/server';
 import type { Puzzle } from '../../shared/types';
 import { buildShareText, type AttemptResult, type GameState } from '../../shared/game';
+import {
+  leaderboardKey,
+  LEADERBOARD_TTL_SECONDS,
+  nextLeaderboardScore,
+} from '../../shared/leaderboard';
+import { pointsForAttempts } from '../../shared/scoring';
+import { getWeekId } from '../../shared/week';
 import { getDisplayPuzzleNumber, getPuzzleById, getTodayInfo, getUtcDateString } from './puzzle';
 
-type StoredProgress = {
+export type StoredProgress = {
   attemptsLeft: number;
   attemptsUsed: number;
   eliminatedIds: string[];
@@ -112,6 +119,15 @@ export const getProgress = async (puzzleId: string): Promise<StoredProgress> => 
     return defaultProgress();
   }
   const { date } = await getTodayInfo();
+  return getStoredProgress(date, puzzleId, player);
+};
+
+/** Used by moderator dev actions to work out which points to remove. */
+export const getStoredProgress = async (
+  date: string,
+  puzzleId: string,
+  player: string
+): Promise<StoredProgress> => {
   const data = await redis.hGetAll(progressKey(date, puzzleId, player));
   return readProgressRecord(data);
 };
@@ -236,7 +252,11 @@ export const accuseSuspect = async (
   const sKey = statsKey(date, puzzleId);
 
   for (let attempt = 0; attempt < 3; attempt++) {
-    const txn = await redis.watch(pKey);
+    const now = new Date();
+    const lbKey = leaderboardKey(getWeekId(now));
+    // Watch the progress hash (the statsCounted guard) and the weekly set: the
+    // set score is read before multi, so concurrent finishers must retry.
+    const txn = await redis.watch(pKey, lbKey);
     try {
       const data = await redis.hGetAll(pKey);
       const current = readProgressRecord(data);
@@ -246,14 +266,25 @@ export const accuseSuspect = async (
         suspectId
       );
 
-      if (finishedNow && statField && !current.statsCounted) {
+      const shouldCount = finishedNow && statField && !current.statsCounted;
+      let leaderboardScore: number | null = null;
+      if (shouldCount) {
         next.statsCounted = true;
+        const points = pointsForAttempts(next.attemptsUsed, next.solved);
+        if (points > 0) {
+          const currentScore = await redis.zScore(lbKey, player);
+          leaderboardScore = nextLeaderboardScore(currentScore, points, now);
+        }
       }
 
       await txn.multi();
       await txn.hSet(pKey, progressHash(next));
-      if (finishedNow && statField && !current.statsCounted) {
+      if (shouldCount && statField) {
         await txn.hIncrBy(sKey, statField, 1);
+      }
+      if (leaderboardScore !== null) {
+        await txn.zAdd(lbKey, { member: player, score: leaderboardScore });
+        await txn.expire(lbKey, LEADERBOARD_TTL_SECONDS);
       }
       const execResult = await txn.exec();
       // If transaction aborted (watched key modified), retry.
@@ -293,6 +324,7 @@ export const toGameState = (puzzle: Puzzle, progress: StoredProgress): GameState
     eliminatedIds: progress.eliminatedIds,
     results: progress.results,
     solved: progress.solved,
+    pointsEarned: pointsForAttempts(progress.attemptsUsed, progress.solved),
     sharedToComments: progress.sharedToComments,
     ...(progress.revealedKillerId ? { revealedKillerId: progress.revealedKillerId } : {}),
     finished: progress.finished,

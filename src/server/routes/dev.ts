@@ -2,8 +2,10 @@ import { Hono } from 'hono';
 import { createMiddleware } from 'hono/factory';
 import type { UiResponse } from '@devvit/web/shared';
 import { context, redis, reddit } from '@devvit/web/server';
-import { progressKey, statsKey } from '../core/game';
+import { getStoredProgress, progressKey, statsKey } from '../core/game';
 import { isCurrentUserModerator } from '../core/moderation';
+import { clearWeeklyLeaderboard, revertAwardedPoints } from '../core/leaderboard';
+import { pointsForAttempts } from '../../shared/scoring';
 import {
   DEV_PUZZLE_OVERRIDE_KEY,
   getAllPuzzles,
@@ -49,9 +51,22 @@ dev.post('/menu/dev-reset-progress', async (c) => {
       return c.json<UiResponse>({ showToast: 'Log in to Reddit to reset your progress.' }, 400);
     }
     const key = progressKey(date, puzzle.id, player);
+    // Read the awarded points before deleting the hash so today's test play does
+    // not stay on this week's board after a reset/replay.
+    const stored = await getStoredProgress(date, puzzle.id, player);
+    const awardedPoints = stored.statsCounted
+      ? pointsForAttempts(stored.attemptsUsed, stored.solved)
+      : 0;
     await redis.del(key);
-    console.warn(`[DETECTICON DEV] Progress reset by ${actor()}: ${key}`);
-    return c.json<UiResponse>(successToast("Your progress for today's Detecticon puzzle was reset."));
+    if (awardedPoints > 0) {
+      await revertAwardedPoints(player, awardedPoints);
+    }
+    console.warn(
+      `[DETECTICON DEV] Progress reset by ${actor()}: ${key} (removed ${awardedPoints} leaderboard points)`
+    );
+    return c.json<UiResponse>(
+      successToast("Your progress for today's puzzle was reset, including weekly points.")
+    );
   } catch (error) {
     console.error(`[DETECTICON DEV] Failed to reset progress: ${error}`);
     return c.json<UiResponse>({ showToast: 'Could not reset progress.' }, 400);
@@ -133,5 +148,17 @@ dev.post('/menu/dev-clear-override', async (c) => {
   } catch (error) {
     console.error(`[DETECTICON DEV] Failed to clear puzzle override: ${error}`);
     return c.json<UiResponse>({ showToast: 'Could not clear puzzle override.' }, 400);
+  }
+});
+
+// Dev: clear only the current week's leaderboard; stats and progress are untouched.
+dev.post('/menu/dev-reset-weekly-leaderboard', async (c) => {
+  try {
+    const key = await clearWeeklyLeaderboard();
+    console.warn(`[DETECTICON DEV] Weekly leaderboard reset by ${actor()}: ${key}`);
+    return c.json<UiResponse>(successToast("This week's Detecticon leaderboard was reset."));
+  } catch (error) {
+    console.error(`[DETECTICON DEV] Failed to reset weekly leaderboard: ${error}`);
+    return c.json<UiResponse>({ showToast: 'Could not reset the weekly leaderboard.' }, 400);
   }
 });

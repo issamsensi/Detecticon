@@ -79,6 +79,29 @@ export class IntroScene extends Phaser.Scene {
       originY: 0,
     });
 
+    const rankingButton = this.add
+      .rectangle(width / 2, 470, 220, 40, 0x3d405b)
+      .setStrokeStyle(2, 0xf4f1de)
+      .setInteractive({ useHandCursor: true });
+    const rankingText = this.add
+      .text(width / 2, 470, 'Weekly ranking', {
+        fontFamily: 'monospace',
+        fontSize: '18px',
+        color: '#f4f1de',
+      })
+      .setOrigin(0.5)
+      .setInteractive({ useHandCursor: true });
+    const openLeaderboard = (): void => {
+      this.scene.start('LeaderboardScene', {
+        from: 'IntroScene',
+        puzzleId: this.puzzle.id,
+        puzzle: this.puzzle,
+        state: this.state,
+      });
+    };
+    rankingButton.on('pointerdown', openLeaderboard);
+    rankingText.on('pointerdown', openLeaderboard);
+
     const button = this.add
       .rectangle(width / 2, height - 110, 220, 52, 0xe07a5f)
       .setStrokeStyle(4, 0xf4f1de)

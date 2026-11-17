@@ -8,6 +8,7 @@ import {
   toGameState,
 } from '../core/game';
 import { getTodayInfo, toClientPuzzle } from '../core/puzzle';
+import { getLeaderboard } from '../core/leaderboard';
 
 export const game = new Hono();
 
@@ -95,3 +96,6 @@ game.get('/stats/today', async (c) => {
     stats,
   });
 });
+
+// Current UTC week (Monday 00:00) only. Nothing is cached on the client.
+game.get('/leaderboard', async (c) => c.json(await getLeaderboard()));

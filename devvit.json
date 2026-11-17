@@ -63,6 +63,13 @@
         "location": "subreddit",
         "forUserType": "moderator",
         "endpoint": "/internal/menu/dev-clear-override"
+      },
+      {
+        "label": "Dev: reset this week's leaderboard",
+        "description": "Delete the current UTC week's Detecticon leaderboard so test scores don't pollute it",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/dev-reset-weekly-leaderboard"
       }
     ]
   },

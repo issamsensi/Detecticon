@@ -14,6 +14,8 @@ export type GameState = {
   results: AttemptResult[];
   solved: boolean;
   finished: boolean;
+  /** Points earned for this puzzle; derived, never stored in the progress hash. */
+  pointsEarned: number;
   sharedToComments: boolean;
   revealedKillerId?: string;
   shareText?: string;
@@ -32,6 +34,7 @@ export const createInitialGameState = (
   results: [],
   solved: false,
   finished: false,
+  pointsEarned: 0,
   sharedToComments: false,
 });
 
