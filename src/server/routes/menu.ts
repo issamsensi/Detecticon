@@ -25,14 +25,14 @@ menu.post('/post-create', async (c) => {
   }
 });
 
-// Moderator action: create today's Detectivo post on demand (useful for testing/manual posting).
+// Moderator action: create today's Detecticon post on demand (useful for testing/manual posting).
 menu.post('/post-create-today', async (c) => {
   try {
     const result = await createTodaysDetectivoPost();
     if (result.skipped) {
       return c.json<UiResponse>(
         {
-          showToast: `Today's Detectivo post already exists (${result.date}).`,
+          showToast: `Today's Detecticon post already exists (${result.date}).`,
         },
         200
       );
@@ -47,10 +47,10 @@ menu.post('/post-create-today', async (c) => {
     }
     return c.json<UiResponse>({ showToast: 'Post created.' }, 200);
   } catch (error) {
-    console.error(`Error creating today's Detectivo post: ${error}`);
+    console.error(`Error creating today's Detecticon post: ${error}`);
     return c.json<UiResponse>(
       {
-        showToast: 'Failed to create today’s Detectivo post',
+        showToast: 'Failed to create today’s Detecticon post',
       },
       400
     );

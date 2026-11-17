@@ -34,7 +34,7 @@ describe('Splash', () => {
     await import('./splash');
     await flush();
 
-    expect(document.body.textContent).toContain('Detectivo');
+    expect(document.body.textContent).toContain('Detecticon');
     expect(document.body.textContent).toContain('4 suspects. 1 liar. 3 tries.');
     expect(document.body.textContent).toContain('New case today');
 

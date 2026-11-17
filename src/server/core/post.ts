@@ -20,7 +20,7 @@ export const createPost = async () => {
 
 export const createTodaysDetectivoPost = async (): Promise<DailyPostResult> => {
   const { puzzle, date, displayNumber } = getTodayInfo();
-  const title = `Detectivo #${displayNumber}: ${puzzle.title}`;
+  const title = `Detecticon #${displayNumber}: ${puzzle.title}`;
   const key = dailyPostKey(date);
 
   // Prevent duplicates for the same UTC date: store the date/key in Redis before creating, and skip if it exists.
@@ -58,7 +58,7 @@ export const createTodaysDetectivoPost = async (): Promise<DailyPostResult> => {
         `Failed to clear daily post key after submit error for ${date}: ${deleteError}`
       );
     }
-    console.error(`Failed to create daily Detectivo post for ${date}: ${error}`);
+    console.error(`Failed to create daily Detecticon post for ${date}: ${error}`);
     throw error;
   }
 };

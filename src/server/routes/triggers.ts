@@ -31,17 +31,17 @@ triggers.post('/on-app-install', async (c) => {
   }
 });
 
-// Scheduled task: runs daily at 00:05 UTC (configured in devvit.json) to create today's Detectivo post.
+// Scheduled task: runs daily at 00:05 UTC (configured in devvit.json) to create today's Detecticon post.
 // Idempotent: createTodaysDetectivoPost skips if the UTC date key already exists.
 triggers.post('/daily-post', async (c) => {
   try {
     const result = await createTodaysDetectivoPost();
     console.log(
-      `Daily Detectivo post handler: date=${result.date} postId=${result.postId ?? 'none'} skipped=${result.skipped}`
+      `Daily Detecticon post handler: date=${result.date} postId=${result.postId ?? 'none'} skipped=${result.skipped}`
     );
     return c.json({ status: 'ok' }, 200);
   } catch (error) {
-    console.error(`Error creating daily Detectivo post: ${error}`);
+    console.error(`Error creating daily Detecticon post: ${error}`);
     return c.json({ status: 'error', message: 'Failed to create daily post' }, 500);
   }
 });

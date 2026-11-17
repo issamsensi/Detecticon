@@ -41,5 +41,5 @@ export const buildShareText = (
   const squares = state.results
     .map((result) => (result === 'wrong' ? '🟥' : '🟩'))
     .join('');
-  return `Detectivo #${state.puzzleNumber} ${squares}`;
+  return `Detecticon #${state.puzzleNumber} ${squares}`;
 };

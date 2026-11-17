@@ -99,7 +99,7 @@ export const Splash = () => {
 
         <div className="flex flex-col items-center gap-1">
           <h1 className="text-3xl font-extrabold tracking-wide text-[#f4f1de] sm:text-4xl">
-            Detectivo
+            Detecticon
           </h1>
           <p className="text-lg font-semibold text-[#f2cc8f] sm:text-xl">{puzzleLabel}</p>
           <p className="text-sm text-[#c9d1e1] sm:text-base">4 suspects. 1 liar. 3 tries.</p>
