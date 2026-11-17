@@ -110,6 +110,9 @@ export class AccuseScene extends Phaser.Scene {
   private renderSuspects(): void {
     for (const card of this.cards) {
       card.character.destroy();
+      // The container owns the name text and tap target. Without this they stay
+      // on screen after a wrong accusation, so old names/hitboxes pile up.
+      card.container.destroy();
     }
     this.cards = [];
 
