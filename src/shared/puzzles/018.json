@@ -1,0 +1,44 @@
+{
+  "id": "018",
+  "number": 18,
+  "title": "The Cracked Trophy",
+  "scene": "At 8:30 PM, the school trophy was cracked. The gym doors were locked for the assembly from 8:15 to 8:45.",
+  "suspects": [
+    {
+      "id": "mira",
+      "name": "Mira Cole",
+      "role": "Coach",
+      "color": 4553629,
+      "testimony": "I was with the team in the locker room at 8:30.",
+      "alibiProof": "The team group photo at 8:29 includes Mira.",
+      "isKiller": false
+    },
+    {
+      "id": "noah",
+      "name": "Noah Fenn",
+      "role": "Custodian",
+      "color": 11064762,
+      "testimony": "I was mopping the hallway at 8:30, outside the gym.",
+      "alibiProof": "The hallway camera shows Noah mopping at 8:28 and 8:33.",
+      "isKiller": false
+    },
+    {
+      "id": "olive",
+      "name": "Olive Sato",
+      "role": "Teacher",
+      "color": 16032353,
+      "testimony": "I was at the assembly microphone at 8:30.",
+      "alibiProof": "The sound desk log shows Olive's mic active from 8:25 to 8:38.",
+      "isKiller": false
+    },
+    {
+      "id": "quinn",
+      "name": "Quinn Ash",
+      "role": "Principal",
+      "color": 11888029,
+      "testimony": "I was in my office at 8:30, signing papers.",
+      "contradiction": "The office light was off from 8:20, and trophy glass was embedded in Quinn's shoe.",
+      "isKiller": true
+    }
+  ]
+}

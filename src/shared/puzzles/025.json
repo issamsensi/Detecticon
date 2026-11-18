@@ -1,0 +1,44 @@
+{
+  "id": "025",
+  "number": 25,
+  "title": "The Missing Briefcase",
+  "scene": "At 4:35 PM, a briefcase vanished from the station bench. Platform three closed during a signal fault from 4:20 to 4:50.",
+  "suspects": [
+    {
+      "id": "quinn",
+      "name": "Quinn Sato",
+      "role": "Commuter",
+      "color": 14524637,
+      "testimony": "I was on platform two at 4:35, waiting for my train.",
+      "alibiProof": "The platform two camera shows Quinn at 4:31 and 4:39.",
+      "isKiller": false
+    },
+    {
+      "id": "rosa",
+      "name": "Rosa Vale",
+      "role": "Porter",
+      "color": 3906559,
+      "testimony": "I was carrying luggage on platform three at 4:35.",
+      "contradiction": "Platform three was closed by the signal fault, and the case tag was in Rosa's pocket.",
+      "isKiller": true
+    },
+    {
+      "id": "sam",
+      "name": "Sam Ash",
+      "role": "Clerk",
+      "color": 8499866,
+      "testimony": "I was at the ticket window at 4:35.",
+      "alibiProof": "The window camera shows Sam at 4:33 and 4:41.",
+      "isKiller": false
+    },
+    {
+      "id": "tito",
+      "name": "Tito Reed",
+      "role": "Cab Driver",
+      "color": 15912079,
+      "testimony": "I was outside on the forecourt at 4:35.",
+      "alibiProof": "The forecourt camera shows Tito's cab at 4:32 and 4:44.",
+      "isKiller": false
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "006",
+  "number": 6,
+  "title": "The Stolen Map",
+  "scene": "At 11:40 AM, the antique map left its case during a fire drill. The museum's west wing stayed locked until noon.",
+  "suspects": [
+    {
+      "id": "hana",
+      "name": "Hana Sato",
+      "role": "Curator",
+      "color": 4553629,
+      "testimony": "I was leading the evacuation in the east hall from 11:35 to 11:55.",
+      "alibiProof": "The east hall intercom shows Hana's badge at 11:36 and 11:52.",
+      "isKiller": false
+    },
+    {
+      "id": "dario",
+      "name": "Dario Wren",
+      "role": "Guard",
+      "color": 11064762,
+      "testimony": "I was checking the west wing door at 11:40. It was still locked.",
+      "alibiProof": "The door's card reader logged Dario at 11:39 and never opened.",
+      "isKiller": false
+    },
+    {
+      "id": "priya",
+      "name": "Priya Nath",
+      "role": "Docent",
+      "color": 16032353,
+      "testimony": "I was with a school group in the lobby from 11:30 to 12:00.",
+      "alibiProof": "Twelve student sign-in slips list Priya as guide between 11:31 and 11:58.",
+      "isKiller": false
+    },
+    {
+      "id": "milo",
+      "name": "Milo Ash",
+      "role": "Archivist",
+      "color": 11888029,
+      "testimony": "I was in the basement archive, cataloguing boxes during the drill.",
+      "contradiction": "The archive light meter shows no movement after 11:20, and map glue was on Milo's cuffs.",
+      "isKiller": true
+    }
+  ]
+}

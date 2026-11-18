@@ -1,0 +1,44 @@
+{
+  "id": "023",
+  "number": 23,
+  "title": "The Melted Ice",
+  "scene": "At 8:50 PM, the rink ice swan melted. The Zamboni was out of service and the doors locked from 8:30 to 9:10.",
+  "suspects": [
+    {
+      "id": "ivan",
+      "name": "Ivan Vale",
+      "role": "Rink Manager",
+      "color": 4014171,
+      "testimony": "I was in the stands at 8:50, watching the skate.",
+      "contradiction": "The stands camera shows no one at 8:50, and meltwater soaked Ivan's gloves.",
+      "isKiller": true
+    },
+    {
+      "id": "julia",
+      "name": "Julia Nath",
+      "role": "Skater",
+      "color": 2792847,
+      "testimony": "I was on the ice at 8:50 during the routine.",
+      "alibiProof": "The rink camera shows Julia in the center at 8:49 and 8:52.",
+      "isKiller": false
+    },
+    {
+      "id": "kyle",
+      "name": "Kyle Reed",
+      "role": "Referee",
+      "color": 15320170,
+      "testimony": "I was at the penalty box at 8:50.",
+      "alibiProof": "The game log shows Kyle's whistle at 8:48 and 8:51.",
+      "isKiller": false
+    },
+    {
+      "id": "lena",
+      "name": "Lena Pike",
+      "role": "Vendor",
+      "color": 15167313,
+      "testimony": "I was selling cocoa at the concession at 8:50.",
+      "alibiProof": "The concession camera shows Lena at 8:47 and 8:54.",
+      "isKiller": false
+    }
+  ]
+}

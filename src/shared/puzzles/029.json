@@ -1,0 +1,44 @@
+{
+  "id": "029",
+  "number": 29,
+  "title": "The Silent Organ",
+  "scene": "At 3:55 PM, the theater organ key cover was stolen. The organ loft was locked from 3:40 to 4:10.",
+  "suspects": [
+    {
+      "id": "hilda",
+      "name": "Hilda Wren",
+      "role": "Organist",
+      "color": 4014171,
+      "testimony": "I was in the cafe at 3:55, taking a break.",
+      "alibiProof": "The cafe receipt for Hilda is stamped 3:54.",
+      "isKiller": false
+    },
+    {
+      "id": "ivor",
+      "name": "Ivor Pike",
+      "role": "Stage Manager",
+      "color": 2792847,
+      "testimony": "I was in the wings at 3:55, checking lights.",
+      "alibiProof": "The light board log shows Ivor's cues at 3:52 and 3:58.",
+      "isKiller": false
+    },
+    {
+      "id": "kira",
+      "name": "Kira Reed",
+      "role": "Usher",
+      "color": 15320170,
+      "testimony": "I was sweeping the loft at 3:55, as always.",
+      "contradiction": "The loft was locked from outside at 3:40, and the velvet cover was in Kira's locker.",
+      "isKiller": true
+    },
+    {
+      "id": "karla",
+      "name": "Karla Voss",
+      "role": "Singer",
+      "color": 15167313,
+      "testimony": "I was warming up in the dressing room at 3:55.",
+      "alibiProof": "The dressing room camera shows Karla at 3:53 and 3:59.",
+      "isKiller": false
+    }
+  ]
+}

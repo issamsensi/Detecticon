@@ -1,0 +1,44 @@
+{
+  "id": "015",
+  "number": 15,
+  "title": "The Missing Page",
+  "scene": "At 6:15 PM, a rare manuscript page was torn out. The library's old lift was stuck from 6:00 to 6:30.",
+  "suspects": [
+    {
+      "id": "arthur",
+      "name": "Arthur Vale",
+      "role": "Librarian",
+      "color": 4553629,
+      "testimony": "I was trapped in the lift at 6:15, waiting for help.",
+      "contradiction": "The lift was stuck empty on floor three, and the torn page was in Arthur's coat.",
+      "isKiller": true
+    },
+    {
+      "id": "bina",
+      "name": "Bina Rao",
+      "role": "Archivist",
+      "color": 11064762,
+      "testimony": "I was in the reading room at 6:15, helping a visitor.",
+      "alibiProof": "The reading room sign-in shows Bina's visitor at 6:11 and 6:22.",
+      "isKiller": false
+    },
+    {
+      "id": "cedric",
+      "name": "Cedric Hale",
+      "role": "Guard",
+      "color": 16032353,
+      "testimony": "I was watching the front door at 6:15.",
+      "alibiProof": "The door camera logs Cedric's badge at 6:14 and 6:28.",
+      "isKiller": false
+    },
+    {
+      "id": "dora",
+      "name": "Dora Pike",
+      "role": "Volunteer",
+      "color": 11888029,
+      "testimony": "I was sorting donations in the basement at 6:15.",
+      "alibiProof": "The donation cart log shows Dora's cart at 6:12 and 6:25.",
+      "isKiller": false
+    }
+  ]
+}

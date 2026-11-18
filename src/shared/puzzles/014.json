@@ -1,0 +1,44 @@
+{
+  "id": "014",
+  "number": 14,
+  "title": "The Cold Coffee",
+  "scene": "At 12:40 PM, the cafe espresso machine was sabotaged. The kitchen gas was shut off from 12:30 to 12:55.",
+  "suspects": [
+    {
+      "id": "mara",
+      "name": "Mara Lund",
+      "role": "Barista",
+      "color": 4014171,
+      "testimony": "I was taking orders at the counter at 12:40, machine or no machine.",
+      "alibiProof": "The counter camera shows Mara serving at 12:38 and 12:43.",
+      "isKiller": false
+    },
+    {
+      "id": "gideon",
+      "name": "Gideon Pike",
+      "role": "Manager",
+      "color": 2792847,
+      "testimony": "I was checking the gas valve in the kitchen at 12:40.",
+      "contradiction": "The gas valve needs a key held only by Gideon, and coffee grounds were in his pocket.",
+      "isKiller": true
+    },
+    {
+      "id": "leila",
+      "name": "Leila Sato",
+      "role": "Waitress",
+      "color": 15320170,
+      "testimony": "I was clearing tables in the back room at 12:40.",
+      "alibiProof": "Leila's tray log shows table six cleared at 12:39.",
+      "isKiller": false
+    },
+    {
+      "id": "oscar",
+      "name": "Oscar Reed",
+      "role": "Delivery Driver",
+      "color": 15167313,
+      "testimony": "I was unloading crates at the side door at 12:40.",
+      "alibiProof": "The delivery app shows Oscar's scan at 12:41.",
+      "isKiller": false
+    }
+  ]
+}

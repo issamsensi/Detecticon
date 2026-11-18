@@ -1,0 +1,44 @@
+{
+  "id": "024",
+  "number": 24,
+  "title": "The Empty Tank",
+  "scene": "At 2:05 PM, the aquarium rare fish vanished. The pump room was sealed during maintenance from 1:50 to 2:20.",
+  "suspects": [
+    {
+      "id": "marco",
+      "name": "Marco Hale",
+      "role": "Curator",
+      "color": 4553629,
+      "testimony": "I was giving a tour at 2:05 in the main hall.",
+      "alibiProof": "The tour tickets show Marco's badge at 2:02 and 2:12.",
+      "isKiller": false
+    },
+    {
+      "id": "nadia",
+      "name": "Nadia Cruz",
+      "role": "Diver",
+      "color": 11064762,
+      "testimony": "I was in the viewing tunnel at 2:05, cleaning glass.",
+      "alibiProof": "The tunnel camera shows Nadia's tank suit at 2:04.",
+      "isKiller": false
+    },
+    {
+      "id": "omar",
+      "name": "Omar Fenn",
+      "role": "Technician",
+      "color": 16032353,
+      "testimony": "I was in the pump room at 2:05, checking the seal.",
+      "contradiction": "The pump room was sealed from outside, and algae slime marked Omar's sleeves.",
+      "isKiller": true
+    },
+    {
+      "id": "petra",
+      "name": "Petra Lund",
+      "role": "Guide",
+      "color": 11888029,
+      "testimony": "I was at the entrance desk at 2:05.",
+      "alibiProof": "The desk log shows Petra stamping tickets at 2:03 and 2:09.",
+      "isKiller": false
+    }
+  ]
+}

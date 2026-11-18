@@ -1,0 +1,44 @@
+{
+  "id": "008",
+  "number": 8,
+  "title": "The Silent Bell",
+  "scene": "At 8:05 AM, the church bell rope was cut. The tower door was bolted from 7:50 to 8:20.",
+  "suspects": [
+    {
+      "id": "ada",
+      "name": "Ada Merrill",
+      "role": "Sexton",
+      "color": 4014171,
+      "testimony": "I was sweeping the nave from 7:55 to 8:15, well below the tower.",
+      "alibiProof": "The nave camera shows Ada sweeping at 8:04 with the broom in frame.",
+      "isKiller": false
+    },
+    {
+      "id": "jonah",
+      "name": "Jonah Pike",
+      "role": "Bell Ringer",
+      "color": 2792847,
+      "testimony": "I was at the cafe across the square until 8:10.",
+      "alibiProof": "The cafe receipt for Jonah is timestamped 8:06.",
+      "isKiller": false
+    },
+    {
+      "id": "greta",
+      "name": "Greta Voss",
+      "role": "Organist",
+      "color": 15320170,
+      "testimony": "I was practicing in the loft at 8:05, right under the bell.",
+      "contradiction": "The loft music stand was untouched, and rope fibers caught in Greta's hairpin.",
+      "isKiller": true
+    },
+    {
+      "id": "samir",
+      "name": "Samir Hale",
+      "role": "Volunteer",
+      "color": 15167313,
+      "testimony": "I was unlocking the side gate at 8:05 for the flower delivery.",
+      "alibiProof": "The flower van's app shows Samir signing at 8:04.",
+      "isKiller": false
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "020",
+  "number": 20,
+  "title": "The Missing Key",
+  "scene": "At 9:45 PM, the hotel master key vanished. A fire alarm held the corridor locked from 9:30 to 10:00.",
+  "suspects": [
+    {
+      "id": "vera",
+      "name": "Vera Ash",
+      "role": "Receptionist",
+      "color": 4014171,
+      "testimony": "I was at the front desk at 9:45, calming guests.",
+      "alibiProof": "The desk camera shows Vera at 9:43 and 9:48.",
+      "isKiller": false
+    },
+    {
+      "id": "walter",
+      "name": "Walter Pike",
+      "role": "Guest",
+      "color": 2792847,
+      "testimony": "I was in the lobby at 9:45 with everyone else.",
+      "alibiProof": "The lobby camera shows Walter at 9:41 and 9:52.",
+      "isKiller": false
+    },
+    {
+      "id": "xiomara",
+      "name": "Xiomara Vale",
+      "role": "Housekeeper",
+      "color": 15320170,
+      "testimony": "I was on floor four at 9:45, restocking towels.",
+      "contradiction": "The floor four linen closet was sealed by the alarm, and the key ring was in Xiomara's cart.",
+      "isKiller": true
+    },
+    {
+      "id": "yosef",
+      "name": "Yosef Lund",
+      "role": "Bellhop",
+      "color": 15167313,
+      "testimony": "I was by the elevator at 9:45, directing guests.",
+      "alibiProof": "The elevator camera shows Yosef at 9:44 and 9:50.",
+      "isKiller": false
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "010",
+  "number": 10,
+  "title": "The Spilled Ink",
+  "scene": "At 10:15 PM, the press ink tank was emptied onto the floor. The press room was locked for the 10:00 edition.",
+  "suspects": [
+    {
+      "id": "ruth",
+      "name": "Ruth Kade",
+      "role": "Editor",
+      "color": 14524637,
+      "testimony": "I was proofing the front page in the newsroom at 10:15.",
+      "alibiProof": "The newsroom markup shows Ruth's initials at 10:14 and 10:19.",
+      "isKiller": false
+    },
+    {
+      "id": "abel",
+      "name": "Abel Fenn",
+      "role": "Printer",
+      "color": 3906559,
+      "testimony": "I was changing the rolls on press two from 10:05 to 10:25.",
+      "alibiProof": "The press counter logged Abel's badge at 10:06 and 10:24.",
+      "isKiller": false
+    },
+    {
+      "id": "nia",
+      "name": "Nia Cole",
+      "role": "Reporter",
+      "color": 8499866,
+      "testimony": "I was filing a story from the cafe next door at 10:15.",
+      "alibiProof": "Nia's draft saved from the cafe network at 10:13.",
+      "isKiller": false
+    },
+    {
+      "id": "victor",
+      "name": "Victor Hale",
+      "role": "Night Guard",
+      "color": 15912079,
+      "testimony": "I was patrolling the lobby at 10:15, far from the press room.",
+      "contradiction": "The lobby camera never shows Victor after 9:58, and ink stains mark his flashlight grip.",
+      "isKiller": true
+    }
+  ]
+}

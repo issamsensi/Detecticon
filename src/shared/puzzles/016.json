@@ -1,0 +1,44 @@
+{
+  "id": "016",
+  "number": 16,
+  "title": "The Gone Guitar",
+  "scene": "At 4:45 PM, the shop vintage guitar disappeared. The alarm test locked the display room from 4:30 to 5:00.",
+  "suspects": [
+    {
+      "id": "elena",
+      "name": "Elena Cruz",
+      "role": "Owner",
+      "color": 14524637,
+      "testimony": "I was at the register at 4:45, talking to a customer.",
+      "alibiProof": "The register camera shows Elena with a customer at 4:44.",
+      "isKiller": false
+    },
+    {
+      "id": "finn",
+      "name": "Finn Ash",
+      "role": "Repair Tech",
+      "color": 3906559,
+      "testimony": "I was restringing a lute in the workshop at 4:45.",
+      "alibiProof": "The bench camera shows Finn's hands at 4:43 and 4:47.",
+      "isKiller": false
+    },
+    {
+      "id": "gina",
+      "name": "Gina Voss",
+      "role": "Sales Clerk",
+      "color": 8499866,
+      "testimony": "I was in the display room at 4:45, dusting the stands.",
+      "contradiction": "The display room was sealed by the alarm test, and guitar polish was on Gina's sleeves.",
+      "isKiller": true
+    },
+    {
+      "id": "hugo",
+      "name": "Hugo Lund",
+      "role": "Delivery Driver",
+      "color": 15912079,
+      "testimony": "I was carrying boxes to the stockroom at 4:45.",
+      "alibiProof": "The stockroom dolly log shows Hugo's scan at 4:42 and 4:49.",
+      "isKiller": false
+    }
+  ]
+}

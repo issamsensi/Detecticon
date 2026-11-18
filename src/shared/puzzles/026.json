@@ -1,0 +1,44 @@
+{
+  "id": "026",
+  "number": 26,
+  "title": "The Cold Grill",
+  "scene": "At 7:40 PM, the campsite food box was raided. Rain kept everyone in their tents from 7:20 to 8:00.",
+  "suspects": [
+    {
+      "id": "uma",
+      "name": "Uma Pike",
+      "role": "Camper",
+      "color": 4014171,
+      "testimony": "I was in my tent at 7:40, reading by flashlight.",
+      "alibiProof": "Uma's tent lamp was on from 7:25, logged by the site meter.",
+      "isKiller": false
+    },
+    {
+      "id": "vince",
+      "name": "Vince Lund",
+      "role": "Guide",
+      "color": 2792847,
+      "testimony": "I was in the shelter tent at 7:40, mapping the trail.",
+      "alibiProof": "The shelter camera shows Vince's map at 7:38.",
+      "isKiller": false
+    },
+    {
+      "id": "wendy",
+      "name": "Wendy Ash",
+      "role": "Camper",
+      "color": 15320170,
+      "testimony": "I was in my tent at 7:40, listening to the rain.",
+      "alibiProof": "Wendy's tent zipper sensor stayed shut from 7:21 to 7:55.",
+      "isKiller": false
+    },
+    {
+      "id": "xavier",
+      "name": "Xavier Reed",
+      "role": "Camper",
+      "color": 15167313,
+      "testimony": "I was in the shelter at 7:40, boiling water.",
+      "contradiction": "The stove was cold at 7:40, and cracker crumbs led to Xavier's tent.",
+      "isKiller": true
+    }
+  ]
+}

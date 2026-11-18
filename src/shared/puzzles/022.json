@@ -1,0 +1,44 @@
+{
+  "id": "022",
+  "number": 22,
+  "title": "The Lost Necklace",
+  "scene": "At 5:25 PM, the jeweler's necklace case was emptied. The shop shutter was down from 5:10 to 5:40.",
+  "suspects": [
+    {
+      "id": "elsie",
+      "name": "Elsie Wren",
+      "role": "Jeweler",
+      "color": 14524637,
+      "testimony": "I was polishing rings at the bench at 5:25.",
+      "alibiProof": "The bench camera shows Elsie polishing at 5:23 and 5:29.",
+      "isKiller": false
+    },
+    {
+      "id": "frank",
+      "name": "Frank Ash",
+      "role": "Guard",
+      "color": 3906559,
+      "testimony": "I was watching the shutter from inside at 5:25.",
+      "alibiProof": "The shutter camera shows Frank's reflection at 5:24.",
+      "isKiller": false
+    },
+    {
+      "id": "greta",
+      "name": "Greta Lund",
+      "role": "Apprentice",
+      "color": 8499866,
+      "testimony": "I was ordering gems in the office at 5:25.",
+      "alibiProof": "The office order was submitted by Greta at 5:22.",
+      "isKiller": false
+    },
+    {
+      "id": "hank",
+      "name": "Hank Pike",
+      "role": "Courier",
+      "color": 15912079,
+      "testimony": "I was outside the shutter at 5:25 with a package.",
+      "contradiction": "The shutter was down and no delivery was logged, and the necklace clasp was in Hank's pocket.",
+      "isKiller": true
+    }
+  ]
+}

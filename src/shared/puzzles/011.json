@@ -1,0 +1,44 @@
+{
+  "id": "011",
+  "number": 11,
+  "title": "The Broken Compass",
+  "scene": "At 5:50 PM, the ship's brass compass was smashed. The bridge was sealed during a squall from 5:30 to 6:10.",
+  "suspects": [
+    {
+      "id": "lars",
+      "name": "Lars Voss",
+      "role": "Captain",
+      "color": 4014171,
+      "testimony": "I was on the bridge at 5:50, steering through the squall.",
+      "contradiction": "The helm log shows autopilot engaged from 5:32, and brass dust was in Lars's glove.",
+      "isKiller": true
+    },
+    {
+      "id": "amara",
+      "name": "Amara Nath",
+      "role": "Navigator",
+      "color": 2792847,
+      "testimony": "I was below in the chart room from 5:40 to 6:00.",
+      "alibiProof": "The chart room lamp meter shows Amara's bunk occupied at 5:49.",
+      "isKiller": false
+    },
+    {
+      "id": "colin",
+      "name": "Colin Reed",
+      "role": "Deckhand",
+      "color": 15320170,
+      "testimony": "I was lashing crates on the foredeck at 5:50.",
+      "alibiProof": "The deck camera shows Colin knotting rope at 5:48 and 5:52.",
+      "isKiller": false
+    },
+    {
+      "id": "sofia",
+      "name": "Sofia Lund",
+      "role": "Cook",
+      "color": 15167313,
+      "testimony": "I was plating dinner in the galley at 5:50.",
+      "alibiProof": "The galley timer was punched by Sofia at 5:47 and 5:54.",
+      "isKiller": false
+    }
+  ]
+}

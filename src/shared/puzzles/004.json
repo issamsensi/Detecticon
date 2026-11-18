@@ -1,0 +1,44 @@
+{
+  "id": "004",
+  "number": 4,
+  "title": "The Vanishing Violin",
+  "scene": "At 9:10 PM, the solo violin vanished backstage. The hall's fire doors were sealed for the encore from 9:00 to 9:20.",
+  "suspects": [
+    {
+      "id": "mara",
+      "name": "Mara Voss",
+      "role": "Concertmaster",
+      "color": 8499866,
+      "testimony": "I was tuning onstage with the orchestra from 9:02 to 9:18. The doors stayed shut behind us.",
+      "alibiProof": "The conductor's score notes show Mara's tuning cue at 9:03 and her stand empty until 9:19.",
+      "isKiller": false
+    },
+    {
+      "id": "elias",
+      "name": "Elias Fenn",
+      "role": "Stagehand",
+      "color": 14711391,
+      "testimony": "I was stacking chairs in the side wing from 9:00 to 9:20. I never went near the green room.",
+      "alibiProof": "The wing camera shows Elias folding chairs at 9:05, 9:12 and 9:18.",
+      "isKiller": false
+    },
+    {
+      "id": "juno",
+      "name": "Juno Marsh",
+      "role": "Manager",
+      "color": 10194136,
+      "testimony": "I was in the lobby at 9:10, selling programs while the doors were sealed.",
+      "contradiction": "The lobby till had no sales after 9:02, and the sealed-door log lists Juno as the only bearer of a backstage key.",
+      "isKiller": true
+    },
+    {
+      "id": "tessa",
+      "name": "Tessa Lund",
+      "role": "Violinist",
+      "color": 15912079,
+      "testimony": "I was beside Mara onstage from 9:02 to 9:18. We shared the same stand.",
+      "alibiProof": "Tessa's bow rosin and seat are visible in the 9:16 stage photo.",
+      "isKiller": false
+    }
+  ]
+}

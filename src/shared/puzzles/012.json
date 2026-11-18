@@ -1,0 +1,44 @@
+{
+  "id": "012",
+  "number": 12,
+  "title": "The Lost Locket",
+  "scene": "At 7:25 PM, a silver locket vanished from a cruise cabin. A lifeboat drill locked the corridor from 7:15 to 7:40.",
+  "suspects": [
+    {
+      "id": "bea",
+      "name": "Bea Merrill",
+      "role": "Cabin Steward",
+      "color": 4553629,
+      "testimony": "I was making beds in cabin twelve at 7:25, down the hall.",
+      "alibiProof": "The housekeeping tablet shows Bea's key card at cabin twelve at 7:23.",
+      "isKiller": false
+    },
+    {
+      "id": "hugo",
+      "name": "Hugo Pike",
+      "role": "Passenger",
+      "color": 11064762,
+      "testimony": "I was on deck for the drill at 7:25 with my life vest on.",
+      "alibiProof": "The drill roll call lists Hugo at station four at 7:24.",
+      "isKiller": false
+    },
+    {
+      "id": "ingrid",
+      "name": "Ingrid Vale",
+      "role": "Companion",
+      "color": 16032353,
+      "testimony": "I was in the lounge at 7:25, listening to the band play.",
+      "contradiction": "The lounge band started at 7:31, and the locket clasp was in Ingrid's purse.",
+      "isKiller": true
+    },
+    {
+      "id": "rafael",
+      "name": "Rafael Ash",
+      "role": "Photographer",
+      "color": 11888029,
+      "testimony": "I was photographing the drill from the stairwell at 7:25.",
+      "alibiProof": "Rafael's camera has twelve drill photos timestamped 7:20 to 7:26.",
+      "isKiller": false
+    }
+  ]
+}

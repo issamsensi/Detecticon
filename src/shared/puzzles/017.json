@@ -1,0 +1,44 @@
+{
+  "id": "017",
+  "number": 17,
+  "title": "The Empty Birdcage",
+  "scene": "At 1:50 PM, the shop prize finch vanished. A storm kept the front shutters down from 1:30 to 2:10.",
+  "suspects": [
+    {
+      "id": "iris",
+      "name": "Iris Pike",
+      "role": "Owner",
+      "color": 4014171,
+      "testimony": "I was feeding the other birds at 1:50 behind the counter.",
+      "alibiProof": "The counter camera shows Iris with the feed tin at 1:49.",
+      "isKiller": false
+    },
+    {
+      "id": "jasper",
+      "name": "Jasper Vale",
+      "role": "Clerk",
+      "color": 2792847,
+      "testimony": "I was in the stockroom at 1:50, counting seed bags.",
+      "contradiction": "The stock tally was last signed at 1:20, and finch feathers stuck to Jasper's sweater.",
+      "isKiller": true
+    },
+    {
+      "id": "kayla",
+      "name": "Kayla Nath",
+      "role": "Customer",
+      "color": 15320170,
+      "testimony": "I was at the front window at 1:50, watching the storm.",
+      "alibiProof": "The window camera shows Kayla at 1:47 and 1:53.",
+      "isKiller": false
+    },
+    {
+      "id": "lionel",
+      "name": "Lionel Reed",
+      "role": "Vet",
+      "color": 15167313,
+      "testimony": "I was examining a parrot in the back room at 1:50.",
+      "alibiProof": "The exam log shows Lionel's entry at 1:44 and exit at 1:56.",
+      "isKiller": false
+    }
+  ]
+}

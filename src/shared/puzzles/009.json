@@ -1,0 +1,44 @@
+{
+  "id": "009",
+  "number": 9,
+  "title": "The Empty Safe",
+  "scene": "At 2:30 PM, the bank deposit safe was emptied. The vault elevator was stuck between floors from 2:20 to 2:45.",
+  "suspects": [
+    {
+      "id": "clara",
+      "name": "Clara Vale",
+      "role": "Teller",
+      "color": 4553629,
+      "testimony": "I was at window three from 2:15 to 2:40, serving customers.",
+      "alibiProof": "The window camera shows Clara at 2:18, 2:30 and 2:38.",
+      "isKiller": false
+    },
+    {
+      "id": "desmond",
+      "name": "Desmond Ash",
+      "role": "Guard",
+      "color": 11064762,
+      "testimony": "I was riding the stuck elevator at 2:30, waiting for help.",
+      "contradiction": "The elevator call log shows no ride after 2:18, and the safe dial had Desmond's prints.",
+      "isKiller": true
+    },
+    {
+      "id": "mei",
+      "name": "Mei Lin",
+      "role": "Manager",
+      "color": 16032353,
+      "testimony": "I was on the phone with the regional office at 2:30.",
+      "alibiProof": "The office record shows Mei's extension connected from 2:22 to 2:41.",
+      "isKiller": false
+    },
+    {
+      "id": "owen",
+      "name": "Owen Pike",
+      "role": "Courier",
+      "color": 11888029,
+      "testimony": "I was waiting in the lobby at 2:30 with a sealed bag.",
+      "alibiProof": "The lobby queue camera shows Owen from 2:25 to 2:42.",
+      "isKiller": false
+    }
+  ]
+}

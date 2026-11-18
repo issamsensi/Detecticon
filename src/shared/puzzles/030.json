@@ -1,0 +1,44 @@
+{
+  "id": "030",
+  "number": 30,
+  "title": "The Faded Poster",
+  "scene": "At 5:15 PM, the print shop master poster was scrubbed blank. The press floor was locked from 5:00 to 5:30.",
+  "suspects": [
+    {
+      "id": "leo",
+      "name": "Leo Ash",
+      "role": "Printer",
+      "color": 4553629,
+      "testimony": "I was at the counter at 5:15, wrapping copies.",
+      "alibiProof": "The counter camera shows Leo wrapping at 5:14.",
+      "isKiller": false
+    },
+    {
+      "id": "mina",
+      "name": "Mina Sato",
+      "role": "Designer",
+      "color": 11064762,
+      "testimony": "I was in the office at 5:15, emailing the client.",
+      "alibiProof": "Mina's email was sent at 5:13 from the office network.",
+      "isKiller": false
+    },
+    {
+      "id": "nate",
+      "name": "Nate Cole",
+      "role": "Apprentice",
+      "color": 16032353,
+      "testimony": "I was in the stockroom at 5:15, counting paper.",
+      "alibiProof": "The stockroom log shows Nate's count at 5:12 and 5:19.",
+      "isKiller": false
+    },
+    {
+      "id": "opal",
+      "name": "Opal Vale",
+      "role": "Manager",
+      "color": 11888029,
+      "testimony": "I was at the front door at 5:15, locking up early.",
+      "contradiction": "The door was locked from 5:00, and solvent stained Opal's apron.",
+      "isKiller": true
+    }
+  ]
+}
