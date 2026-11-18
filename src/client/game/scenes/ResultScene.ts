@@ -63,7 +63,7 @@ export class ResultScene extends Phaser.Scene {
     }
 
     this.add
-      .text(width / 2, 202, `+${formatPointsEarned(currentState.pointsEarned)}`, {
+      .text(width / 2, 192, `+${formatPointsEarned(currentState.pointsEarned)}`, {
         fontFamily: 'monospace',
         fontSize: '20px',
         color: '#f2cc8f',

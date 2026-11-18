@@ -3,9 +3,10 @@ import { getMsSinceWeekStart } from './week';
 /**
  * A week is 604,800,000 ms, so a 1,000,000,000-wide sub-score always stays
  * positive and never spills into the next point bucket. The largest possible
- * score (2 points on the last day) is 3e9, exactly representable as a Redis
- * double. Higher total points rank first; within the same total, the player who
- * reached it earlier (smaller elapsed time) ranks higher.
+ * weekly score (3 points for each of 7 puzzles) is about 2.2e10, still exactly
+ * representable as a Redis double. Higher total points rank first; within the
+ * same total, the player who reached it earlier (smaller elapsed time) ranks
+ * higher.
  */
 export const LEADERBOARD_SCORE_UNIT = 1_000_000_000;
 
