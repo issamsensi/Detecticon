@@ -1,0 +1,44 @@
+{
+  "id": "034",
+  "number": 34,
+  "title": "The Spoiled Milk",
+  "scene": "At 5:10 AM, the dairy milk crate was emptied. The cooling room was latched from 4:50 to 5:30.",
+  "suspects": [
+    {
+      "id": "ada",
+      "name": "Ada Reed",
+      "role": "Farmer",
+      "color": 4014171,
+      "testimony": "I was milking in the barn at 5:10.",
+      "alibiProof": "The barn camera shows Ada at 5:08 and 5:14.",
+      "isKiller": false
+    },
+    {
+      "id": "colin",
+      "name": "Colin Hale",
+      "role": "Driver",
+      "color": 2792847,
+      "testimony": "I was loading the truck at 5:10.",
+      "alibiProof": "The loading log shows Colin's scan at 5:09.",
+      "isKiller": false
+    },
+    {
+      "id": "greta",
+      "name": "Greta Voss",
+      "role": "Lab Tech",
+      "color": 15320170,
+      "testimony": "I was in the cooling room at 5:10, checking the temperature.",
+      "contradiction": "The cooling room was latched from outside, and milk residue marked Greta's sleeve.",
+      "isKiller": true
+    },
+    {
+      "id": "ivor",
+      "name": "Ivor Lund",
+      "role": "Mechanic",
+      "color": 15167313,
+      "testimony": "I was fixing the tractor at 5:10.",
+      "alibiProof": "The tool board shows Ivor's wrench out at 5:05 and back at 5:20.",
+      "isKiller": false
+    }
+  ]
+}

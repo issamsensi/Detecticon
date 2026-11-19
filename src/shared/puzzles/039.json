@@ -1,0 +1,44 @@
+{
+  "id": "039",
+  "number": 39,
+  "title": "The Empty Coop",
+  "scene": "At 7:10 PM, the farm egg crate was emptied. A squall latched the barn door from 6:50 to 7:30.",
+  "suspects": [
+    {
+      "id": "otto",
+      "name": "Otto Hale",
+      "role": "Farmer",
+      "color": 14524637,
+      "testimony": "I was in the milking shed at 7:10.",
+      "alibiProof": "The shed camera shows Otto at 7:08 and 7:15.",
+      "isKiller": false
+    },
+    {
+      "id": "bella",
+      "name": "Bella Reed",
+      "role": "Farm Hand",
+      "color": 3906559,
+      "testimony": "I was in the barn at 7:10, gathering eggs.",
+      "contradiction": "The barn door was latched from outside, and eggshell was in Bella's pocket.",
+      "isKiller": true
+    },
+    {
+      "id": "cyrus",
+      "name": "Cyrus Pike",
+      "role": "Vet",
+      "color": 8499866,
+      "testimony": "I was treating a hen in the yard at 7:10.",
+      "alibiProof": "The vet log shows Cyrus at 7:06 and 7:18.",
+      "isKiller": false
+    },
+    {
+      "id": "dora",
+      "name": "Dora Lund",
+      "role": "Neighbor",
+      "color": 15912079,
+      "testimony": "I was at the farmhouse kitchen at 7:10.",
+      "alibiProof": "The kitchen timer was set by Dora at 7:09.",
+      "isKiller": false
+    }
+  ]
+}

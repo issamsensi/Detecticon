@@ -1,0 +1,44 @@
+{
+  "id": "053",
+  "number": 53,
+  "title": "The Broken Loom",
+  "scene": "At 3:35 PM, the studio loom was sabotaged. The weaving room was locked from 3:15 to 3:55.",
+  "suspects": [
+    {
+      "id": "iris",
+      "name": "Iris Vale",
+      "role": "Weaver",
+      "color": 4553629,
+      "testimony": "I was dyeing yarn in the yard at 3:35.",
+      "alibiProof": "The dye log shows Iris's vat at 3:33.",
+      "isKiller": false
+    },
+    {
+      "id": "jonas",
+      "name": "Jonas Pike",
+      "role": "Apprentice",
+      "color": 11064762,
+      "testimony": "I was at the market stall at 3:35.",
+      "alibiProof": "The stall camera shows Jonas at 3:34.",
+      "isKiller": false
+    },
+    {
+      "id": "kayla",
+      "name": "Kayla Ash",
+      "role": "Weaver",
+      "color": 16032353,
+      "testimony": "I was in the weaving room at 3:35, threading the loom.",
+      "contradiction": "The weaving room was locked from outside, and cut threads were on Kayla's sleeve.",
+      "isKiller": true
+    },
+    {
+      "id": "lionel",
+      "name": "Lionel Reed",
+      "role": "Buyer",
+      "color": 11888029,
+      "testimony": "I was in the office at 3:35.",
+      "alibiProof": "The office camera shows Lionel at 3:32 and 3:41.",
+      "isKiller": false
+    }
+  ]
+}

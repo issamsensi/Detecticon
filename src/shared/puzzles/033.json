@@ -1,0 +1,44 @@
+{
+  "id": "033",
+  "number": 33,
+  "title": "The Missing Mascot",
+  "scene": "At halftime, 7:45 PM, the stadium mascot head vanished. The tunnel was chained from 7:30 to 8:00.",
+  "suspects": [
+    {
+      "id": "bruno",
+      "name": "Bruno Pike",
+      "role": "Mascot",
+      "color": 14524637,
+      "testimony": "I was in the tunnel at 7:45, changing into the costume.",
+      "contradiction": "The tunnel chain was locked at 7:30, and feather trim was on Bruno's jacket.",
+      "isKiller": true
+    },
+    {
+      "id": "anita",
+      "name": "Anita Cole",
+      "role": "Cheer Coach",
+      "color": 3906559,
+      "testimony": "I was with the squad on the field at 7:45.",
+      "alibiProof": "The field camera shows Anita at 7:43 and 7:48.",
+      "isKiller": false
+    },
+    {
+      "id": "dario",
+      "name": "Dario Vale",
+      "role": "Vendor",
+      "color": 8499866,
+      "testimony": "I was selling drinks at the concession at 7:45.",
+      "alibiProof": "The concession till shows Dario's sale at 7:44.",
+      "isKiller": false
+    },
+    {
+      "id": "nia",
+      "name": "Nia Reed",
+      "role": "Announcer",
+      "color": 15912079,
+      "testimony": "I was at the mic booth at 7:45.",
+      "alibiProof": "The booth log shows Nia's voice at 7:44 and 7:49.",
+      "isKiller": false
+    }
+  ]
+}

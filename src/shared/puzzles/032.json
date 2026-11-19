@@ -1,0 +1,44 @@
+{
+  "id": "032",
+  "number": 32,
+  "title": "The Vanishing Watch",
+  "scene": "At 2:20 PM, the clockmaker's gold watch disappeared. Blinds were down for the street fair from 2:00 to 2:40.",
+  "suspects": [
+    {
+      "id": "hana",
+      "name": "Hana Vale",
+      "role": "Clockmaker",
+      "color": 4553629,
+      "testimony": "I was repairing a mantel clock at 2:20 by the window.",
+      "alibiProof": "The bench lamp log shows Hana's light at 2:18.",
+      "isKiller": false
+    },
+    {
+      "id": "felix",
+      "name": "Felix Ash",
+      "role": "Apprentice",
+      "color": 11064762,
+      "testimony": "I was sweeping the front step at 2:20.",
+      "alibiProof": "The doorbell camera shows Felix outside at 2:19.",
+      "isKiller": false
+    },
+    {
+      "id": "greta",
+      "name": "Greta Lund",
+      "role": "Customer",
+      "color": 16032353,
+      "testimony": "I was browsing the display at 2:20.",
+      "alibiProof": "The display camera shows Greta at 2:16 and 2:24.",
+      "isKiller": false
+    },
+    {
+      "id": "silas",
+      "name": "Silas Wren",
+      "role": "Collector",
+      "color": 11888029,
+      "testimony": "I was in the back room at 2:20, waiting for the blinds to rise.",
+      "contradiction": "The back room was locked from outside, and watch links were in Silas's pocket.",
+      "isKiller": true
+    }
+  ]
+}

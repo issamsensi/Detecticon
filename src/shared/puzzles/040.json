@@ -1,0 +1,44 @@
+{
+  "id": "040",
+  "number": 40,
+  "title": "The Chess Trophy",
+  "scene": "At 3:15 PM, the chess club trophy vanished. The club room was locked during the tournament from 3:00 to 3:30.",
+  "suspects": [
+    {
+      "id": "emil",
+      "name": "Emil Voss",
+      "role": "Club President",
+      "color": 4014171,
+      "testimony": "I was at the front desk at 3:15, pairing players.",
+      "alibiProof": "The pairing sheet shows Emil's writing at 3:14.",
+      "isKiller": false
+    },
+    {
+      "id": "freya",
+      "name": "Freya Lund",
+      "role": "Player",
+      "color": 2792847,
+      "testimony": "I was playing board two at 3:15.",
+      "alibiProof": "The board camera shows Freya moving a piece at 3:16.",
+      "isKiller": false
+    },
+    {
+      "id": "gus",
+      "name": "Gus Ash",
+      "role": "Visitor",
+      "color": 15320170,
+      "testimony": "I was watching from the hallway at 3:15.",
+      "alibiProof": "The hallway camera shows Gus at 3:12 and 3:22.",
+      "isKiller": false
+    },
+    {
+      "id": "hilda",
+      "name": "Hilda Pike",
+      "role": "Treasurer",
+      "color": 11888029,
+      "testimony": "I was in my car at 3:15, counting entry fees.",
+      "contradiction": "The car park camera shows Hilda's car absent, and trophy felt was on her coat.",
+      "isKiller": true
+    }
+  ]
+}

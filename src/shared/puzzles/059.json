@@ -1,0 +1,44 @@
+{
+  "id": "059",
+  "number": 59,
+  "title": "The Gone Flag",
+  "scene": "At 9:15 AM, the school flag vanished. The grounds were locked during the ceremony from 9:00 to 9:30.",
+  "suspects": [
+    {
+      "id": "iris",
+      "name": "Iris Pike",
+      "role": "Principal",
+      "color": 4553629,
+      "testimony": "I was at the assembly at 9:15.",
+      "alibiProof": "The assembly camera shows Iris at 9:13.",
+      "isKiller": false
+    },
+    {
+      "id": "jonas",
+      "name": "Jonas Vale",
+      "role": "Custodian",
+      "color": 11064762,
+      "testimony": "I was at the flagpole at 9:15, lowering the flag.",
+      "contradiction": "The grounds were locked at 9:00, and flag rope was in Jonas's pocket.",
+      "isKiller": true
+    },
+    {
+      "id": "kayla",
+      "name": "Kayla Reed",
+      "role": "Teacher",
+      "color": 16032353,
+      "testimony": "I was in the classroom at 9:15.",
+      "alibiProof": "The classroom camera shows Kayla at 9:14.",
+      "isKiller": false
+    },
+    {
+      "id": "lionel",
+      "name": "Lionel Ash",
+      "role": "Student",
+      "color": 11888029,
+      "testimony": "I was in the hall at 9:15.",
+      "alibiProof": "The hall camera shows Lionel at 9:12 and 9:20.",
+      "isKiller": false
+    }
+  ]
+}

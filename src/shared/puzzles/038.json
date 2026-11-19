@@ -1,0 +1,44 @@
+{
+  "id": "038",
+  "number": 38,
+  "title": "The Gone Gloves",
+  "scene": "At 11:20 AM, the ski resort spare gloves vanished. High wind stopped the chairlift from 11:00 to 11:40.",
+  "suspects": [
+    {
+      "id": "rolf",
+      "name": "Rolf Pike",
+      "role": "Instructor",
+      "color": 4553629,
+      "testimony": "I was teaching on the bunny slope at 11:20.",
+      "alibiProof": "The slope camera shows Rolf with a class at 11:19.",
+      "isKiller": false
+    },
+    {
+      "id": "sofia",
+      "name": "Sofia Reed",
+      "role": "Attendant",
+      "color": 11064762,
+      "testimony": "I was at the lift station at 11:20.",
+      "alibiProof": "The station log shows Sofia's badge at 11:18 and 11:26.",
+      "isKiller": false
+    },
+    {
+      "id": "lars",
+      "name": "Lars Vale",
+      "role": "Guest",
+      "color": 16032353,
+      "testimony": "I was riding the chairlift at 11:20, enjoying the view.",
+      "contradiction": "The lift stopped at 11:00, and glove wool was caught in Lars's zipper.",
+      "isKiller": true
+    },
+    {
+      "id": "anika",
+      "name": "Anika Cole",
+      "role": "Shop Clerk",
+      "color": 11888029,
+      "testimony": "I was in the rental shop at 11:20.",
+      "alibiProof": "The rental log shows Anika's scan at 11:21.",
+      "isKiller": false
+    }
+  ]
+}

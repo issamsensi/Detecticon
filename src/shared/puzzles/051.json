@@ -1,0 +1,44 @@
+{
+  "id": "051",
+  "number": 51,
+  "title": "The Missing Passport",
+  "scene": "At 7:55 AM, a passport vanished from the gate desk. The gate area was sealed during a drill from 7:40 to 8:20.",
+  "suspects": [
+    {
+      "id": "ada",
+      "name": "Ada Reed",
+      "role": "Agent",
+      "color": 14524637,
+      "testimony": "I was at the gate desk at 7:55, checking boarding passes.",
+      "alibiProof": "The gate camera shows Ada at 7:53 and 7:58.",
+      "isKiller": false
+    },
+    {
+      "id": "bruno",
+      "name": "Bruno Pike",
+      "role": "Passenger",
+      "color": 3906559,
+      "testimony": "I was in the lounge at 7:55.",
+      "alibiProof": "The lounge camera shows Bruno at 7:51 and 8:01.",
+      "isKiller": false
+    },
+    {
+      "id": "celia",
+      "name": "Celia Vale",
+      "role": "Supervisor",
+      "color": 8499866,
+      "testimony": "I was at the podium at 7:55.",
+      "alibiProof": "The podium log shows Celia's badge at 7:54.",
+      "isKiller": false
+    },
+    {
+      "id": "dario",
+      "name": "Dario Ash",
+      "role": "Broker",
+      "color": 15912079,
+      "testimony": "I was behind the desk at 7:55, printing a ticket.",
+      "contradiction": "The gate was sealed at 7:40, and passport foil was in Dario's wallet.",
+      "isKiller": true
+    }
+  ]
+}

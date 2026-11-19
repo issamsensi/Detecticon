@@ -1,0 +1,44 @@
+{
+  "id": "035",
+  "number": 35,
+  "title": "The Lost Ring",
+  "scene": "At 6:30 PM, a gold ring vanished from the pool bench. The pool was drained for cleaning from 6:00 to 7:00.",
+  "suspects": [
+    {
+      "id": "pia",
+      "name": "Pia Sato",
+      "role": "Lifeguard",
+      "color": 4553629,
+      "testimony": "I was at the empty pool edge at 6:30, checking the ladder.",
+      "alibiProof": "The ladder camera shows Pia at 6:28 and 6:34.",
+      "isKiller": false
+    },
+    {
+      "id": "milo",
+      "name": "Milo Reed",
+      "role": "Swimmer",
+      "color": 11064762,
+      "testimony": "I was swimming laps in the empty pool at 6:30.",
+      "contradiction": "The pool had no water at 6:30, and the ring was in Milo's swim bag.",
+      "isKiller": true
+    },
+    {
+      "id": "tessa",
+      "name": "Tessa Vale",
+      "role": "Cleaner",
+      "color": 16032353,
+      "testimony": "I was scrubbing tiles in the changing room at 6:30.",
+      "alibiProof": "The changing room log shows Tessa's badge at 6:27.",
+      "isKiller": false
+    },
+    {
+      "id": "owen",
+      "name": "Owen Pike",
+      "role": "Guard",
+      "color": 11888029,
+      "testimony": "I was at the front gate at 6:30.",
+      "alibiProof": "The gate camera shows Owen at 6:29 and 6:36.",
+      "isKiller": false
+    }
+  ]
+}

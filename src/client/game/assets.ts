@@ -1,4 +1,4 @@
-export const CHARACTER_KEYS = Array.from({ length: 20 }, (_, i) => {
+export const CHARACTER_KEYS = Array.from({ length: 30 }, (_, i) => {
   const n = String(i + 1).padStart(2, '0');
   return `char_${n}`;
 });

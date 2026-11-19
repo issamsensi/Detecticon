@@ -1,0 +1,44 @@
+{
+  "id": "049",
+  "number": 49,
+  "title": "The Gone Telescope",
+  "scene": "At 8:35 PM, the observatory telescope lens vanished. The dome was shut during clouds from 8:15 to 9:00.",
+  "suspects": [
+    {
+      "id": "ravi",
+      "name": "Ravi Pike",
+      "role": "Astronomer",
+      "color": 4014171,
+      "testimony": "I was at the telescope at 8:35, waiting for the clouds.",
+      "contradiction": "The dome was shut at 8:15, and lens caps were in Ravi's case.",
+      "isKiller": true
+    },
+    {
+      "id": "selma",
+      "name": "Selma Vale",
+      "role": "Assistant",
+      "color": 2792847,
+      "testimony": "I was in the control room at 8:35.",
+      "alibiProof": "The control camera shows Selma at 8:33 and 8:41.",
+      "isKiller": false
+    },
+    {
+      "id": "theo",
+      "name": "Theo Ash",
+      "role": "Visitor",
+      "color": 15320170,
+      "testimony": "I was in the lobby at 8:35.",
+      "alibiProof": "The lobby camera shows Theo at 8:32.",
+      "isKiller": false
+    },
+    {
+      "id": "uma",
+      "name": "Uma Reed",
+      "role": "Guide",
+      "color": 15167313,
+      "testimony": "I was giving a tour in the hall at 8:35.",
+      "alibiProof": "The tour log shows Uma's group at 8:34.",
+      "isKiller": false
+    }
+  ]
+}

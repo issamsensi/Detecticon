@@ -1,0 +1,44 @@
+{
+  "id": "047",
+  "number": 47,
+  "title": "The Stolen Badge",
+  "scene": "At 4:05 PM, the station evidence badge vanished. The locker room was sealed during shift change from 3:50 to 4:20.",
+  "suspects": [
+    {
+      "id": "iris",
+      "name": "Iris Cole",
+      "role": "Desk Officer",
+      "color": 4553629,
+      "testimony": "I was at the front desk at 4:05.",
+      "alibiProof": "The desk camera shows Iris at 4:03 and 4:09.",
+      "isKiller": false
+    },
+    {
+      "id": "jonas",
+      "name": "Jonas Pike",
+      "role": "Officer",
+      "color": 11064762,
+      "testimony": "I was in the locker room at 4:05, changing shift.",
+      "contradiction": "The locker room was sealed from outside, and badge clips were in Jonas's pocket.",
+      "isKiller": true
+    },
+    {
+      "id": "kayla",
+      "name": "Kayla Vale",
+      "role": "Clerk",
+      "color": 16032353,
+      "testimony": "I was filing reports at 4:05.",
+      "alibiProof": "The filing log shows Kayla's badge at 4:04.",
+      "isKiller": false
+    },
+    {
+      "id": "lionel",
+      "name": "Lionel Ash",
+      "role": "Visitor",
+      "color": 11888029,
+      "testimony": "I was in the waiting area at 4:05.",
+      "alibiProof": "The waiting area camera shows Lionel at 4:02 and 4:11.",
+      "isKiller": false
+    }
+  ]
+}

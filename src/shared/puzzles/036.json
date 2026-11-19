@@ -1,0 +1,44 @@
+{
+  "id": "036",
+  "number": 36,
+  "title": "The Cracked Mirror",
+  "scene": "At 4:40 PM, the salon gilt mirror was cracked. A storm locked the back room from 4:20 to 5:00.",
+  "suspects": [
+    {
+      "id": "lena",
+      "name": "Lena Ash",
+      "role": "Stylist",
+      "color": 14524637,
+      "testimony": "I was cutting hair at station two at 4:40.",
+      "alibiProof": "The station camera shows Lena scissors at 4:39.",
+      "isKiller": false
+    },
+    {
+      "id": "ravi",
+      "name": "Ravi Cole",
+      "role": "Barber",
+      "color": 3906559,
+      "testimony": "I was at the shampoo bowl at 4:40.",
+      "alibiProof": "The bowl log shows Ravi's station occupied at 4:38.",
+      "isKiller": false
+    },
+    {
+      "id": "uma",
+      "name": "Uma Pike",
+      "role": "Receptionist",
+      "color": 8499866,
+      "testimony": "I was at the front desk at 4:40.",
+      "alibiProof": "The desk camera shows Uma at 4:41.",
+      "isKiller": false
+    },
+    {
+      "id": "greta",
+      "name": "Greta Vale",
+      "role": "Owner",
+      "color": 15912079,
+      "testimony": "I was in the back room at 4:40, fetching towels.",
+      "contradiction": "The back room was locked from outside, and mirror glass was in Greta's shoe.",
+      "isKiller": true
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "060",
+  "number": 60,
+  "title": "The Empty Jar",
+  "scene": "At 3:05 PM, the charity shop donation jar was emptied. The back room was locked during inventory from 2:50 to 3:20.",
+  "suspects": [
+    {
+      "id": "mira",
+      "name": "Mira Pike",
+      "role": "Manager",
+      "color": 14524637,
+      "testimony": "I was at the counter at 3:05.",
+      "alibiProof": "The counter camera shows Mira at 3:04.",
+      "isKiller": false
+    },
+    {
+      "id": "noah",
+      "name": "Noah Reed",
+      "role": "Volunteer",
+      "color": 3906559,
+      "testimony": "I was sorting clothes on the floor at 3:05.",
+      "alibiProof": "The floor camera shows Noah at 3:02.",
+      "isKiller": false
+    },
+    {
+      "id": "olive",
+      "name": "Olive Vale",
+      "role": "Donor",
+      "color": 8499866,
+      "testimony": "I was browsing at 3:05.",
+      "alibiProof": "The shop camera shows Olive at 3:01 and 3:09.",
+      "isKiller": false
+    },
+    {
+      "id": "quinn",
+      "name": "Quinn Ash",
+      "role": "Treasurer",
+      "color": 15912079,
+      "testimony": "I was in the back room at 3:05, counting donations.",
+      "contradiction": "The back room was locked for inventory, and coin rolls were in Quinn's bag.",
+      "isKiller": true
+    }
+  ]
+}

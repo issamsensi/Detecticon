@@ -1,0 +1,44 @@
+{
+  "id": "058",
+  "number": 58,
+  "title": "The Cold Oven",
+  "scene": "At 6:40 PM, the pizzeria oven was tampered with. The kitchen was closed for cleaning from 6:20 to 7:00.",
+  "suspects": [
+    {
+      "id": "elsie",
+      "name": "Elsie Vale",
+      "role": "Chef",
+      "color": 4014171,
+      "testimony": "I was at the counter at 6:40, taking orders.",
+      "alibiProof": "The counter camera shows Elsie at 6:38.",
+      "isKiller": false
+    },
+    {
+      "id": "frank",
+      "name": "Frank Pike",
+      "role": "Cook",
+      "color": 2792847,
+      "testimony": "I was in the dining room at 6:40.",
+      "alibiProof": "The dining camera shows Frank at 6:41.",
+      "isKiller": false
+    },
+    {
+      "id": "greta",
+      "name": "Greta Reed",
+      "role": "Cleaner",
+      "color": 15320170,
+      "testimony": "I was in the kitchen at 6:40, checking the ovens.",
+      "contradiction": "The kitchen door was sealed for cleaning, and soot marked Greta's hands.",
+      "isKiller": true
+    },
+    {
+      "id": "hank",
+      "name": "Hank Ash",
+      "role": "Driver",
+      "color": 15167313,
+      "testimony": "I was loading the van at 6:40.",
+      "alibiProof": "The van log shows Hank's scan at 6:39.",
+      "isKiller": false
+    }
+  ]
+}
