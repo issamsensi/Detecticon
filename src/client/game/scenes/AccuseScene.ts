@@ -24,6 +24,8 @@ export class AccuseScene extends Phaser.Scene {
   private feedbackBubble: SpeechBubble | null = null;
   private pendingAction: (() => void) | null = null;
   private busy = false;
+  private caseFileButton!: Phaser.GameObjects.Rectangle;
+  private caseFileLabel!: Phaser.GameObjects.Text;
 
   constructor(puzzle: PublicPuzzle) {
     super('AccuseScene');
@@ -82,6 +84,29 @@ export class AccuseScene extends Phaser.Scene {
         action();
       }
     });
+
+    // Case file sits between the info line and the lineup (sprites start at
+    // y=268), so it never overlaps the attempts HUD or the suspect cards.
+    const openCaseFile = (): void => {
+      if (this.busy) {
+        return;
+      }
+      this.scene.start('CaseFileScene', { puzzle: this.puzzle, state: this.state });
+    };
+    this.caseFileButton = this.add
+      .rectangle(width / 2, 180, 150, 40, 0x3d405b)
+      .setStrokeStyle(2, 0xf4f1de)
+      .setInteractive({ useHandCursor: true });
+    this.caseFileLabel = this.add
+      .text(width / 2, 180, 'Case file', {
+        fontFamily: 'monospace',
+        fontSize: '17px',
+        color: '#f4f1de',
+      })
+      .setOrigin(0.5)
+      .setInteractive({ useHandCursor: true });
+    this.caseFileButton.on('pointerdown', openCaseFile);
+    this.caseFileLabel.on('pointerdown', openCaseFile);
 
     this.hintText = this.add
       .text(width / 2, 610, '', {
@@ -169,6 +194,7 @@ export class AccuseScene extends Phaser.Scene {
     }
 
     this.busy = true;
+    this.setCaseFileEnabled(false);
     this.infoText.setText('Checking...');
     try {
       const response = await accuse(this.puzzle.id, suspect.id);
@@ -261,8 +287,21 @@ export class AccuseScene extends Phaser.Scene {
       this.busy = false;
       if (!this.feedbackBubble && !this.state.finished && !this.pendingAction) {
         this.updateHud();
+        this.setCaseFileEnabled(true);
       }
     }
+  }
+
+  private setCaseFileEnabled(enabled: boolean): void {
+    if (enabled) {
+      this.caseFileButton.setInteractive({ useHandCursor: true });
+      this.caseFileLabel.setInteractive({ useHandCursor: true });
+    } else {
+      this.caseFileButton.disableInteractive();
+      this.caseFileLabel.disableInteractive();
+    }
+    this.caseFileButton.setAlpha(enabled ? 1 : 0.6);
+    this.caseFileLabel.setAlpha(enabled ? 1 : 0.6);
   }
 
   private showFeedback(
@@ -307,6 +346,9 @@ export class AccuseScene extends Phaser.Scene {
       this.feedbackBubble = null;
     }
     this.pendingAction = null;
+    if (!this.state.finished) {
+      this.setCaseFileEnabled(true);
+    }
   }
 
   private handleGlobalTap(): void {

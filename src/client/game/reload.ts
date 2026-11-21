@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { IntroScene } from './scenes/IntroScene';
 import { TestimonyScene } from './scenes/TestimonyScene';
 import { AccuseScene } from './scenes/AccuseScene';
+import { CaseFileScene } from './scenes/CaseFileScene';
 import { ResultScene } from './scenes/ResultScene';
 import { CreditsScene } from './scenes/CreditsScene';
 import { LeaderboardScene } from './scenes/LeaderboardScene';
@@ -18,6 +19,7 @@ export const applyTodayData = (
     'IntroScene',
     'TestimonyScene',
     'AccuseScene',
+    'CaseFileScene',
     'ResultScene',
     'CreditsScene',
     'LeaderboardScene',
@@ -30,6 +32,7 @@ export const applyTodayData = (
   game.scene.add('IntroScene', new IntroScene(puzzle), false);
   game.scene.add('TestimonyScene', new TestimonyScene(puzzle), false);
   game.scene.add('AccuseScene', new AccuseScene(puzzle), false);
+  game.scene.add('CaseFileScene', new CaseFileScene(), false);
   game.scene.add('ResultScene', new ResultScene(), false);
   game.scene.add('CreditsScene', new CreditsScene(), false);
   game.scene.add('LeaderboardScene', new LeaderboardScene(), false);

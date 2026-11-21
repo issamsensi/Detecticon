@@ -314,6 +314,18 @@ export const accuseSuspect = async (
 export const toGameState = (puzzle: Puzzle, progress: StoredProgress): GameState => {
   const killer = puzzle.suspects.find((s) => s.isKiller);
   const showCulprit = progress.finished && killer;
+  // Only cleared (wrongly accused, non-killer) suspects get their alibi proof.
+  // The killer's contradiction is never part of the state, even after the game ends.
+  const eliminatedAlibis: Record<string, string> = {};
+  for (const suspect of puzzle.suspects) {
+    if (
+      !suspect.isKiller &&
+      suspect.alibiProof &&
+      progress.eliminatedIds.includes(suspect.id)
+    ) {
+      eliminatedAlibis[suspect.id] = suspect.alibiProof;
+    }
+  }
   // Display numbering is date-based only; use the pure helper so this stays sync.
   const displayNumber = getDisplayPuzzleNumber(getUtcDateString());
   return {
@@ -322,6 +334,7 @@ export const toGameState = (puzzle: Puzzle, progress: StoredProgress): GameState
     attemptsLeft: progress.attemptsLeft,
     attemptsUsed: progress.attemptsUsed,
     eliminatedIds: progress.eliminatedIds,
+    ...(Object.keys(eliminatedAlibis).length > 0 ? { eliminatedAlibis } : {}),
     results: progress.results,
     solved: progress.solved,
     pointsEarned: pointsForAttempts(progress.attemptsUsed, progress.solved),

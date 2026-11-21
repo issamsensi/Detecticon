@@ -11,6 +11,8 @@ export type GameState = {
   attemptsLeft: number;
   attemptsUsed: number;
   eliminatedIds: string[];
+  /** Alibi proofs for cleared suspects only, keyed by suspect id. Derived from server state, never stored in Redis. */
+  eliminatedAlibis?: Record<string, string>;
   results: AttemptResult[];
   solved: boolean;
   finished: boolean;
