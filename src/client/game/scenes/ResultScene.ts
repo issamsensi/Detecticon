@@ -1,10 +1,15 @@
 import Phaser from 'phaser';
 import { buildShareText, type GameState } from '../../../shared/game';
 import { formatPointsEarned } from '../../../shared/scoring';
-import { ApiError, NetworkError, shareResult } from '../api';
+import { ApiError, NetworkError, fetchTodayStats, shareResult, type StatsResponse } from '../api';
 import { DETECTIVE_KEY } from '../assets';
 import { createInterrogationBackdrop } from '../ui/backdrop';
 import { createCharacter } from '../ui/Character';
+
+const STATS_TITLE_Y = 250;
+const BAR_BOTTOM_Y = 318;
+const BAR_MAX_HEIGHT = 40;
+const STATS_LABEL_Y = 324;
 
 export class ResultScene extends Phaser.Scene {
   private countdownText: Phaser.GameObjects.Text | undefined;
@@ -26,7 +31,7 @@ export class ResultScene extends Phaser.Scene {
     createCharacter({
       scene: this,
       x: width / 2,
-      y: 50,
+      y: 36,
       textureKey: DETECTIVE_KEY,
       fallbackColor: 0x81b29a,
       width: 48,
@@ -35,7 +40,7 @@ export class ResultScene extends Phaser.Scene {
     });
 
     this.add
-      .text(width / 2, 95, solved ? 'Case Solved' : 'Case Closed', {
+      .text(width / 2, 84, solved ? 'Case Solved' : 'Case Closed', {
         fontFamily: 'monospace',
         fontSize: '32px',
         color: solved ? '#81b29a' : '#e07a5f',
@@ -43,7 +48,7 @@ export class ResultScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.add
-      .text(width / 2, 135, `Attempts used: ${currentState.attemptsUsed} / 3`, {
+      .text(width / 2, 118, `Attempts used: ${currentState.attemptsUsed} / 3`, {
         fontFamily: 'monospace',
         fontSize: '22px',
         color: '#f4f1de',
@@ -52,7 +57,7 @@ export class ResultScene extends Phaser.Scene {
 
     if (currentState.culprit) {
       this.add
-        .text(width / 2, 170, `Culprit: ${currentState.culprit.name}`, {
+        .text(width / 2, 148, `Culprit: ${currentState.culprit.name}`, {
           fontFamily: 'monospace',
           fontSize: '18px',
           color: '#a7b1c2',
@@ -63,7 +68,7 @@ export class ResultScene extends Phaser.Scene {
     }
 
     this.add
-      .text(width / 2, 192, `+${formatPointsEarned(currentState.pointsEarned)}`, {
+      .text(width / 2, 172, `+${formatPointsEarned(currentState.pointsEarned)}`, {
         fontFamily: 'monospace',
         fontSize: '20px',
         color: '#f2cc8f',
@@ -71,21 +76,25 @@ export class ResultScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.add
-      .rectangle(width / 2, 245, width - 48, 80, 0xf4f1de)
+      .rectangle(width / 2, 212, width - 48, 60, 0xf4f1de)
       .setStrokeStyle(4, 0x3d405b);
 
     this.add
-      .text(width / 2, 245, shareText, {
+      .text(width / 2, 212, shareText, {
         fontFamily: 'monospace',
-        fontSize: '22px',
+        fontSize: '20px',
         color: '#1b1f2a',
         align: 'center',
         wordWrap: { width: width - 72 },
       })
       .setOrigin(0.5);
 
+    // Area y=250..336 is reserved for the stats chart; it stays blank when the
+    // fetch fails or nobody has finished today's puzzle yet.
+    void this.loadStats(currentState);
+
     this.countdownText = this.add
-      .text(width / 2, 312, '', {
+      .text(width / 2, 350, '', {
         fontFamily: 'monospace',
         fontSize: '18px',
         color: '#f2cc8f',
@@ -105,7 +114,7 @@ export class ResultScene extends Phaser.Scene {
     });
 
     const feedback = this.add
-      .text(width / 2, 352, '', {
+      .text(width / 2, 382, '', {
         fontFamily: 'monospace',
         fontSize: '14px',
         color: '#81b29a',
@@ -115,11 +124,11 @@ export class ResultScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     const rankingButton = this.add
-      .rectangle(width / 2, 430, 220, 44, 0x3d405b)
+      .rectangle(width / 2, 448, 220, 44, 0x3d405b)
       .setStrokeStyle(2, 0xf4f1de)
       .setInteractive({ useHandCursor: true });
     const rankingLabel = this.add
-      .text(width / 2, 430, 'Weekly ranking', {
+      .text(width / 2, 448, 'Weekly ranking', {
         fontFamily: 'monospace',
         fontSize: '18px',
         color: '#f4f1de',
@@ -140,17 +149,17 @@ export class ResultScene extends Phaser.Scene {
     // webview, so "Post to comments" is the only sharing action offered.
     // Post to comments (share text only: attempts + puzzle number). One post per player per puzzle.
     const postButton = this.add
-      .rectangle(width / 2, height - 94, 240, 48, 0xe07a5f)
+      .rectangle(width / 2, height - 106, 240, 48, 0xe07a5f)
       .setStrokeStyle(4, 0xf4f1de);
     const postLabel = this.add
-      .text(width / 2, height - 94, 'Post to comments', {
+      .text(width / 2, height - 106, 'Post to comments', {
         fontFamily: 'monospace',
         fontSize: '20px',
         color: '#1b1f2a',
       })
       .setOrigin(0.5);
     const cancelText = this.add
-      .text(width / 2, height - 56, '', {
+      .text(width / 2, height - 66, '', {
         fontFamily: 'monospace',
         fontSize: '14px',
         color: '#a7b1c2',
@@ -264,6 +273,88 @@ export class ResultScene extends Phaser.Scene {
         color: '#a7b1c2',
       })
       .setOrigin(0.5);
+  }
+
+  private ownStatBucket(state: GameState): keyof StatsResponse['stats'] | null {
+    if (!state.finished) {
+      return null;
+    }
+    if (state.solved) {
+      if (state.attemptsUsed === 1) return 'solved1';
+      if (state.attemptsUsed === 2) return 'solved2';
+      return 'solved3';
+    }
+    return 'failed';
+  }
+
+  private async loadStats(state: GameState): Promise<void> {
+    const bucket = this.ownStatBucket(state);
+    try {
+      const { stats } = await fetchTodayStats();
+      if (!this.scene.isActive()) {
+        return;
+      }
+      const total = stats.solved1 + stats.solved2 + stats.solved3 + stats.failed;
+      if (total <= 0) {
+        return;
+      }
+      this.drawStats(stats, bucket);
+    } catch {
+      // No chart on fetch errors; the reserved area just stays empty.
+    }
+  }
+
+  private drawStats(
+    stats: StatsResponse['stats'],
+    highlight: keyof StatsResponse['stats'] | null
+  ): void {
+    const { width } = this.scale;
+    const total = stats.solved1 + stats.solved2 + stats.solved3 + stats.failed;
+    const max = Math.max(stats.solved1, stats.solved2, stats.solved3, stats.failed, 1);
+    const entries: Array<{ key: keyof StatsResponse['stats']; label: string }> = [
+      { key: 'solved1', label: '1 try' },
+      { key: 'solved2', label: '2 tries' },
+      { key: 'solved3', label: '3 tries' },
+      { key: 'failed', label: 'Failed' },
+    ];
+
+    this.add
+      .text(width / 2, STATS_TITLE_Y, `Today: ${total} players`, {
+        fontFamily: 'monospace',
+        fontSize: '11px',
+        color: '#f2cc8f',
+      })
+      .setOrigin(0.5);
+
+    const slotWidth = (width - 48) / entries.length;
+    entries.forEach((entry, index) => {
+      const x = 24 + slotWidth * (index + 0.5);
+      const count = stats[entry.key];
+      const barHeight =
+        count === 0 ? 2 : Math.max(4, Math.round((count / max) * BAR_MAX_HEIGHT));
+      const top = BAR_BOTTOM_Y - barHeight;
+      const mine = highlight === entry.key;
+      const color = mine ? '#f4f1de' : '#a7b1c2';
+
+      this.add
+        .rectangle(x, top, 34, barHeight, mine ? 0x81b29a : 0x3d405b)
+        .setOrigin(0.5, 1)
+        .setStrokeStyle(mine ? 3 : 1, mine ? 0xf4f1de : 0x6b7280);
+      this.add
+        .text(x, top - 10, String(count), {
+          fontFamily: 'monospace',
+          fontSize: '11px',
+          color,
+        })
+        .setOrigin(0.5, 1);
+      this.add
+        .text(x, STATS_LABEL_Y, entry.label, {
+          fontFamily: 'monospace',
+          fontSize: '10px',
+          color,
+        })
+        .setOrigin(0.5, 0);
+    });
   }
 
   private updateCountdown(): void {

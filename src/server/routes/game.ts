@@ -9,6 +9,7 @@ import {
 } from '../core/game';
 import { getTodayInfo, toClientPuzzle } from '../core/puzzle';
 import { getLeaderboard } from '../core/leaderboard';
+import { getSeenHowTo, markHowToSeen } from '../core/howto';
 
 export const game = new Hono();
 
@@ -85,6 +86,13 @@ game.post('/share', async (c) => {
     const message = error instanceof Error ? error.message : 'Could not post result';
     return c.json({ error: message }, { status: 400 });
   }
+});
+
+game.get('/seen-howto', async (c) => c.json({ seen: await getSeenHowTo() }));
+
+game.post('/seen-howto', async (c) => {
+  await markHowToSeen();
+  return c.json({ seen: true });
 });
 
 game.get('/stats/today', async (c) => {

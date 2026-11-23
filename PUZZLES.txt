@@ -1,0 +1,963 @@
+DETECTICON - ALL PUZZLES
+========================
+Total: 60 puzzles
+
+PUZZLE 001 - The Vanished Crown
+Scene: At 7:45 PM, the glitter crown vanished from the prop table. The theater power was out from 7:30 to 7:50. One of the four is lying.
+Suspects:
+  1. Dana Reyes (Director) [INNOCENT]
+     Testimony: I was giving the cast a pep talk onstage from 7:35 to 7:50. I never went near the prop table.
+     Alibi: The cast's group selfie is timestamped 7:44, with Dana standing in the middle onstage.
+  2. Felix Moran (Lighting Tech) [KILLER]
+     Testimony: I was testing the spotlights in the booth from 7:35 to 7:50. I stayed there the whole time.
+     Contradiction: The booth log shows no power draw until 7:50, and glitter was stuck to his sleeve.
+  3. Nell Ashby (Costume Designer) [INNOCENT]
+     Testimony: I was hemming a cloak by the wardrobe window, since it was the only light. I was there at 7:40.
+     Alibi: Her phone photo of the half-hemmed cloak is timestamped 7:41, taken at the wardrobe window.
+  4. Owen Hart (Stage Manager) [INNOCENT]
+     Testimony: I was fetching candles from the storage closet for the outage. I got back around 7:45.
+     Alibi: The candle sign-out sheet is signed 7:42, and the janitor saw him in the closet.
+
+PUZZLE 002 - The Salted Pie
+Scene: At 1:20 PM, the dining car's apple pie was found full of salt, not sugar. The train was in a tunnel from 1:10 to 1:25.
+Suspects:
+  1. Greta Lund (Chef) [INNOCENT]
+     Testimony: I was rolling dough in the galley from 1:10 to 1:30. I left the pie cooling on the rack.
+     Alibi: The galley camera shows her rolling dough nonstop from 1:10 to 1:30.
+  2. Milo Baxter (Conductor) [INNOCENT]
+     Testimony: I was punching tickets in carriage four around 1:15. I never entered the dining car.
+     Alibi: Three passengers' tickets in carriage four are punched between 1:14 and 1:18.
+  3. Agnes Whitlow (Retired Teacher) [INNOCENT]
+     Testimony: I was napping in my sleeper cabin during the tunnel. I woke up when we came out.
+     Alibi: The cabin door lock log shows it stayed shut from 1:05 to 1:30.
+  4. Silas Crane (Photographer) [KILLER]
+     Testimony: I was snapping photos of the mountain view from my window seat at 1:15. It was lovely.
+     Contradiction: His camera has no photos from 1:08 to 1:26, and salt dust was on his cuff.
+
+PUZZLE 003 - The Missing Mittens
+Scene: At 3:30 PM, every guest's left mitten vanished from the lodge drying rack. A snowstorm kept the front door shut from 3:00 to 3:40.
+Suspects:
+  1. Rolf Hayes (Ski Instructor) [KILLER]
+     Testimony: I was out on the slope teaching a lesson from 3:10 to 3:40. I only came in afterward.
+     Contradiction: The door lock log shows no exits, and the rack camera caught his sleeve at 3:22.
+  2. Pia Moreau (Lodge Cook) [INNOCENT]
+     Testimony: I was stirring chili in the kitchen all afternoon. I stepped out for nothing.
+     Alibi: The stove timer was reset by her badge at 3:12 and again at 3:28.
+  3. Wanda Pell (Guest) [INNOCENT]
+     Testimony: I was soaking in the hot tub room from 3:00 to 3:40. I only left to fetch a towel.
+     Alibi: Her towel slip reads 3:02 in and 3:38 out, signed at the spa desk.
+  4. Theo Marsh (Front Desk Clerk) [INNOCENT]
+     Testimony: I was at the front desk answering phones all afternoon. I never touched the drying rack.
+     Alibi: The desk phone log shows five calls under his login between 3:05 and 3:35.
+
+PUZZLE 004 - The Vanishing Violin
+Scene: At 9:10 PM, the solo violin vanished backstage. The hall's fire doors were sealed for the encore from 9:00 to 9:20.
+Suspects:
+  1. Mara Voss (Concertmaster) [INNOCENT]
+     Testimony: I was tuning onstage with the orchestra from 9:02 to 9:18. The doors stayed shut behind us.
+     Alibi: The conductor's score notes show Mara's tuning cue at 9:03 and her stand empty until 9:19.
+  2. Elias Fenn (Stagehand) [INNOCENT]
+     Testimony: I was stacking chairs in the side wing from 9:00 to 9:20. I never went near the green room.
+     Alibi: The wing camera shows Elias folding chairs at 9:05, 9:12 and 9:18.
+  3. Juno Marsh (Manager) [KILLER]
+     Testimony: I was in the lobby at 9:10, selling programs while the doors were sealed.
+     Contradiction: The lobby till had no sales after 9:02, and the sealed-door log lists Juno as the only bearer of a backstage key.
+  4. Tessa Lund (Violinist) [INNOCENT]
+     Testimony: I was beside Mara onstage from 9:02 to 9:18. We shared the same stand.
+     Alibi: Tessa's bow rosin and seat are visible in the 9:16 stage photo.
+
+PUZZLE 005 - The Iced Cake
+Scene: At 4:15 PM, the wedding cake had its sugar roses crushed. The bakery walk-in freezer jammed shut from 4:00 to 4:30.
+Suspects:
+  1. Nora Pike (Pastry Chef) [KILLER]
+     Testimony: I was frosting the cake in the display case until 4:15. The freezer never held me.
+     Contradiction: The display case was empty from 4:02, and flour marks on the freezer handle match Nora's gloves.
+  2. Basil Reed (Decorator) [INNOCENT]
+     Testimony: I was piping borders at the front bench from 4:05 to 4:25.
+     Alibi: The bench camera shows Basil piping nonstop from 4:04 to 4:26.
+  3. Imani Cole (Delivery Driver) [INNOCENT]
+     Testimony: I was loading boxes at the back dock from 4:00 to 4:20; the freezer door faced away.
+     Alibi: The dock manifest has Imani's signature at 4:02 and 4:19.
+  4. Otto Vale (Cashier) [INNOCENT]
+     Testimony: I was ringing up a customer at 4:15, right beside the display case.
+     Alibi: Register three logged a sale at 4:14 under Otto's till code.
+
+PUZZLE 006 - The Stolen Map
+Scene: At 11:40 AM, the antique map left its case during a fire drill. The museum's west wing stayed locked until noon.
+Suspects:
+  1. Hana Sato (Curator) [INNOCENT]
+     Testimony: I was leading the evacuation in the east hall from 11:35 to 11:55.
+     Alibi: The east hall intercom shows Hana's badge at 11:36 and 11:52.
+  2. Dario Wren (Guard) [INNOCENT]
+     Testimony: I was checking the west wing door at 11:40. It was still locked.
+     Alibi: The door's card reader logged Dario at 11:39 and never opened.
+  3. Priya Nath (Docent) [INNOCENT]
+     Testimony: I was with a school group in the lobby from 11:30 to 12:00.
+     Alibi: Twelve student sign-in slips list Priya as guide between 11:31 and 11:58.
+  4. Milo Ash (Archivist) [KILLER]
+     Testimony: I was in the basement archive, cataloguing boxes during the drill.
+     Contradiction: The archive light meter shows no movement after 11:20, and map glue was on Milo's cuffs.
+
+PUZZLE 007 - The Missing Oar
+Scene: At 6:20 PM, the club spare oar vanished. Fog closed the boathouse slip from 6:00 to 6:40.
+Suspects:
+  1. Rosie Kade (Coach) [INNOCENT]
+     Testimony: I was rigging shells in the main bay from 6:05 to 6:35.
+     Alibi: The bay camera shows Rosie rigging at 6:08, 6:20 and 6:33.
+  2. Felix Dunne (Boatkeeper) [KILLER]
+     Testimony: I was at the slip end at 6:20, watching the fog roll in.
+     Contradiction: The slip gate was chained from inside at 6:02, and the oar rack key hangs only on Felix's belt.
+  3. Anika Rao (Rower) [INNOCENT]
+     Testimony: I was stretching with the crew in the locker room at 6:20.
+     Alibi: The crew group photo at 6:19 has Anika in the front row.
+  4. Tomas Vale (Mechanic) [INNOCENT]
+     Testimony: I was fixing the winch in the workshop from 6:10 to 6:30.
+     Alibi: The tool log shows Tomas signing out a wrench at 6:11 and returning it at 6:29.
+
+PUZZLE 008 - The Silent Bell
+Scene: At 8:05 AM, the church bell rope was cut. The tower door was bolted from 7:50 to 8:20.
+Suspects:
+  1. Ada Merrill (Sexton) [INNOCENT]
+     Testimony: I was sweeping the nave from 7:55 to 8:15, well below the tower.
+     Alibi: The nave camera shows Ada sweeping at 8:04 with the broom in frame.
+  2. Jonah Pike (Bell Ringer) [INNOCENT]
+     Testimony: I was at the cafe across the square until 8:10.
+     Alibi: The cafe receipt for Jonah is timestamped 8:06.
+  3. Greta Voss (Organist) [KILLER]
+     Testimony: I was practicing in the loft at 8:05, right under the bell.
+     Contradiction: The loft music stand was untouched, and rope fibers caught in Greta's hairpin.
+  4. Samir Hale (Volunteer) [INNOCENT]
+     Testimony: I was unlocking the side gate at 8:05 for the flower delivery.
+     Alibi: The flower van's app shows Samir signing at 8:04.
+
+PUZZLE 009 - The Empty Safe
+Scene: At 2:30 PM, the bank deposit safe was emptied. The vault elevator was stuck between floors from 2:20 to 2:45.
+Suspects:
+  1. Clara Vale (Teller) [INNOCENT]
+     Testimony: I was at window three from 2:15 to 2:40, serving customers.
+     Alibi: The window camera shows Clara at 2:18, 2:30 and 2:38.
+  2. Desmond Ash (Guard) [KILLER]
+     Testimony: I was riding the stuck elevator at 2:30, waiting for help.
+     Contradiction: The elevator call log shows no ride after 2:18, and the safe dial had Desmond's prints.
+  3. Mei Lin (Manager) [INNOCENT]
+     Testimony: I was on the phone with the regional office at 2:30.
+     Alibi: The office record shows Mei's extension connected from 2:22 to 2:41.
+  4. Owen Pike (Courier) [INNOCENT]
+     Testimony: I was waiting in the lobby at 2:30 with a sealed bag.
+     Alibi: The lobby queue camera shows Owen from 2:25 to 2:42.
+
+PUZZLE 010 - The Spilled Ink
+Scene: At 10:15 PM, the press ink tank was emptied onto the floor. The press room was locked for the 10:00 edition.
+Suspects:
+  1. Ruth Kade (Editor) [INNOCENT]
+     Testimony: I was proofing the front page in the newsroom at 10:15.
+     Alibi: The newsroom markup shows Ruth's initials at 10:14 and 10:19.
+  2. Abel Fenn (Printer) [INNOCENT]
+     Testimony: I was changing the rolls on press two from 10:05 to 10:25.
+     Alibi: The press counter logged Abel's badge at 10:06 and 10:24.
+  3. Nia Cole (Reporter) [INNOCENT]
+     Testimony: I was filing a story from the cafe next door at 10:15.
+     Alibi: Nia's draft saved from the cafe network at 10:13.
+  4. Victor Hale (Night Guard) [KILLER]
+     Testimony: I was patrolling the lobby at 10:15, far from the press room.
+     Contradiction: The lobby camera never shows Victor after 9:58, and ink stains mark his flashlight grip.
+
+PUZZLE 011 - The Broken Compass
+Scene: At 5:50 PM, the ship's brass compass was smashed. The bridge was sealed during a squall from 5:30 to 6:10.
+Suspects:
+  1. Lars Voss (Captain) [KILLER]
+     Testimony: I was on the bridge at 5:50, steering through the squall.
+     Contradiction: The helm log shows autopilot engaged from 5:32, and brass dust was in Lars's glove.
+  2. Amara Nath (Navigator) [INNOCENT]
+     Testimony: I was below in the chart room from 5:40 to 6:00.
+     Alibi: The chart room lamp meter shows Amara's bunk occupied at 5:49.
+  3. Colin Reed (Deckhand) [INNOCENT]
+     Testimony: I was lashing crates on the foredeck at 5:50.
+     Alibi: The deck camera shows Colin knotting rope at 5:48 and 5:52.
+  4. Sofia Lund (Cook) [INNOCENT]
+     Testimony: I was plating dinner in the galley at 5:50.
+     Alibi: The galley timer was punched by Sofia at 5:47 and 5:54.
+
+PUZZLE 012 - The Lost Locket
+Scene: At 7:25 PM, a silver locket vanished from a cruise cabin. A lifeboat drill locked the corridor from 7:15 to 7:40.
+Suspects:
+  1. Bea Merrill (Cabin Steward) [INNOCENT]
+     Testimony: I was making beds in cabin twelve at 7:25, down the hall.
+     Alibi: The housekeeping tablet shows Bea's key card at cabin twelve at 7:23.
+  2. Hugo Pike (Passenger) [INNOCENT]
+     Testimony: I was on deck for the drill at 7:25 with my life vest on.
+     Alibi: The drill roll call lists Hugo at station four at 7:24.
+  3. Ingrid Vale (Companion) [KILLER]
+     Testimony: I was in the lounge at 7:25, listening to the band play.
+     Contradiction: The lounge band started at 7:31, and the locket clasp was in Ingrid's purse.
+  4. Rafael Ash (Photographer) [INNOCENT]
+     Testimony: I was photographing the drill from the stairwell at 7:25.
+     Alibi: Rafael's camera has twelve drill photos timestamped 7:20 to 7:26.
+
+PUZZLE 013 - The Faded Painting
+Scene: At 3:20 PM, the studio painting was splashed with thinner. The studio lights tripped off from 3:10 to 3:35.
+Suspects:
+  1. Celia Wren (Painter) [INNOCENT]
+     Testimony: I was sketching by the window at 3:20 while the lights were out.
+     Alibi: Celia's sketch has a pencil date at 3:19 and daylight shading.
+  2. Nolan Fenn (Framer) [INNOCENT]
+     Testimony: I was measuring frames in the back room at 3:20.
+     Alibi: The saw bench camera shows Nolan cutting at 3:18 and 3:23.
+  3. Yara Cole (Student) [INNOCENT]
+     Testimony: I was cleaning brushes at the sink from 3:15 to 3:30.
+     Alibi: The sink log shows Yara's badge at 3:16 and running water until 3:29.
+  4. Bruno Hale (Dealer) [KILLER]
+     Testimony: I was in the cafe downstairs at 3:20, waiting for the lights.
+     Contradiction: The cafe stayed closed until 3:40, and thinner drips trail from Bruno's shoes.
+
+PUZZLE 014 - The Cold Coffee
+Scene: At 12:40 PM, the cafe espresso machine was sabotaged. The kitchen gas was shut off from 12:30 to 12:55.
+Suspects:
+  1. Mara Lund (Barista) [INNOCENT]
+     Testimony: I was taking orders at the counter at 12:40, machine or no machine.
+     Alibi: The counter camera shows Mara serving at 12:38 and 12:43.
+  2. Gideon Pike (Manager) [KILLER]
+     Testimony: I was checking the gas valve in the kitchen at 12:40.
+     Contradiction: The gas valve needs a key held only by Gideon, and coffee grounds were in his pocket.
+  3. Leila Sato (Waitress) [INNOCENT]
+     Testimony: I was clearing tables in the back room at 12:40.
+     Alibi: Leila's tray log shows table six cleared at 12:39.
+  4. Oscar Reed (Delivery Driver) [INNOCENT]
+     Testimony: I was unloading crates at the side door at 12:40.
+     Alibi: The delivery app shows Oscar's scan at 12:41.
+
+PUZZLE 015 - The Missing Page
+Scene: At 6:15 PM, a rare manuscript page was torn out. The library's old lift was stuck from 6:00 to 6:30.
+Suspects:
+  1. Arthur Vale (Librarian) [KILLER]
+     Testimony: I was trapped in the lift at 6:15, waiting for help.
+     Contradiction: The lift was stuck empty on floor three, and the torn page was in Arthur's coat.
+  2. Bina Rao (Archivist) [INNOCENT]
+     Testimony: I was in the reading room at 6:15, helping a visitor.
+     Alibi: The reading room sign-in shows Bina's visitor at 6:11 and 6:22.
+  3. Cedric Hale (Guard) [INNOCENT]
+     Testimony: I was watching the front door at 6:15.
+     Alibi: The door camera logs Cedric's badge at 6:14 and 6:28.
+  4. Dora Pike (Volunteer) [INNOCENT]
+     Testimony: I was sorting donations in the basement at 6:15.
+     Alibi: The donation cart log shows Dora's cart at 6:12 and 6:25.
+
+PUZZLE 016 - The Gone Guitar
+Scene: At 4:45 PM, the shop vintage guitar disappeared. The alarm test locked the display room from 4:30 to 5:00.
+Suspects:
+  1. Elena Cruz (Owner) [INNOCENT]
+     Testimony: I was at the register at 4:45, talking to a customer.
+     Alibi: The register camera shows Elena with a customer at 4:44.
+  2. Finn Ash (Repair Tech) [INNOCENT]
+     Testimony: I was restringing a lute in the workshop at 4:45.
+     Alibi: The bench camera shows Finn's hands at 4:43 and 4:47.
+  3. Gina Voss (Sales Clerk) [KILLER]
+     Testimony: I was in the display room at 4:45, dusting the stands.
+     Contradiction: The display room was sealed by the alarm test, and guitar polish was on Gina's sleeves.
+  4. Hugo Lund (Delivery Driver) [INNOCENT]
+     Testimony: I was carrying boxes to the stockroom at 4:45.
+     Alibi: The stockroom dolly log shows Hugo's scan at 4:42 and 4:49.
+
+PUZZLE 017 - The Empty Birdcage
+Scene: At 1:50 PM, the shop prize finch vanished. A storm kept the front shutters down from 1:30 to 2:10.
+Suspects:
+  1. Iris Pike (Owner) [INNOCENT]
+     Testimony: I was feeding the other birds at 1:50 behind the counter.
+     Alibi: The counter camera shows Iris with the feed tin at 1:49.
+  2. Jasper Vale (Clerk) [KILLER]
+     Testimony: I was in the stockroom at 1:50, counting seed bags.
+     Contradiction: The stock tally was last signed at 1:20, and finch feathers stuck to Jasper's sweater.
+  3. Kayla Nath (Customer) [INNOCENT]
+     Testimony: I was at the front window at 1:50, watching the storm.
+     Alibi: The window camera shows Kayla at 1:47 and 1:53.
+  4. Lionel Reed (Vet) [INNOCENT]
+     Testimony: I was examining a parrot in the back room at 1:50.
+     Alibi: The exam log shows Lionel's entry at 1:44 and exit at 1:56.
+
+PUZZLE 018 - The Cracked Trophy
+Scene: At 8:30 PM, the school trophy was cracked. The gym doors were locked for the assembly from 8:15 to 8:45.
+Suspects:
+  1. Mira Cole (Coach) [INNOCENT]
+     Testimony: I was with the team in the locker room at 8:30.
+     Alibi: The team group photo at 8:29 includes Mira.
+  2. Noah Fenn (Custodian) [INNOCENT]
+     Testimony: I was mopping the hallway at 8:30, outside the gym.
+     Alibi: The hallway camera shows Noah mopping at 8:28 and 8:33.
+  3. Olive Sato (Teacher) [INNOCENT]
+     Testimony: I was at the assembly microphone at 8:30.
+     Alibi: The sound desk log shows Olive's mic active from 8:25 to 8:38.
+  4. Quinn Ash (Principal) [KILLER]
+     Testimony: I was in my office at 8:30, signing papers.
+     Contradiction: The office light was off from 8:20, and trophy glass was embedded in Quinn's shoe.
+
+PUZZLE 019 - The Dry Paint
+Scene: At 11:05 AM, the shop sign was found unpainted. Rain halted work on the outdoor banner from 10:50 to 11:20.
+Suspects:
+  1. Ravi Hale (Painter) [KILLER]
+     Testimony: I was painting the banner under the awning at 11:05.
+     Contradiction: The awning camera shows the banner untouched at 11:05, and wet paint marked Ravi's gloves.
+  2. Selma Pike (Designer) [INNOCENT]
+     Testimony: I was sketching the lettering in the office at 11:05.
+     Alibi: Selma's sketch saved at 11:04 with the final lettering.
+  3. Theo Lund (Apprentice) [INNOCENT]
+     Testimony: I was mixing colors in the back room at 11:05.
+     Alibi: The mixing log shows Theo's initials at 11:03 and 11:09.
+  4. Uma Reed (Customer) [INNOCENT]
+     Testimony: I was browsing inside at 11:05, waiting out the rain.
+     Alibi: The shop camera shows Uma at 11:02 and 11:11.
+
+PUZZLE 020 - The Missing Key
+Scene: At 9:45 PM, the hotel master key vanished. A fire alarm held the corridor locked from 9:30 to 10:00.
+Suspects:
+  1. Vera Ash (Receptionist) [INNOCENT]
+     Testimony: I was at the front desk at 9:45, calming guests.
+     Alibi: The desk camera shows Vera at 9:43 and 9:48.
+  2. Walter Pike (Guest) [INNOCENT]
+     Testimony: I was in the lobby at 9:45 with everyone else.
+     Alibi: The lobby camera shows Walter at 9:41 and 9:52.
+  3. Xiomara Vale (Housekeeper) [KILLER]
+     Testimony: I was on floor four at 9:45, restocking towels.
+     Contradiction: The floor four linen closet was sealed by the alarm, and the key ring was in Xiomara's cart.
+  4. Yosef Lund (Bellhop) [INNOCENT]
+     Testimony: I was by the elevator at 9:45, directing guests.
+     Alibi: The elevator camera shows Yosef at 9:44 and 9:50.
+
+PUZZLE 021 - The Silent Radio
+Scene: At 7:15 AM, the station microphone was unplugged. The transmitter room was sealed for testing from 7:00 to 7:30.
+Suspects:
+  1. Anita Fenn (Host) [INNOCENT]
+     Testimony: I was reading news on air at 7:15.
+     Alibi: The broadcast log shows Anita's voice from 7:12 to 7:18.
+  2. Barry Cole (Engineer) [KILLER]
+     Testimony: I was in the transmitter room at 7:15, running the test.
+     Contradiction: The transmitter was locked from outside at 7:02, and the mic cable was coiled in Barry's bag.
+  3. Carla Voss (Producer) [INNOCENT]
+     Testimony: I was cueing guests in the booth at 7:15.
+     Alibi: The booth camera shows Carla with cue cards at 7:14.
+  4. Devon Reed (Intern) [INNOCENT]
+     Testimony: I was fetching coffee from the cafe at 7:15.
+     Alibi: The cafe receipt for Devon is stamped 7:16.
+
+PUZZLE 022 - The Lost Necklace
+Scene: At 5:25 PM, the jeweler's necklace case was emptied. The shop shutter was down from 5:10 to 5:40.
+Suspects:
+  1. Elsie Wren (Jeweler) [INNOCENT]
+     Testimony: I was polishing rings at the bench at 5:25.
+     Alibi: The bench camera shows Elsie polishing at 5:23 and 5:29.
+  2. Frank Ash (Guard) [INNOCENT]
+     Testimony: I was watching the shutter from inside at 5:25.
+     Alibi: The shutter camera shows Frank's reflection at 5:24.
+  3. Greta Lund (Apprentice) [INNOCENT]
+     Testimony: I was ordering gems in the office at 5:25.
+     Alibi: The office order was submitted by Greta at 5:22.
+  4. Hank Pike (Courier) [KILLER]
+     Testimony: I was outside the shutter at 5:25 with a package.
+     Contradiction: The shutter was down and no delivery was logged, and the necklace clasp was in Hank's pocket.
+
+PUZZLE 023 - The Melted Ice
+Scene: At 8:50 PM, the rink ice swan melted. The Zamboni was out of service and the doors locked from 8:30 to 9:10.
+Suspects:
+  1. Ivan Vale (Rink Manager) [KILLER]
+     Testimony: I was in the stands at 8:50, watching the skate.
+     Contradiction: The stands camera shows no one at 8:50, and meltwater soaked Ivan's gloves.
+  2. Julia Nath (Skater) [INNOCENT]
+     Testimony: I was on the ice at 8:50 during the routine.
+     Alibi: The rink camera shows Julia in the center at 8:49 and 8:52.
+  3. Kyle Reed (Referee) [INNOCENT]
+     Testimony: I was at the penalty box at 8:50.
+     Alibi: The game log shows Kyle's whistle at 8:48 and 8:51.
+  4. Lena Pike (Vendor) [INNOCENT]
+     Testimony: I was selling cocoa at the concession at 8:50.
+     Alibi: The concession camera shows Lena at 8:47 and 8:54.
+
+PUZZLE 024 - The Empty Tank
+Scene: At 2:05 PM, the aquarium rare fish vanished. The pump room was sealed during maintenance from 1:50 to 2:20.
+Suspects:
+  1. Marco Hale (Curator) [INNOCENT]
+     Testimony: I was giving a tour at 2:05 in the main hall.
+     Alibi: The tour tickets show Marco's badge at 2:02 and 2:12.
+  2. Nadia Cruz (Diver) [INNOCENT]
+     Testimony: I was in the viewing tunnel at 2:05, cleaning glass.
+     Alibi: The tunnel camera shows Nadia's tank suit at 2:04.
+  3. Omar Fenn (Technician) [KILLER]
+     Testimony: I was in the pump room at 2:05, checking the seal.
+     Contradiction: The pump room was sealed from outside, and algae slime marked Omar's sleeves.
+  4. Petra Lund (Guide) [INNOCENT]
+     Testimony: I was at the entrance desk at 2:05.
+     Alibi: The desk log shows Petra stamping tickets at 2:03 and 2:09.
+
+PUZZLE 025 - The Missing Briefcase
+Scene: At 4:35 PM, a briefcase vanished from the station bench. Platform three closed during a signal fault from 4:20 to 4:50.
+Suspects:
+  1. Quinn Sato (Commuter) [INNOCENT]
+     Testimony: I was on platform two at 4:35, waiting for my train.
+     Alibi: The platform two camera shows Quinn at 4:31 and 4:39.
+  2. Rosa Vale (Porter) [KILLER]
+     Testimony: I was carrying luggage on platform three at 4:35.
+     Contradiction: Platform three was closed by the signal fault, and the case tag was in Rosa's pocket.
+  3. Sam Ash (Clerk) [INNOCENT]
+     Testimony: I was at the ticket window at 4:35.
+     Alibi: The window camera shows Sam at 4:33 and 4:41.
+  4. Tito Reed (Cab Driver) [INNOCENT]
+     Testimony: I was outside on the forecourt at 4:35.
+     Alibi: The forecourt camera shows Tito's cab at 4:32 and 4:44.
+
+PUZZLE 026 - The Cold Grill
+Scene: At 7:40 PM, the campsite food box was raided. Rain kept everyone in their tents from 7:20 to 8:00.
+Suspects:
+  1. Uma Pike (Camper) [INNOCENT]
+     Testimony: I was in my tent at 7:40, reading by flashlight.
+     Alibi: Uma's tent lamp was on from 7:25, logged by the site meter.
+  2. Vince Lund (Guide) [INNOCENT]
+     Testimony: I was in the shelter tent at 7:40, mapping the trail.
+     Alibi: The shelter camera shows Vince's map at 7:38.
+  3. Wendy Ash (Camper) [INNOCENT]
+     Testimony: I was in my tent at 7:40, listening to the rain.
+     Alibi: Wendy's tent zipper sensor stayed shut from 7:21 to 7:55.
+  4. Xavier Reed (Camper) [KILLER]
+     Testimony: I was in the shelter at 7:40, boiling water.
+     Contradiction: The stove was cold at 7:40, and cracker crumbs led to Xavier's tent.
+
+PUZZLE 027 - The Gone Manuscript
+Scene: At 10:40 AM, the archive manuscript disappeared. The reading lift was stuck from 10:25 to 10:55.
+Suspects:
+  1. Yara Voss (Archivist) [KILLER]
+     Testimony: I was in the lift at 10:40, trapped between floors.
+     Contradiction: The lift was empty when rescue opened it, and the manuscript was under Yara's coat.
+  2. Zane Cole (Guard) [INNOCENT]
+     Testimony: I was at the archive door at 10:40.
+     Alibi: The door camera shows Zane at 10:38 and 10:46.
+  3. Bella Reed (Researcher) [INNOCENT]
+     Testimony: I was at the microfilm desk at 10:40.
+     Alibi: The microfilm log shows Bella's request at 10:36.
+  4. Cyrus Hale (Intern) [INNOCENT]
+     Testimony: I was shelving boxes in the back at 10:40.
+     Alibi: The shelf camera shows Cyrus at 10:39 and 10:45.
+
+PUZZLE 028 - The Broken Clock
+Scene: At 6:05 PM, the town hall clock stopped. The tower stairs were roped off from 5:50 to 6:20.
+Suspects:
+  1. Dora Fenn (Clerk) [INNOCENT]
+     Testimony: I was at the front desk at 6:05, sorting mail.
+     Alibi: The mail log shows Dora's initials at 6:04 and 6:11.
+  2. Emil Pike (Janitor) [INNOCENT]
+     Testimony: I was mopping the lobby at 6:05.
+     Alibi: The lobby camera shows Emil at 6:03 and 6:09.
+  3. Freya Lund (Clockkeeper) [KILLER]
+     Testimony: I was in the tower at 6:05, winding the gears.
+     Contradiction: The tower rope barrier was intact at 6:05, and gear oil marked Freya's hands.
+  4. Gus Ash (Visitor) [INNOCENT]
+     Testimony: I was in the courtyard at 6:05, taking photos.
+     Alibi: Gus's photo of the clock is timestamped 6:04.
+
+PUZZLE 029 - The Silent Organ
+Scene: At 3:55 PM, the theater organ key cover was stolen. The organ loft was locked from 3:40 to 4:10.
+Suspects:
+  1. Hilda Wren (Organist) [INNOCENT]
+     Testimony: I was in the cafe at 3:55, taking a break.
+     Alibi: The cafe receipt for Hilda is stamped 3:54.
+  2. Ivor Pike (Stage Manager) [INNOCENT]
+     Testimony: I was in the wings at 3:55, checking lights.
+     Alibi: The light board log shows Ivor's cues at 3:52 and 3:58.
+  3. Kira Reed (Usher) [KILLER]
+     Testimony: I was sweeping the loft at 3:55, as always.
+     Contradiction: The loft was locked from outside at 3:40, and the velvet cover was in Kira's locker.
+  4. Karla Voss (Singer) [INNOCENT]
+     Testimony: I was warming up in the dressing room at 3:55.
+     Alibi: The dressing room camera shows Karla at 3:53 and 3:59.
+
+PUZZLE 030 - The Faded Poster
+Scene: At 5:15 PM, the print shop master poster was scrubbed blank. The press floor was locked from 5:00 to 5:30.
+Suspects:
+  1. Leo Ash (Printer) [INNOCENT]
+     Testimony: I was at the counter at 5:15, wrapping copies.
+     Alibi: The counter camera shows Leo wrapping at 5:14.
+  2. Mina Sato (Designer) [INNOCENT]
+     Testimony: I was in the office at 5:15, emailing the client.
+     Alibi: Mina's email was sent at 5:13 from the office network.
+  3. Nate Cole (Apprentice) [INNOCENT]
+     Testimony: I was in the stockroom at 5:15, counting paper.
+     Alibi: The stockroom log shows Nate's count at 5:12 and 5:19.
+  4. Opal Vale (Manager) [KILLER]
+     Testimony: I was at the front door at 5:15, locking up early.
+     Contradiction: The door was locked from 5:00, and solvent stained Opal's apron.
+
+PUZZLE 031 - The Silent Alarm
+Scene: At 8:15 AM, the hardware store alarm panel was swapped. The back office was locked during the morning stocktake.
+Suspects:
+  1. Vera Nolan (Manager) [INNOCENT]
+     Testimony: I was counting stock in the aisle at 8:15, clipboard in hand.
+     Alibi: The stock sheet shows Vera's initials at 8:12 and 8:19.
+  2. Dane Pike (Electrician) [KILLER]
+     Testimony: I was at the panel at 8:15, testing the wiring.
+     Contradiction: The panel was sealed by stocktake locks, and a spare cover was in Dane's toolbox.
+  3. Mira Cole (Cashier) [INNOCENT]
+     Testimony: I was at register one at 8:15.
+     Alibi: The register camera shows Mira at 8:13 and 8:17.
+  4. Otto Reed (Delivery Driver) [INNOCENT]
+     Testimony: I was unloading boxes at the side door at 8:15.
+     Alibi: The delivery scan records Otto at 8:14.
+
+PUZZLE 032 - The Vanishing Watch
+Scene: At 2:20 PM, the clockmaker's gold watch disappeared. Blinds were down for the street fair from 2:00 to 2:40.
+Suspects:
+  1. Hana Vale (Clockmaker) [INNOCENT]
+     Testimony: I was repairing a mantel clock at 2:20 by the window.
+     Alibi: The bench lamp log shows Hana's light at 2:18.
+  2. Felix Ash (Apprentice) [INNOCENT]
+     Testimony: I was sweeping the front step at 2:20.
+     Alibi: The doorbell camera shows Felix outside at 2:19.
+  3. Greta Lund (Customer) [INNOCENT]
+     Testimony: I was browsing the display at 2:20.
+     Alibi: The display camera shows Greta at 2:16 and 2:24.
+  4. Silas Wren (Collector) [KILLER]
+     Testimony: I was in the back room at 2:20, waiting for the blinds to rise.
+     Contradiction: The back room was locked from outside, and watch links were in Silas's pocket.
+
+PUZZLE 033 - The Missing Mascot
+Scene: At halftime, 7:45 PM, the stadium mascot head vanished. The tunnel was chained from 7:30 to 8:00.
+Suspects:
+  1. Bruno Pike (Mascot) [KILLER]
+     Testimony: I was in the tunnel at 7:45, changing into the costume.
+     Contradiction: The tunnel chain was locked at 7:30, and feather trim was on Bruno's jacket.
+  2. Anita Cole (Cheer Coach) [INNOCENT]
+     Testimony: I was with the squad on the field at 7:45.
+     Alibi: The field camera shows Anita at 7:43 and 7:48.
+  3. Dario Vale (Vendor) [INNOCENT]
+     Testimony: I was selling drinks at the concession at 7:45.
+     Alibi: The concession till shows Dario's sale at 7:44.
+  4. Nia Reed (Announcer) [INNOCENT]
+     Testimony: I was at the mic booth at 7:45.
+     Alibi: The booth log shows Nia's voice at 7:44 and 7:49.
+
+PUZZLE 034 - The Spoiled Milk
+Scene: At 5:10 AM, the dairy milk crate was emptied. The cooling room was latched from 4:50 to 5:30.
+Suspects:
+  1. Ada Reed (Farmer) [INNOCENT]
+     Testimony: I was milking in the barn at 5:10.
+     Alibi: The barn camera shows Ada at 5:08 and 5:14.
+  2. Colin Hale (Driver) [INNOCENT]
+     Testimony: I was loading the truck at 5:10.
+     Alibi: The loading log shows Colin's scan at 5:09.
+  3. Greta Voss (Lab Tech) [KILLER]
+     Testimony: I was in the cooling room at 5:10, checking the temperature.
+     Contradiction: The cooling room was latched from outside, and milk residue marked Greta's sleeve.
+  4. Ivor Lund (Mechanic) [INNOCENT]
+     Testimony: I was fixing the tractor at 5:10.
+     Alibi: The tool board shows Ivor's wrench out at 5:05 and back at 5:20.
+
+PUZZLE 035 - The Lost Ring
+Scene: At 6:30 PM, a gold ring vanished from the pool bench. The pool was drained for cleaning from 6:00 to 7:00.
+Suspects:
+  1. Pia Sato (Lifeguard) [INNOCENT]
+     Testimony: I was at the empty pool edge at 6:30, checking the ladder.
+     Alibi: The ladder camera shows Pia at 6:28 and 6:34.
+  2. Milo Reed (Swimmer) [KILLER]
+     Testimony: I was swimming laps in the empty pool at 6:30.
+     Contradiction: The pool had no water at 6:30, and the ring was in Milo's swim bag.
+  3. Tessa Vale (Cleaner) [INNOCENT]
+     Testimony: I was scrubbing tiles in the changing room at 6:30.
+     Alibi: The changing room log shows Tessa's badge at 6:27.
+  4. Owen Pike (Guard) [INNOCENT]
+     Testimony: I was at the front gate at 6:30.
+     Alibi: The gate camera shows Owen at 6:29 and 6:36.
+
+PUZZLE 036 - The Cracked Mirror
+Scene: At 4:40 PM, the salon gilt mirror was cracked. A storm locked the back room from 4:20 to 5:00.
+Suspects:
+  1. Lena Ash (Stylist) [INNOCENT]
+     Testimony: I was cutting hair at station two at 4:40.
+     Alibi: The station camera shows Lena scissors at 4:39.
+  2. Ravi Cole (Barber) [INNOCENT]
+     Testimony: I was at the shampoo bowl at 4:40.
+     Alibi: The bowl log shows Ravi's station occupied at 4:38.
+  3. Uma Pike (Receptionist) [INNOCENT]
+     Testimony: I was at the front desk at 4:40.
+     Alibi: The desk camera shows Uma at 4:41.
+  4. Greta Vale (Owner) [KILLER]
+     Testimony: I was in the back room at 4:40, fetching towels.
+     Contradiction: The back room was locked from outside, and mirror glass was in Greta's shoe.
+
+PUZZLE 037 - The Stolen Script
+Scene: At 9:05 PM, the film's only script copy vanished. The studio went dark for rehearsal from 8:50 to 9:20.
+Suspects:
+  1. Ingrid Reed (Director) [KILLER]
+     Testimony: I was on set at 9:05, blocking the scene in the dark.
+     Contradiction: The set lights were off and the safety log lists Ingrid backstage, where script pages were found.
+  2. Walter Pike (Actor) [INNOCENT]
+     Testimony: I was in my trailer at 9:05, learning lines.
+     Alibi: The trailer camera shows Walter reading at 9:04.
+  3. Mei Ash (Script Supervisor) [INNOCENT]
+     Testimony: I was in the office at 9:05, logging notes.
+     Alibi: Mei's notes saved at 9:03 and 9:08.
+  4. Felix Lund (Grip) [INNOCENT]
+     Testimony: I was checking rigging on the catwalk at 9:05.
+     Alibi: The catwalk sensor shows Felix at 9:02 and 9:11.
+
+PUZZLE 038 - The Gone Gloves
+Scene: At 11:20 AM, the ski resort spare gloves vanished. High wind stopped the chairlift from 11:00 to 11:40.
+Suspects:
+  1. Rolf Pike (Instructor) [INNOCENT]
+     Testimony: I was teaching on the bunny slope at 11:20.
+     Alibi: The slope camera shows Rolf with a class at 11:19.
+  2. Sofia Reed (Attendant) [INNOCENT]
+     Testimony: I was at the lift station at 11:20.
+     Alibi: The station log shows Sofia's badge at 11:18 and 11:26.
+  3. Lars Vale (Guest) [KILLER]
+     Testimony: I was riding the chairlift at 11:20, enjoying the view.
+     Contradiction: The lift stopped at 11:00, and glove wool was caught in Lars's zipper.
+  4. Anika Cole (Shop Clerk) [INNOCENT]
+     Testimony: I was in the rental shop at 11:20.
+     Alibi: The rental log shows Anika's scan at 11:21.
+
+PUZZLE 039 - The Empty Coop
+Scene: At 7:10 PM, the farm egg crate was emptied. A squall latched the barn door from 6:50 to 7:30.
+Suspects:
+  1. Otto Hale (Farmer) [INNOCENT]
+     Testimony: I was in the milking shed at 7:10.
+     Alibi: The shed camera shows Otto at 7:08 and 7:15.
+  2. Bella Reed (Farm Hand) [KILLER]
+     Testimony: I was in the barn at 7:10, gathering eggs.
+     Contradiction: The barn door was latched from outside, and eggshell was in Bella's pocket.
+  3. Cyrus Pike (Vet) [INNOCENT]
+     Testimony: I was treating a hen in the yard at 7:10.
+     Alibi: The vet log shows Cyrus at 7:06 and 7:18.
+  4. Dora Lund (Neighbor) [INNOCENT]
+     Testimony: I was at the farmhouse kitchen at 7:10.
+     Alibi: The kitchen timer was set by Dora at 7:09.
+
+PUZZLE 040 - The Chess Trophy
+Scene: At 3:15 PM, the chess club trophy vanished. The club room was locked during the tournament from 3:00 to 3:30.
+Suspects:
+  1. Emil Voss (Club President) [INNOCENT]
+     Testimony: I was at the front desk at 3:15, pairing players.
+     Alibi: The pairing sheet shows Emil's writing at 3:14.
+  2. Freya Lund (Player) [INNOCENT]
+     Testimony: I was playing board two at 3:15.
+     Alibi: The board camera shows Freya moving a piece at 3:16.
+  3. Gus Ash (Visitor) [INNOCENT]
+     Testimony: I was watching from the hallway at 3:15.
+     Alibi: The hallway camera shows Gus at 3:12 and 3:22.
+  4. Hilda Pike (Treasurer) [KILLER]
+     Testimony: I was in my car at 3:15, counting entry fees.
+     Contradiction: The car park camera shows Hilda's car absent, and trophy felt was on her coat.
+
+PUZZLE 041 - The Burnt Letter
+Scene: At 10:25 AM, a letter was burned in the post office. The sorting room was sealed for an audit from 10:00 to 10:45.
+Suspects:
+  1. Jonas Reed (Postmaster) [KILLER]
+     Testimony: I was in the sorting room at 10:25, checking the audit.
+     Contradiction: The sorting room was sealed from outside, and ash marked Jonas's cuffs.
+  2. Kira Vale (Clerk) [INNOCENT]
+     Testimony: I was at the counter at 10:25.
+     Alibi: The counter camera shows Kira at 10:23 and 10:29.
+  3. Leo Pike (Carrier) [INNOCENT]
+     Testimony: I was loading the mail van at 10:25.
+     Alibi: The van log shows Leo's scan at 10:24.
+  4. Mina Ash (Auditor) [INNOCENT]
+     Testimony: I was in the office at 10:25, reviewing books.
+     Alibi: The office camera shows Mina at 10:20 and 10:31.
+
+PUZZLE 042 - The Silent Phones
+Scene: At 1:35 PM, the call center headset was smashed. Phones were down for a drill from 1:20 to 1:50.
+Suspects:
+  1. Nate Cole (Supervisor) [INNOCENT]
+     Testimony: I was walking the floor at 1:35, checking stations.
+     Alibi: The floor camera shows Nate at 1:33 and 1:39.
+  2. Olive Vale (Agent) [INNOCENT]
+     Testimony: I was at my desk at 1:35, reading policy.
+     Alibi: The desk camera shows Olive at 1:34.
+  3. Quinn Reed (Technician) [KILLER]
+     Testimony: I was in the phone room at 1:35, restoring service.
+     Contradiction: The phone room was locked for the drill, and headset pieces were in Quinn's bag.
+  4. Rosa Pike (Agent) [INNOCENT]
+     Testimony: I was in the break room at 1:35.
+     Alibi: The break room log shows Rosa's badge at 1:32 and 1:41.
+
+PUZZLE 043 - The Broken Vase
+Scene: At 5:45 PM, the pottery studio vase was smashed. The kiln room was locked while firing from 5:30 to 6:15.
+Suspects:
+  1. Selma Ash (Potter) [INNOCENT]
+     Testimony: I was at the wheel at 5:45, shaping a bowl.
+     Alibi: The wheel camera shows Selma at 5:43 and 5:49.
+  2. Theo Pike (Student) [KILLER]
+     Testimony: I was in the kiln room at 5:45, checking the firing.
+     Contradiction: The kiln room was locked from outside, and clay dust marked Theo's shoes.
+  3. Uma Vale (Instructor) [INNOCENT]
+     Testimony: I was grading work at the desk at 5:45.
+     Alibi: The grade book shows Uma's notes at 5:44.
+  4. Victor Lund (Visitor) [INNOCENT]
+     Testimony: I was browsing the shelf at 5:45.
+     Alibi: The shelf camera shows Victor at 5:42 and 5:50.
+
+PUZZLE 044 - The Vanishing Coins
+Scene: At 8:20 PM, the arcade coin box was emptied. The machine room was sealed during a test from 8:00 to 8:30.
+Suspects:
+  1. Wendy Cole (Attendant) [INNOCENT]
+     Testimony: I was at the front counter at 8:20.
+     Alibi: The counter camera shows Wendy at 8:18 and 8:24.
+  2. Xavier Reed (Player) [INNOCENT]
+     Testimony: I was playing pinball at 8:20.
+     Alibi: The pinball counter shows Xavier's game at 8:19.
+  3. Yara Pike (Mechanic) [INNOCENT]
+     Testimony: I was fixing a machine on the floor at 8:20.
+     Alibi: The floor camera shows Yara at 8:17 and 8:26.
+  4. Zane Ash (Owner) [KILLER]
+     Testimony: I was in the machine room at 8:20, running the test.
+     Contradiction: The machine room was locked from outside, and coin wrappers were in Zane's coat.
+
+PUZZLE 045 - The Missing Drone
+Scene: At 2:50 PM, the shop drone vanished. The flying field was closed during a storm warning from 2:30 to 3:10.
+Suspects:
+  1. Anita Vale (Owner) [KILLER]
+     Testimony: I was flying the drone at 2:50, testing the new camera.
+     Contradiction: The field was closed at 2:30, and rotor guards were in Anita's bag.
+  2. Barry Reed (Clerk) [INNOCENT]
+     Testimony: I was in the shop at 2:50, stocking parts.
+     Alibi: The stock log shows Barry's count at 2:48.
+  3. Carla Pike (Customer) [INNOCENT]
+     Testimony: I was at the counter at 2:50, paying for a battery.
+     Alibi: The register shows Carla's sale at 2:49.
+  4. Devon Ash (Pilot) [INNOCENT]
+     Testimony: I was in the cafe at 2:50, waiting out the storm.
+     Alibi: The cafe receipt for Devon is stamped 2:51.
+
+PUZZLE 046 - The Empty Crate
+Scene: At 9:40 AM, the warehouse crate was emptied. The loading bay was shut during the audit from 9:20 to 10:00.
+Suspects:
+  1. Elsie Pike (Clerk) [INNOCENT]
+     Testimony: I was checking inventory at 9:40, aisle four.
+     Alibi: The inventory sheet shows Elsie's initials at 9:38.
+  2. Frank Vale (Forklift Driver) [INNOCENT]
+     Testimony: I was stacking pallets at 9:40.
+     Alibi: The forklift sensor shows Frank moving at 9:39.
+  3. Greta Ash (Auditor) [KILLER]
+     Testimony: I was in the loading bay at 9:40, counting crates.
+     Contradiction: The bay was shut for the audit, and packing tape was on Greta's gloves.
+  4. Hank Reed (Guard) [INNOCENT]
+     Testimony: I was at the gate at 9:40.
+     Alibi: The gate camera shows Hank at 9:37 and 9:45.
+
+PUZZLE 047 - The Stolen Badge
+Scene: At 4:05 PM, the station evidence badge vanished. The locker room was sealed during shift change from 3:50 to 4:20.
+Suspects:
+  1. Iris Cole (Desk Officer) [INNOCENT]
+     Testimony: I was at the front desk at 4:05.
+     Alibi: The desk camera shows Iris at 4:03 and 4:09.
+  2. Jonas Pike (Officer) [KILLER]
+     Testimony: I was in the locker room at 4:05, changing shift.
+     Contradiction: The locker room was sealed from outside, and badge clips were in Jonas's pocket.
+  3. Kayla Vale (Clerk) [INNOCENT]
+     Testimony: I was filing reports at 4:05.
+     Alibi: The filing log shows Kayla's badge at 4:04.
+  4. Lionel Ash (Visitor) [INNOCENT]
+     Testimony: I was in the waiting area at 4:05.
+     Alibi: The waiting area camera shows Lionel at 4:02 and 4:11.
+
+PUZZLE 048 - The Melted Chocolate
+Scene: At 11:50 AM, the chocolate showpiece melted. The tempering room was locked from 11:30 to 12:10.
+Suspects:
+  1. Mira Vale (Chocolatier) [INNOCENT]
+     Testimony: I was molding truffles at 11:50.
+     Alibi: The molding camera shows Mira at 11:48.
+  2. Noah Pike (Apprentice) [INNOCENT]
+     Testimony: I was wrapping boxes at 11:50.
+     Alibi: The wrap log shows Noah's station at 11:49.
+  3. Olive Reed (Shop Clerk) [INNOCENT]
+     Testimony: I was at the counter at 11:50.
+     Alibi: The counter camera shows Olive at 11:51.
+  4. Quinn Ash (Manager) [KILLER]
+     Testimony: I was in the tempering room at 11:50, checking the thermometer.
+     Contradiction: The tempering room was locked from outside, and melted chocolate marked Quinn's apron.
+
+PUZZLE 049 - The Gone Telescope
+Scene: At 8:35 PM, the observatory telescope lens vanished. The dome was shut during clouds from 8:15 to 9:00.
+Suspects:
+  1. Ravi Pike (Astronomer) [KILLER]
+     Testimony: I was at the telescope at 8:35, waiting for the clouds.
+     Contradiction: The dome was shut at 8:15, and lens caps were in Ravi's case.
+  2. Selma Vale (Assistant) [INNOCENT]
+     Testimony: I was in the control room at 8:35.
+     Alibi: The control camera shows Selma at 8:33 and 8:41.
+  3. Theo Ash (Visitor) [INNOCENT]
+     Testimony: I was in the lobby at 8:35.
+     Alibi: The lobby camera shows Theo at 8:32.
+  4. Uma Reed (Guide) [INNOCENT]
+     Testimony: I was giving a tour in the hall at 8:35.
+     Alibi: The tour log shows Uma's group at 8:34.
+
+PUZZLE 050 - The Silent Choir
+Scene: At 6:25 PM, the choir songbook vanished. The practice room was locked from 6:00 to 6:45.
+Suspects:
+  1. Vera Ash (Choirmaster) [INNOCENT]
+     Testimony: I was in the hall at 6:25, setting chairs.
+     Alibi: The hall camera shows Vera at 6:23.
+  2. Walter Pike (Singer) [INNOCENT]
+     Testimony: I was in the cafe at 6:25.
+     Alibi: The cafe receipt for Walter is stamped 6:24.
+  3. Xiomara Reed (Pianist) [KILLER]
+     Testimony: I was in the practice room at 6:25, playing the score.
+     Contradiction: The practice room was locked from outside, and page corners were in Xiomara's bag.
+  4. Yosef Lund (Custodian) [INNOCENT]
+     Testimony: I was mopping the corridor at 6:25.
+     Alibi: The corridor camera shows Yosef at 6:22 and 6:31.
+
+PUZZLE 051 - The Missing Passport
+Scene: At 7:55 AM, a passport vanished from the gate desk. The gate area was sealed during a drill from 7:40 to 8:20.
+Suspects:
+  1. Ada Reed (Agent) [INNOCENT]
+     Testimony: I was at the gate desk at 7:55, checking boarding passes.
+     Alibi: The gate camera shows Ada at 7:53 and 7:58.
+  2. Bruno Pike (Passenger) [INNOCENT]
+     Testimony: I was in the lounge at 7:55.
+     Alibi: The lounge camera shows Bruno at 7:51 and 8:01.
+  3. Celia Vale (Supervisor) [INNOCENT]
+     Testimony: I was at the podium at 7:55.
+     Alibi: The podium log shows Celia's badge at 7:54.
+  4. Dario Ash (Broker) [KILLER]
+     Testimony: I was behind the desk at 7:55, printing a ticket.
+     Contradiction: The gate was sealed at 7:40, and passport foil was in Dario's wallet.
+
+PUZZLE 052 - The Dry Fountain
+Scene: At 1:10 PM, the plaza fountain pump vanished. The fountain was drained during the festival from 12:50 to 1:30.
+Suspects:
+  1. Elsie Pike (Organizer) [KILLER]
+     Testimony: I was at the fountain at 1:10, checking the water display.
+     Contradiction: The fountain was drained at 12:50, and a pump wrench was in Elsie's tote.
+  2. Frank Vale (Vendor) [INNOCENT]
+     Testimony: I was at my stall at 1:10.
+     Alibi: The stall camera shows Frank at 1:08.
+  3. Greta Lund (Cleaner) [INNOCENT]
+     Testimony: I was sweeping the steps at 1:10.
+     Alibi: The step camera shows Greta at 1:09 and 1:16.
+  4. Hank Reed (Guard) [INNOCENT]
+     Testimony: I was by the entrance at 1:10.
+     Alibi: The entrance camera shows Hank at 1:11.
+
+PUZZLE 053 - The Broken Loom
+Scene: At 3:35 PM, the studio loom was sabotaged. The weaving room was locked from 3:15 to 3:55.
+Suspects:
+  1. Iris Vale (Weaver) [INNOCENT]
+     Testimony: I was dyeing yarn in the yard at 3:35.
+     Alibi: The dye log shows Iris's vat at 3:33.
+  2. Jonas Pike (Apprentice) [INNOCENT]
+     Testimony: I was at the market stall at 3:35.
+     Alibi: The stall camera shows Jonas at 3:34.
+  3. Kayla Ash (Weaver) [KILLER]
+     Testimony: I was in the weaving room at 3:35, threading the loom.
+     Contradiction: The weaving room was locked from outside, and cut threads were on Kayla's sleeve.
+  4. Lionel Reed (Buyer) [INNOCENT]
+     Testimony: I was in the office at 3:35.
+     Alibi: The office camera shows Lionel at 3:32 and 3:41.
+
+PUZZLE 054 - The Empty Hive
+Scene: At 2:15 PM, the apiary honey jar vanished. A storm covered the hives from 2:00 to 2:40.
+Suspects:
+  1. Mira Cole (Beekeeper) [INNOCENT]
+     Testimony: I was in the shed at 2:15, labeling jars.
+     Alibi: The label log shows Mira's batch at 2:13.
+  2. Noah Vale (Helper) [INNOCENT]
+     Testimony: I was at the fence at 2:15, checking the covers.
+     Alibi: The fence camera shows Noah at 2:14.
+  3. Olive Pike (Visitor) [INNOCENT]
+     Testimony: I was in the car at 2:15.
+     Alibi: The car park camera shows Olive's car at 2:10.
+  4. Quinn Reed (Beekeeper) [KILLER]
+     Testimony: I was at the hives at 2:15, checking the storm covers.
+     Contradiction: The covers were strapped shut, and honey dripped from Quinn's gloves.
+
+PUZZLE 055 - The Lost Keycard
+Scene: At 10:05 AM, the office keycard vanished. The server room was locked during a fire drill from 9:50 to 10:30.
+Suspects:
+  1. Rosa Ash (Receptionist) [KILLER]
+     Testimony: I was at the front desk at 10:05, signing in visitors.
+     Contradiction: The desk log shows no visitors after 9:48, and the keycard was in Rosa's drawer.
+  2. Sam Vale (IT Tech) [INNOCENT]
+     Testimony: I was at my desk at 10:05.
+     Alibi: The desk camera shows Sam at 10:03 and 10:09.
+  3. Tito Pike (Courier) [INNOCENT]
+     Testimony: I was in the lobby at 10:05.
+     Alibi: The lobby camera shows Tito at 10:04.
+  4. Uma Reed (Manager) [INNOCENT]
+     Testimony: I was in the meeting room at 10:05.
+     Alibi: The meeting room log shows Uma at 10:02 and 10:12.
+
+PUZZLE 056 - The Vanishing Statue
+Scene: At 4:55 PM, the gallery statue vanished. The main hall was closed during an alarm test from 4:40 to 5:10.
+Suspects:
+  1. Vera Pike (Curator) [INNOCENT]
+     Testimony: I was in the office at 4:55, updating records.
+     Alibi: The office camera shows Vera at 4:53.
+  2. Walter Ash (Guard) [INNOCENT]
+     Testimony: I was at the side door at 4:55.
+     Alibi: The door camera shows Walter at 4:54 and 5:02.
+  3. Xiomara Vale (Docent) [INNOCENT]
+     Testimony: I was in the cafe at 4:55.
+     Alibi: The cafe receipt for Xiomara is stamped 4:56.
+  4. Yosef Reed (Installer) [KILLER]
+     Testimony: I was in the main hall at 4:55, moving the statue base.
+     Contradiction: The hall was closed by the alarm test, and statue dust marked Yosef's coat.
+
+PUZZLE 057 - The Spilled Glue
+Scene: At 11:35 AM, the craft fair glue gun was sabotaged. Booths were closed during rain from 11:20 to 12:00.
+Suspects:
+  1. Ada Vale (Vendor) [KILLER]
+     Testimony: I was at my booth at 11:35, gluing a sign.
+     Contradiction: The booths were closed at 11:20, and glue was on Ada's apron.
+  2. Bruno Reed (Organizer) [INNOCENT]
+     Testimony: I was in the tent at 11:35, checking the schedule.
+     Alibi: The tent camera shows Bruno at 11:33.
+  3. Celia Pike (Vendor) [INNOCENT]
+     Testimony: I was in the cafe at 11:35.
+     Alibi: The cafe receipt for Celia is stamped 11:34.
+  4. Dario Lund (Visitor) [INNOCENT]
+     Testimony: I was under the awning at 11:35.
+     Alibi: The awning camera shows Dario at 11:30 and 11:41.
+
+PUZZLE 058 - The Cold Oven
+Scene: At 6:40 PM, the pizzeria oven was tampered with. The kitchen was closed for cleaning from 6:20 to 7:00.
+Suspects:
+  1. Elsie Vale (Chef) [INNOCENT]
+     Testimony: I was at the counter at 6:40, taking orders.
+     Alibi: The counter camera shows Elsie at 6:38.
+  2. Frank Pike (Cook) [INNOCENT]
+     Testimony: I was in the dining room at 6:40.
+     Alibi: The dining camera shows Frank at 6:41.
+  3. Greta Reed (Cleaner) [KILLER]
+     Testimony: I was in the kitchen at 6:40, checking the ovens.
+     Contradiction: The kitchen door was sealed for cleaning, and soot marked Greta's hands.
+  4. Hank Ash (Driver) [INNOCENT]
+     Testimony: I was loading the van at 6:40.
+     Alibi: The van log shows Hank's scan at 6:39.
+
+PUZZLE 059 - The Gone Flag
+Scene: At 9:15 AM, the school flag vanished. The grounds were locked during the ceremony from 9:00 to 9:30.
+Suspects:
+  1. Iris Pike (Principal) [INNOCENT]
+     Testimony: I was at the assembly at 9:15.
+     Alibi: The assembly camera shows Iris at 9:13.
+  2. Jonas Vale (Custodian) [KILLER]
+     Testimony: I was at the flagpole at 9:15, lowering the flag.
+     Contradiction: The grounds were locked at 9:00, and flag rope was in Jonas's pocket.
+  3. Kayla Reed (Teacher) [INNOCENT]
+     Testimony: I was in the classroom at 9:15.
+     Alibi: The classroom camera shows Kayla at 9:14.
+  4. Lionel Ash (Student) [INNOCENT]
+     Testimony: I was in the hall at 9:15.
+     Alibi: The hall camera shows Lionel at 9:12 and 9:20.
+
+PUZZLE 060 - The Empty Jar
+Scene: At 3:05 PM, the charity shop donation jar was emptied. The back room was locked during inventory from 2:50 to 3:20.
+Suspects:
+  1. Mira Pike (Manager) [INNOCENT]
+     Testimony: I was at the counter at 3:05.
+     Alibi: The counter camera shows Mira at 3:04.
+  2. Noah Reed (Volunteer) [INNOCENT]
+     Testimony: I was sorting clothes on the floor at 3:05.
+     Alibi: The floor camera shows Noah at 3:02.
+  3. Olive Vale (Donor) [INNOCENT]
+     Testimony: I was browsing at 3:05.
+     Alibi: The shop camera shows Olive at 3:01 and 3:09.
+  4. Quinn Ash (Treasurer) [KILLER]
+     Testimony: I was in the back room at 3:05, counting donations.
+     Contradiction: The back room was locked for inventory, and coin rolls were in Quinn's bag.

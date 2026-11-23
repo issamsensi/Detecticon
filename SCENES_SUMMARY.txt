@@ -35,7 +35,10 @@ SCENE-BY-SCENE SUMMARY
 
 2. IntroScene
    - Case cover: Inspector Quill sprite, puzzle title, scene description.
-   - Buttons: "Start", "Weekly ranking", "Credits".
+   - Buttons: "Start", "Weekly ranking", "Credits", small "?" (help).
+   - "How to play" overlay: 3 numbered lines + "Got it"; shown once per logged-in
+     user (Redis detecticon:seen-howto:{player}) and every time when logged out.
+     The "?" button reopens it. A full-screen shade blocks the buttons below.
    - Start resumes an in-progress game in AccuseScene if attempts were already
      used or the case is finished; otherwise it goes to TestimonyScene.
 
@@ -74,6 +77,9 @@ SCENE-BY-SCENE SUMMARY
 6. ResultScene
    - Shows solved/closed status, attempts used, culprit name, points earned,
      and the shareable result text (e.g. "Puzzle #12 :red_square:...").
+   - Compact bar chart from /api/stats/today: solved in 1/2/3 tries and failed,
+     with counts and total players. The player's own bar is highlighted. Hidden
+     quietly on fetch error or zero players.
    - Live countdown to the next puzzle (UTC midnight), cleared on shutdown.
    - "Weekly ranking" button opens LeaderboardScene.
    - "Post to comments" shares the result once per player per puzzle, with a

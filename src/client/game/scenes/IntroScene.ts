@@ -5,10 +5,21 @@ import { DETECTIVE_KEY } from '../assets';
 import { createInterrogationBackdrop } from '../ui/backdrop';
 import { createCharacter } from '../ui/Character';
 import { createTextBlock } from '../ui/text';
+import { fetchHowToSeen, markHowToSeen } from '../api';
+
+const HOW_TO_LINES = [
+  '1. Hear 4 testimonies.',
+  '2. One suspect is lying.',
+  '3. Three tries: 3 points on the 1st, 2 on the 2nd, 1 on the 3rd.',
+];
+
+type OverlayObject = Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Depth;
 
 export class IntroScene extends Phaser.Scene {
   private puzzle: PublicPuzzle;
   private state: GameState | undefined;
+  private overlayObjects: Phaser.GameObjects.GameObject[] = [];
+  private closingHowTo = false;
 
   constructor(puzzle: PublicPuzzle) {
     super('IntroScene');
@@ -20,6 +31,8 @@ export class IntroScene extends Phaser.Scene {
       this.puzzle = data.puzzle;
     }
     this.state = data.state;
+    this.overlayObjects = [];
+    this.closingHowTo = false;
   }
 
   public create(): void {
@@ -152,5 +165,126 @@ export class IntroScene extends Phaser.Scene {
         color: '#a7b1c2',
       })
       .setOrigin(0.5);
+
+    // Always-available help button; the overlay itself is on a higher depth.
+    const helpButton = this.add
+      .rectangle(width - 28, 26, 36, 36, 0x3d405b)
+      .setStrokeStyle(2, 0xf4f1de)
+      .setInteractive({ useHandCursor: true });
+    const helpLabel = this.add
+      .text(width - 28, 26, '?', {
+        fontFamily: 'monospace',
+        fontSize: '20px',
+        color: '#f4f1de',
+      })
+      .setOrigin(0.5)
+      .setInteractive({ useHandCursor: true });
+    helpButton.on('pointerdown', () => this.showHowTo());
+    helpLabel.on('pointerdown', () => this.showHowTo());
+
+    void this.checkHowTo();
+  }
+
+  private async checkHowTo(): Promise<void> {
+    try {
+      const { seen } = await fetchHowToSeen();
+      if (!seen && this.scene.isActive()) {
+        this.showHowTo();
+      }
+    } catch {
+      // Treat a failed check as "not seen" so logged-out players still get it.
+      if (this.scene.isActive()) {
+        this.showHowTo();
+      }
+    }
+  }
+
+  private showHowTo(): void {
+    if (this.overlayObjects.length > 0) {
+      return;
+    }
+    const { width, height } = this.scale;
+    const addOverlay = (object: OverlayObject, depth: number): void => {
+      object.setDepth(depth);
+      this.overlayObjects.push(object);
+    };
+
+    // Full-screen interactive shade swallows taps meant for the buttons below.
+    const shade = this.add
+      .rectangle(width / 2, height / 2, width, height, 0x1b1f2a, 0.94)
+      .setInteractive();
+    shade.on('pointerdown', () => undefined);
+    addOverlay(shade, 100);
+
+    addOverlay(
+      this.add
+        .rectangle(width / 2, 300, width - 24, 280, 0x2b3040)
+        .setStrokeStyle(3, 0xf4f1de),
+      101
+    );
+    addOverlay(
+      this.add
+        .text(width / 2, 196, 'How to play', {
+          fontFamily: 'monospace',
+          fontSize: '22px',
+          color: '#f2cc8f',
+        })
+        .setOrigin(0.5),
+      102
+    );
+
+    HOW_TO_LINES.forEach((line, index) => {
+      addOverlay(
+        this.add
+          .text(24, 236 + index * 50, line, {
+            fontFamily: 'monospace',
+            fontSize: '13px',
+            color: '#f4f1de',
+            wordWrap: { width: width - 48 },
+          })
+          .setOrigin(0, 0),
+        102
+      );
+    });
+
+    const dismiss = (): void => {
+      if (this.closingHowTo) {
+        return;
+      }
+      this.closingHowTo = true;
+      void this.dismissHowTo();
+    };
+    const gotItButton = this.add
+      .rectangle(width / 2, 406, 180, 44, 0xe07a5f)
+      .setStrokeStyle(3, 0xf4f1de)
+      .setInteractive({ useHandCursor: true });
+    const gotItLabel = this.add
+      .text(width / 2, 406, 'Got it', {
+        fontFamily: 'monospace',
+        fontSize: '18px',
+        color: '#1b1f2a',
+      })
+      .setOrigin(0.5)
+      .setInteractive({ useHandCursor: true });
+    addOverlay(gotItButton, 102);
+    addOverlay(gotItLabel, 103);
+    gotItButton.on('pointerdown', dismiss);
+    gotItLabel.on('pointerdown', dismiss);
+  }
+
+  private async dismissHowTo(): Promise<void> {
+    try {
+      await markHowToSeen();
+    } catch {
+      // Closing still works; the flag will be retried next time the overlay opens.
+    }
+    if (!this.scene.isActive()) {
+      return;
+    }
+    for (const object of this.overlayObjects) {
+      object.destroy();
+    }
+    this.overlayObjects = [];
+    this.closingHowTo = false;
   }
 }

@@ -112,3 +112,13 @@ export const fetchTodayStats = async (): Promise<StatsResponse> =>
 /** Fresh data on every call; the leaderboard scene never caches results. */
 export const fetchLeaderboard = async (): Promise<LeaderboardResponse> =>
   request<LeaderboardResponse>('/api/leaderboard');
+
+export type HowToSeenResponse = {
+  seen: boolean;
+};
+
+export const fetchHowToSeen = async (): Promise<HowToSeenResponse> =>
+  request<HowToSeenResponse>('/api/seen-howto');
+
+export const markHowToSeen = async (): Promise<HowToSeenResponse> =>
+  request<HowToSeenResponse>('/api/seen-howto', { method: 'POST' });
