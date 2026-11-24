@@ -4,6 +4,7 @@ import {
   getSuspectFirstName,
   SUSPECT_GENDERS,
 } from '../src/shared/suspect-sprites';
+import { validateScheduleJson } from '../src/shared/schedule';
 
 type Suspect = {
   id?: unknown;
@@ -25,6 +26,7 @@ type Puzzle = {
 };
 
 const PUZZLES_DIR = path.resolve(process.cwd(), 'src/shared/puzzles');
+const SCHEDULE_PATH = path.resolve(process.cwd(), 'src/shared/schedule.json');
 const MAX_TEXT = 160;
 
 const isNonEmptyString = (value: unknown): value is string =>
@@ -299,6 +301,27 @@ const main = async (): Promise<void> => {
         hasErrors = true;
       }
     }
+  }
+
+  // Validate src/shared/schedule.json against the known puzzle ids.
+  try {
+    const rawSchedule = await readFile(SCHEDULE_PATH, 'utf8');
+    const scheduleResult = validateScheduleJson(rawSchedule, new Set(globalPuzzleIds.keys()));
+    if (scheduleResult.errors.length === 0) {
+      console.log(`OK  schedule.json (${scheduleResult.entryCount} scheduled)`);
+    } else {
+      console.log('ERR schedule.json');
+      for (const err of scheduleResult.errors) {
+        console.log(`  - ${err}`);
+      }
+      hasErrors = true;
+    }
+  } catch (error) {
+    console.log('ERR schedule.json');
+    console.log(
+      `  - could not read file: ${error instanceof Error ? error.message : String(error)}`
+    );
+    hasErrors = true;
   }
 
   if (hasErrors) {

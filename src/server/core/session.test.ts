@@ -6,6 +6,7 @@ import {
   getAllPuzzles,
   getDisplayPuzzleNumber,
   getTodayInfo,
+  resolvePuzzleForDate,
 } from './puzzle';
 import { selectPuzzleSession } from './session';
 
@@ -95,4 +96,56 @@ test('launch day starts cleanly at Puzzle #1 on 001.json', async () => {
   expect(launchDay.date).toBe('2026-11-24');
   expect(launchDay.displayNumber).toBe(1);
   expect(launchDay.puzzle.id).toBe('001');
+});
+
+test('three-level resolution: dev override > schedule > date rotation', async () => {
+  const date = new Date(Date.UTC(2026, 11, 9, 12, 0, 0)); // 2026-12-09
+  const dateStr = '2026-12-09';
+  const schedule = { [dateStr]: '007' };
+
+  // Level 3: without override or matching schedule entry, falls back to rotation.
+  const rotation = await getTodayInfo(date, {});
+  expect(rotation.date).toBe(dateStr);
+  expect(rotation.isDevOverride).toBe(false);
+  expect(rotation.puzzle.id).toBe(resolvePuzzleForDate(dateStr, { schedule: {} }).puzzle.id);
+  expect(rotation.puzzle.id).not.toBe('007');
+
+  // Level 2: schedule entry overrides the date-based rotation without marking devOverride.
+  const scheduled = await getTodayInfo(date, schedule);
+  expect(scheduled.puzzle.id).toBe('007');
+  expect(scheduled.isDevOverride).toBe(false);
+  expect(scheduled.displayNumber).toBe(getDisplayPuzzleNumber(dateStr));
+
+  // Level 1: active moderator dev override beats both schedule and rotation.
+  await redis.set(DEV_PUZZLE_OVERRIDE_KEY, '012');
+  const overridden = await getTodayInfo(date, schedule);
+  expect(overridden.puzzle.id).toBe('012');
+  expect(overridden.isDevOverride).toBe(true);
+
+  // In production mode, the dev override is ignored and resolution falls back to schedule.
+  const prevNodeEnv = process.env.NODE_ENV;
+  const prevDevTools = process.env.DETECTICON_DEV_TOOLS;
+  process.env.NODE_ENV = 'production';
+  delete process.env.DETECTICON_DEV_TOOLS;
+  try {
+    const prodScheduled = await getTodayInfo(date, schedule);
+    expect(prodScheduled.puzzle.id).toBe('007');
+    expect(prodScheduled.isDevOverride).toBe(false);
+  } finally {
+    process.env.NODE_ENV = prevNodeEnv;
+    if (prevDevTools !== undefined) {
+      process.env.DETECTICON_DEV_TOOLS = prevDevTools;
+    }
+  }
+});
+
+test('dates without a schedule entry fall back cleanly to the date rotation', async () => {
+  const schedule = { '2026-12-09': '007' };
+  const unscheduledDate = new Date(Date.UTC(2026, 11, 10, 12, 0, 0)); // 2026-12-10
+  const result = await getTodayInfo(unscheduledDate, schedule);
+  const expectedRotation = resolvePuzzleForDate('2026-12-10', { schedule: {} });
+
+  expect(result.date).toBe('2026-12-10');
+  expect(result.puzzle.id).toBe(expectedRotation.puzzle.id);
+  expect(result.isDevOverride).toBe(false);
 });

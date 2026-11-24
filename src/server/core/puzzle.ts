@@ -1,5 +1,6 @@
 import { redis } from '@devvit/web/server';
 import { puzzles } from '../../shared/puzzles';
+import { puzzleSchedule, type PuzzleSchedule } from '../../shared/schedule';
 import type { Puzzle, PublicPuzzle, Suspect } from '../../shared/types';
 
 // Redis key for the moderator-only test puzzle override. Ignored in production
@@ -54,51 +55,90 @@ export const getAllPuzzles = (): Puzzle[] => puzzles;
 export const getUtcDateString = (now: Date = new Date()): string =>
   toUtcDateString(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
 
-export const getTodayInfo = async (now: Date = new Date()): Promise<TodayPuzzle> => {
-  const year = now.getUTCFullYear();
-  const month = now.getUTCMonth();
-  const day = now.getUTCDate();
-  const nowUtc = Date.UTC(year, month, day);
-  const daysSinceStart = Math.floor((nowUtc - START_DATE_UTC) / 86_400_000);
+export type ResolvePuzzleOptions = {
+  overrideId?: string | null;
+  schedule?: PuzzleSchedule;
+};
+
+/**
+ * Single source of truth for picking a UTC date's puzzle:
+ * 1. Moderator dev override (when passed by getTodayInfo in dev/test mode)
+ * 2. Explicit schedule entry for that UTC date (src/shared/schedule.json)
+ * 3. Existing deterministic UTC date-based rotation
+ */
+export const resolvePuzzleForDate = (
+  date: string,
+  options: ResolvePuzzleOptions = {}
+): TodayPuzzle => {
   const n = puzzles.length;
-  const index = ((daysSinceStart % n) + n) % n;
-  const rotationPuzzle = puzzles[index];
+  const nowUtc = utcMidnightFromDateString(date);
+  const daysSinceStart = Math.floor((nowUtc - START_DATE_UTC) / 86_400_000);
+  const index = n > 0 ? ((daysSinceStart % n) + n) % n : -1;
+  const rotationPuzzle = index >= 0 ? puzzles[index] : undefined;
   if (!rotationPuzzle) {
     throw new Error('No puzzles available');
   }
-  const date = toUtcDateString(year, month, day);
+  const displayNumber = getDisplayPuzzleNumber(date);
 
-  // The rotation above is intentionally unchanged. A moderator-only Redis key can
-  // replace the puzzle for local testing, but is strictly ignored in production.
-  if (isDevToolsEnabled()) {
-    const overrideId = await redis.get(DEV_PUZZLE_OVERRIDE_KEY);
-    if (overrideId) {
-      const overridePuzzle = getPuzzleById(overrideId);
-      if (overridePuzzle) {
-        console.warn(
-          `⚠️  [DETECTICON DEV] PUZZLE OVERRIDE ACTIVE — serving puzzle ${overridePuzzle.id} ` +
-            `instead of the daily rotation puzzle ${rotationPuzzle.id} for ${date}. ` +
-            `Clear it with "Dev: clear puzzle override" (or delete ${DEV_PUZZLE_OVERRIDE_KEY}) before submission.`
-        );
-        return {
-          puzzle: overridePuzzle,
-          date,
-          displayNumber: getDisplayPuzzleNumber(date),
-          isDevOverride: true,
-        };
-      }
+  // 1. Moderator dev override.
+  if (options.overrideId) {
+    const overridePuzzle = getPuzzleById(options.overrideId);
+    if (overridePuzzle) {
       console.warn(
-        `⚠️  [DETECTICON DEV] Ignoring invalid puzzle override "${overrideId}" at ${DEV_PUZZLE_OVERRIDE_KEY}.`
+        `⚠️  [DETECTICON DEV] PUZZLE OVERRIDE ACTIVE — serving puzzle ${overridePuzzle.id} ` +
+          `instead of the daily puzzle for ${date}. ` +
+          `Clear it with "Dev: clear puzzle override" (or delete ${DEV_PUZZLE_OVERRIDE_KEY}) before submission.`
       );
+      return {
+        puzzle: overridePuzzle,
+        date,
+        displayNumber,
+        isDevOverride: true,
+      };
     }
+    console.warn(
+      `⚠️  [DETECTICON DEV] Ignoring invalid puzzle override "${options.overrideId}" at ${DEV_PUZZLE_OVERRIDE_KEY}.`
+    );
   }
 
+  // 2. Scheduled puzzle for this UTC date.
+  const schedule = options.schedule ?? puzzleSchedule;
+  const scheduledId = Object.prototype.hasOwnProperty.call(schedule, date)
+    ? schedule[date]
+    : undefined;
+  if (scheduledId) {
+    const scheduledPuzzle = getPuzzleById(scheduledId);
+    if (scheduledPuzzle) {
+      return {
+        puzzle: scheduledPuzzle,
+        date,
+        displayNumber,
+        isDevOverride: false,
+      };
+    }
+    console.warn(
+      `⚠️  [DETECTICON] Ignoring unknown scheduled puzzle id "${scheduledId}" for ${date}.`
+    );
+  }
+
+  // 3. Date-based rotation fallback.
   return {
     puzzle: rotationPuzzle,
     date,
-    displayNumber: getDisplayPuzzleNumber(date),
+    displayNumber,
     isDevOverride: false,
   };
+};
+
+export const getTodayInfo = async (
+  now: Date = new Date(),
+  schedule: PuzzleSchedule = puzzleSchedule
+): Promise<TodayPuzzle> => {
+  const date = getUtcDateString(now);
+  // A moderator-only Redis key can replace the puzzle for local testing,
+  // but is strictly ignored in production.
+  const overrideId = isDevToolsEnabled() ? await redis.get(DEV_PUZZLE_OVERRIDE_KEY) : null;
+  return resolvePuzzleForDate(date, { overrideId, schedule });
 };
 
 export const getTodaysPuzzle = async (now: Date = new Date()): Promise<Puzzle> =>
