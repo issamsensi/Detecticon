@@ -19,11 +19,18 @@ head/faces
   urls: https://github.com/ElizaWy/LPC/tree/main/Characters/Head, https://opengameart.org/content/ulpc-expanded-expressions
   usedBy(first seen): char_01
 
-hat/pirate/bonnie
-  notes: Bonnie Hat by Bluecarrot16, layers and added animations by JaidynReiman
-  authors: bluecarrot16, JaidynReiman
+hair/plain
+  notes: 
+  authors: JaidynReiman, Manuel Riecke (MrBeast), Joe White
+  licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
+  urls: https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles, https://opengameart.org/content/ponytail-and-plain-hairstyles, https://opengameart.org/content/lpc-expanded-hair
+  usedBy(first seen): char_01
+
+torso/clothes/shortsleeve/tshirt
+  notes: original by ElizaWy; spellcast/thrust/shoot/hurt/male adapted from original by JaidynReiman
+  authors: ElizaWy, JaidynReiman, Stephen Challener (Redshrike), Johannes Sjölund (wulax)
   licenses: OGA-BY 3.0
-  urls: https://opengameart.org/content/lpc-pirates, https://opengameart.org/content/lpc-expanded-hats-facial-helmets
+  urls: https://opengameart.org/content/lpc-revised-character-basics, https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing, https://opengameart.org/content/lpc-expanded-sit-run-jump-more, https://opengameart.org/content/lpc-expanded-simple-shirts
   usedBy(first seen): char_01
 
 torso/aprons/apron
@@ -33,11 +40,11 @@ torso/aprons/apron
   urls: https://opengameart.org/content/lpc-aprons
   usedBy(first seen): char_01
 
-torso/clothes/shortsleeve/tshirt
-  notes: original by ElizaWy; spellcast/thrust/shoot/hurt/male adapted from original by JaidynReiman
-  authors: ElizaWy, JaidynReiman, Stephen Challener (Redshrike), Johannes Sjölund (wulax)
+hat/pirate/bonnie
+  notes: Bonnie Hat by Bluecarrot16, layers and added animations by JaidynReiman
+  authors: bluecarrot16, JaidynReiman
   licenses: OGA-BY 3.0
-  urls: https://opengameart.org/content/lpc-revised-character-basics, https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing, https://opengameart.org/content/lpc-expanded-sit-run-jump-more, https://opengameart.org/content/lpc-expanded-simple-shirts
+  urls: https://opengameart.org/content/lpc-pirates, https://opengameart.org/content/lpc-expanded-hats-facial-helmets
   usedBy(first seen): char_01
 
 legs/pants/male
@@ -54,11 +61,39 @@ feet/shoes
   urls: https://opengameart.org/content/lpc-medieval-fantasy-character-sprites, http://opengameart.org/content/lpc-clothing-updates, https://opengameart.org/content/lpc-expanded-socks-shoes
   usedBy(first seen): char_01
 
+body/bodies/female
+  notes: see details at https://opengameart.org/content/lpc-character-bases
+  authors: Benjamin K. Smith (BenCreating), bluecarrot16, TheraHedwig, Evert, MuffinElZangano, Durrani, Pierre Vigier (pvigier), ElizaWy, Matthew Krohn (makrohn), Johannes Sjölund (wulax), Stephen Challener (Redshrike)
+  licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
+  urls: https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles, https://opengameart.org/content/lpc-medieval-fantasy-character-sprites, https://opengameart.org/content/lpc-ladies, https://opengameart.org/content/lpc-7-womens-shirts, https://opengameart.org/content/lpc-jump-expanded, https://opengameart.org/content/lpc-be-seated, https://opengameart.org/content/lpc-revised-character-basics, https://gitlab.com/vagabondgame/lpc-characters, https://opengameart.org/content/lpc-male-jumping-animation-by-durrani, https://opengameart.org/content/lpc-runcycle-and-diagonal-walkcycle
+  usedBy(first seen): char_02
+
+head/heads/human/female
+  notes: original head by Redshrike, tweaks by BenCreating, modular version by bluecarrot16
+  authors: bluecarrot16, Benjamin K. Smith (BenCreating), Stephen Challener (Redshrike)
+  licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
+  urls: https://opengameart.org/content/, https://opengameart.org/content/lpc-character-bases
+  usedBy(first seen): char_02
+
 hair/bob
   notes: Original by bluecarrot16. Edited and animated by ElizaWy.
   authors: ElizaWy, bluecarrot16
   licenses: CC0
   urls: https://opengameart.org/content/lpc-hair, https://github.com/ElizaWy/LPC/blob/main/Characters/Hair, https://opengameart.org/content/lpc-expanded-sit-run-jump-more
+  usedBy(first seen): char_02
+
+torso/clothes/blouse_longsleeve
+  notes: original princess.xcf by Sharm, edited to blouse by ElizaWy; blouse + longsleeve adapted to v3 bases by bluecarrot16
+  authors: bluecarrot16, ElizaWy, Lanea Zimmerman (Sharm)
+  licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
+  urls: https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles, https://opengameart.org/content/lpc-7-womens-shirts
+  usedBy(first seen): char_02
+
+neck/scarf
+  notes: Original by Nila122, climb/sit/emote/jump/run animations by JaidynReiman
+  authors: Nila122, JaidynReiman, Johannes Sjölund (wulax), Stephen Challener (Redshrike)
+  licenses: OGA-SA 3.0, CC-BY-SA 3.0, GPL 2.0, GPL 3.0
+  urls: https://opengameart.org/content/more-lpc-clothes-and-hair
   usedBy(first seen): char_02
 
 legs/formal
@@ -82,18 +117,18 @@ hair/parted
   urls: https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles, https://github.com/jrconway3/Universal-LPC-spritesheet/commit/46ddcf05a0e43e7aa6ffd47d350eef0eb529ac24, https://opengameart.org/content/lpc-expanded-hair
   usedBy(first seen): char_03
 
-hat/formal/bowler
-  notes: 
-  authors: bluecarrot16
-  licenses: CC-BY-SA 3.0, GPL 3.0
-  urls: https://opengameart.org/content/lpc-gentleman, https://opengameart.org/content/lpc-expanded-hats-facial-helmets
-  usedBy(first seen): char_03
-
 torso/jacket/collared
   notes: 
   authors: bluecarrot16
   licenses: CC-BY-SA 3.0, GPL 3.0
   urls: https://opengameart.org/content/lpc-gentleman, https://opengameart.org/content/lpc-pirates
+  usedBy(first seen): char_03
+
+hat/formal/bowler
+  notes: 
+  authors: bluecarrot16
+  licenses: CC-BY-SA 3.0, GPL 3.0
+  urls: https://opengameart.org/content/lpc-gentleman, https://opengameart.org/content/lpc-expanded-hats-facial-helmets
   usedBy(first seen): char_03
 
 hair/ponytail
@@ -102,27 +137,6 @@ hair/ponytail
   licenses: CC-BY-SA 3.0, GPL 3.0
   urls: https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles, https://opengameart.org/content/lpc-expanded-hair
   usedBy(first seen): char_04
-
-torso/aprons/overalls
-  notes: original overalls by ElizaWy, extended to all animation frames, adapted from teen to male base, and edited for v3 bases by bluecarrot16; extended to combat animations by JaidynReiman
-  authors: ElizaWy, bluecarrot16, JaidynReiman
-  licenses: OGA-BY 3.0, GPL 3.0
-  urls: https://opengameart.org/content/lpc-revised-character-basics, http://opengameart.org/content/lpc-clothing-updates
-  usedBy(first seen): char_04
-
-body/bodies/female
-  notes: see details at https://opengameart.org/content/lpc-character-bases
-  authors: Benjamin K. Smith (BenCreating), bluecarrot16, TheraHedwig, Evert, MuffinElZangano, Durrani, Pierre Vigier (pvigier), ElizaWy, Matthew Krohn (makrohn), Johannes Sjölund (wulax), Stephen Challener (Redshrike)
-  licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
-  urls: https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles, https://opengameart.org/content/lpc-medieval-fantasy-character-sprites, https://opengameart.org/content/lpc-ladies, https://opengameart.org/content/lpc-7-womens-shirts, https://opengameart.org/content/lpc-jump-expanded, https://opengameart.org/content/lpc-be-seated, https://opengameart.org/content/lpc-revised-character-basics, https://gitlab.com/vagabondgame/lpc-characters, https://opengameart.org/content/lpc-male-jumping-animation-by-durrani, https://opengameart.org/content/lpc-runcycle-and-diagonal-walkcycle
-  usedBy(first seen): char_05
-
-head/heads/human/female
-  notes: original head by Redshrike, tweaks by BenCreating, modular version by bluecarrot16
-  authors: bluecarrot16, Benjamin K. Smith (BenCreating), Stephen Challener (Redshrike)
-  licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
-  urls: https://opengameart.org/content/, https://opengameart.org/content/lpc-character-bases
-  usedBy(first seen): char_05
 
 hair/page
   notes: 
@@ -138,12 +152,26 @@ torso/clothes/longsleeve/longsleeve2_cardigan
   urls: http://opengameart.org/content/lpc-revised-character-basics, https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing, https://opengameart.org/content/lpc-expanded-sit-run-jump-more, https://opengameart.org/content/lpc-expanded-simple-shirts
   usedBy(first seen): char_05
 
+facial/glasses/halfmoon
+  notes: 
+  authors: ElizaWy
+  licenses: OGA-BY 3.0
+  urls: https://github.com/ElizaWy/LPC/tree/main/Characters/Head%20Accessories, https://opengameart.org/content/lpc-expanded-sit-run-jump-more
+  usedBy(first seen): char_05
+
 legs/pants2
   notes: Original bases by Redshrike, thrust/shoot bases by Wulax, original pants by ElizaWy, climb/jump/run/sit/emotes/revised combat by JaidynReiman
   authors: ElizaWy, JaidynReiman, Johannes Sjölund (wulax), Stephen Challener (Redshrike)
   licenses: OGA-BY 3.0
   urls: https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing, https://opengameart.org/content/lpc-expanded-sit-run-jump-more, https://opengameart.org/content/lpc-expanded-pants
   usedBy(first seen): char_05
+
+hair/messy1
+  notes: 
+  authors: JaidynReiman, Manuel Riecke (MrBeast)
+  licenses: CC-BY-SA 3.0, GPL 3.0
+  urls: https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles, https://opengameart.org/content/lpc-expanded-hair
+  usedBy(first seen): char_06
 
 hair/pigtails
   notes: (betty)
@@ -166,18 +194,11 @@ legs/pants/thin
   urls: https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles, https://opengameart.org/content/lpc-medieval-fantasy-character-sprites, http://opengameart.org/content/lpc-clothing-updates, https://opengameart.org/content/lpc-expanded-pants
   usedBy(first seen): char_07
 
-hair/plain
+hair/buzzcut
   notes: 
-  authors: JaidynReiman, Manuel Riecke (MrBeast), Joe White
-  licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0
-  urls: https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles, https://opengameart.org/content/ponytail-and-plain-hairstyles, https://opengameart.org/content/lpc-expanded-hair
-  usedBy(first seen): char_08
-
-torso/clothes/vest
-  notes: 
-  authors: bluecarrot16, Thane Brimhall (pennomi), laetissima, Stephen Challener (Redshrike), Johannes Sjölund (wulax)
-  licenses: CC-BY-SA 3.0, GPL 3.0
-  urls: https://opengameart.org/content/lpc-2-characters, https://opengameart.org/content/lpc-gentleman, https://opengameart.org/content/lpc-pirates
+  authors: ElizaWy
+  licenses: OGA-BY 3.0
+  urls: https://opengameart.org/content/lpc-hair
   usedBy(first seen): char_08
 
 torso/clothes/longsleeve/longsleeve2
@@ -187,11 +208,25 @@ torso/clothes/longsleeve/longsleeve2
   urls: https://opengameart.org/content/lpc-revised-character-basics, https://github.com/ElizaWy/LPC/tree/main/Characters/Clothing, https://opengameart.org/content/lpc-expanded-sit-run-jump-more, https://opengameart.org/content/lpc-expanded-simple-shirts
   usedBy(first seen): char_08
 
+torso/clothes/vest
+  notes: 
+  authors: bluecarrot16, Thane Brimhall (pennomi), laetissima, Stephen Challener (Redshrike), Johannes Sjölund (wulax)
+  licenses: CC-BY-SA 3.0, GPL 3.0
+  urls: https://opengameart.org/content/lpc-2-characters, https://opengameart.org/content/lpc-gentleman, https://opengameart.org/content/lpc-pirates
+  usedBy(first seen): char_08
+
 hair/bedhead
   notes: 
   authors: JaidynReiman, Manuel Riecke (MrBeast)
   licenses: CC-BY-SA 3.0, GPL 3.0
   urls: https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles, https://opengameart.org/content/lpc-expanded-hair
+  usedBy(first seen): char_09
+
+torso/aprons/overalls
+  notes: original overalls by ElizaWy, extended to all animation frames, adapted from teen to male base, and edited for v3 bases by bluecarrot16; extended to combat animations by JaidynReiman
+  authors: ElizaWy, bluecarrot16, JaidynReiman
+  licenses: OGA-BY 3.0, GPL 3.0
+  urls: https://opengameart.org/content/lpc-revised-character-basics, http://opengameart.org/content/lpc-clothing-updates
   usedBy(first seen): char_09
 
 hair/long
@@ -207,6 +242,90 @@ dress/kimono/normal
   licenses: OGA-BY 3.0+, CC-BY 3.0+, GPL 3.0
   urls: https://opengameart.org/content/lpc-kimono-relm
   usedBy(first seen): char_10
+
+hair/braid
+  notes: 
+  authors: Nila122, ElizaWy
+  licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 3.0, GPL 2.0
+  urls: https://opengameart.org/content/3-hairs-for-lpc, https://opengameart.org/content/lpc-hair
+  usedBy(first seen): char_11
+
+hair/parted2
+  notes: 
+  authors: Skorpio, bluecarrot16
+  licenses: CC-BY-SA 3.0, GPL 3.0
+  urls: https://opengameart.org/content/lpc-skorpios-scifi-sprite-pack, https://opengameart.org/content/lpc-hair
+  usedBy(first seen): char_12
+
+hair/messy2
+  notes: 
+  authors: JaidynReiman, Manuel Riecke (MrBeast)
+  licenses: CC-BY-SA 3.0, GPL 3.0
+  urls: https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles, https://opengameart.org/content/lpc-expanded-hair
+  usedBy(first seen): char_13
+
+hair/bunches
+  notes: 
+  authors: JaidynReiman, Barbara Riviera, Manuel Riecke (MrBeast)
+  licenses: CC-BY-SA 3.0, GPL 3.0
+  urls: https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles, https://opengameart.org/content/concept-art-for-lpc-entry, https://opengameart.org/content/lpc-expanded-hair
+  usedBy(first seen): char_14
+
+hair/high_and_tight
+  notes: 
+  authors: Skorpio, bluecarrot16
+  licenses: CC-BY-SA 3.0, GPL 3.0
+  urls: https://opengameart.org/content/lpc-skorpios-scifi-sprite-pack, https://opengameart.org/content/lpc-hair
+  usedBy(first seen): char_15
+
+hair/lob
+  notes: 
+  authors: bluecarrot16
+  licenses: CC0
+  urls: https://opengameart.org/content/lpc-hair
+  usedBy(first seen): char_16
+
+hair/flat_top_fade
+  notes: Original by bluecarrot16, animated by ElizaWy.
+  authors: ElizaWy, bluecarrot16
+  licenses: CC0
+  urls: https://opengameart.org/content/lpc-hair, https://github.com/ElizaWy/LPC/blob/main/Characters/Hair, https://opengameart.org/content/lpc-expanded-sit-run-jump-more
+  usedBy(first seen): char_17
+
+hair/wavy
+  notes: 
+  authors: JaidynReiman, Nila122
+  licenses: OGA-BY 3.0, CC-BY-SA 3.0, GPL 2.0, GPL 3.0
+  urls: https://opengameart.org/content/3-hairs-for-lpc, https://opengameart.org/content/lpc-expanded-hair
+  usedBy(first seen): char_18
+
+hair/messy3
+  notes: 
+  authors: Fabzy, bluecarrot16
+  licenses: CC-BY-SA 3.0
+  urls: https://opengameart.org/content/the-revolution-hair, https://opengameart.org/content/lpc-hair
+  usedBy(first seen): char_19
+
+hair/curly_short
+  notes: 
+  authors: ElizaWy
+  licenses: OGA-BY 3.0
+  urls: https://opengameart.org/content/lpc-hair, https://opengameart.org/content/lpc-expanded-sit-run-jump-more
+  usedBy(first seen): char_20
+
+hair/spiked_beehive
+  notes: 
+  authors: Fabzy, bluecarrot16
+  licenses: CC-BY-SA 3.0
+  urls: https://opengameart.org/content/the-revolution-hair, https://opengameart.org/content/lpc-hair
+  usedBy(first seen): char_21
+
+hair/swoop
+  notes: 
+  authors: JaidynReiman, Manuel Riecke (MrBeast)
+  licenses: CC-BY-SA 3.0, GPL 3.0
+  urls: https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles, https://opengameart.org/content/lpc-expanded-hair
+  usedBy(first seen): detective
 
 hat/formal/tophat
   notes: 
@@ -323,22 +442,37 @@ const wrapList = (values: string[], maxCharsPerLine: number): string[] => {
   return lines;
 };
 
-/** Four fixed pages, generated from the credits data so nothing is hard-coded by hand. */
-export const getCompactCreditPages = (maxCharsPerLine = 36): string[] => {
-  const { intro, authors, licenses, sources, tools, note } = getCompactCredits();
-  const authorLines = wrapList(authors, maxCharsPerLine);
-  const splitAt = Math.ceil(authorLines.length / 2);
+/**
+ * Fixed page height for the 360x640 Credits scene: 13px monospace plus 3px
+ * line spacing stays well inside the 424px panel, leaving Prev/Next/Back clear.
+ */
+export const CREDIT_LINES_PER_PAGE = 18;
 
-  return [
-    ['About the art', ...wrapText(intro, maxCharsPerLine), '', 'Authors', ...authorLines.slice(0, splitAt)].join('\n'),
-    ['Authors (cont.)', ...authorLines.slice(splitAt)].join('\n'),
-    [
-      'Licenses',
-      ...wrapList(licenses, maxCharsPerLine),
-      '',
-      'Sources',
-      ...wrapList(sources, maxCharsPerLine),
-    ].join('\n'),
-    ['Tools', ...tools.flatMap((tool) => wrapText(tool, maxCharsPerLine)), '', ...wrapText(note, maxCharsPerLine)].join('\n'),
+/** Flat page content, generated from the credits data so nothing is hard-coded by hand. */
+export const getCreditPageLines = (maxCharsPerLine = 36): string[] => {
+  const { intro, authors, licenses, sources, tools, note } = getCompactCredits();
+  const sections: Array<[string, string[]]> = [
+    ['About the art', wrapText(intro, maxCharsPerLine)],
+    ['Authors', wrapList(authors, maxCharsPerLine)],
+    ['Licenses', wrapList(licenses, maxCharsPerLine)],
+    ['Sources', wrapList(sources, maxCharsPerLine)],
+    ['Tools', tools.flatMap((tool) => wrapText(tool, maxCharsPerLine))],
+    ['Note', wrapText(note, maxCharsPerLine)],
   ];
+
+  const lines: string[] = [];
+  for (const [title, body] of sections) {
+    if (lines.length > 0) lines.push('');
+    lines.push(title, ...body);
+  }
+  return lines;
+};
+
+export const getCompactCreditPages = (maxCharsPerLine = 36): string[] => {
+  const lines = getCreditPageLines(maxCharsPerLine);
+  const pages: string[] = [];
+  for (let i = 0; i < lines.length; i += CREDIT_LINES_PER_PAGE) {
+    pages.push(lines.slice(i, i + CREDIT_LINES_PER_PAGE).join('\n'));
+  }
+  return pages;
 };

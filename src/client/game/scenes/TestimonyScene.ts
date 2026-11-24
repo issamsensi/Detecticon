@@ -163,7 +163,7 @@ export class TestimonyScene extends Phaser.Scene {
       scene: this,
       x: SPRITE_X,
       y: SPRITE_Y,
-      textureKey: getSuspectSpriteKey(this.puzzle.id, this.suspectIndex),
+      textureKey: getSuspectSpriteKey(this.puzzle.id, this.suspectIndex, suspect.name),
       fallbackColor: suspect.color,
       width: 64 * SPRITE_SCALE,
       height: 64 * SPRITE_SCALE,

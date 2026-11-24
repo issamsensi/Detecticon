@@ -1,0 +1,117 @@
+[
+  {
+    "key": "char_01",
+    "gender": "m",
+    "cue": "apron"
+  },
+  {
+    "key": "char_02",
+    "gender": "f",
+    "cue": "scarf"
+  },
+  {
+    "key": "char_03",
+    "gender": "m",
+    "cue": "hat"
+  },
+  {
+    "key": "char_04",
+    "gender": "f",
+    "cue": "apron"
+  },
+  {
+    "key": "char_05",
+    "gender": "f",
+    "cue": "glasses"
+  },
+  {
+    "key": "char_06",
+    "gender": "m",
+    "cue": "hat"
+  },
+  {
+    "key": "char_07",
+    "gender": "f",
+    "cue": "scarf"
+  },
+  {
+    "key": "char_08",
+    "gender": "m",
+    "cue": "vest"
+  },
+  {
+    "key": "char_09",
+    "gender": "m",
+    "cue": "overalls"
+  },
+  {
+    "key": "char_10",
+    "gender": "f",
+    "cue": "scarf"
+  },
+  {
+    "key": "char_11",
+    "gender": "f",
+    "cue": "apron"
+  },
+  {
+    "key": "char_12",
+    "gender": "m",
+    "cue": "glasses"
+  },
+  {
+    "key": "char_13",
+    "gender": "m",
+    "cue": "hat"
+  },
+  {
+    "key": "char_14",
+    "gender": "f",
+    "cue": "scarf"
+  },
+  {
+    "key": "char_15",
+    "gender": "m",
+    "cue": "apron"
+  },
+  {
+    "key": "char_16",
+    "gender": "f",
+    "cue": "glasses"
+  },
+  {
+    "key": "char_17",
+    "gender": "m",
+    "cue": "vest"
+  },
+  {
+    "key": "char_18",
+    "gender": "f",
+    "cue": "scarf"
+  },
+  {
+    "key": "char_19",
+    "gender": "m",
+    "cue": "hat"
+  },
+  {
+    "key": "char_20",
+    "gender": "f",
+    "cue": "apron"
+  },
+  {
+    "key": "char_21",
+    "gender": "m",
+    "cue": "scarf"
+  },
+  {
+    "key": "char_22",
+    "gender": "f",
+    "cue": "glasses"
+  },
+  {
+    "key": "detective",
+    "gender": "m",
+    "cue": "hat"
+  }
+]

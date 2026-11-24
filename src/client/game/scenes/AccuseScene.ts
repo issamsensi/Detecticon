@@ -177,7 +177,7 @@ export class AccuseScene extends Phaser.Scene {
         scene: this,
         x,
         y,
-        textureKey: getSuspectSpriteKey(this.puzzle.id, originalIndex),
+        textureKey: getSuspectSpriteKey(this.puzzle.id, originalIndex, suspect.name),
         fallbackColor: suspect.color,
         width: 64,
         height: 64,

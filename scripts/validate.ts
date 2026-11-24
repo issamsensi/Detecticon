@@ -1,5 +1,9 @@
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
+import {
+  getSuspectFirstName,
+  SUSPECT_GENDERS,
+} from '../src/shared/suspect-sprites';
 
 type Suspect = {
   id?: unknown;
@@ -98,6 +102,15 @@ const validatePuzzle = (file: string, puzzle: Puzzle): { errors: string[]; kille
     }
 
     validateText(errors, `${prefix}.name`, suspect.name);
+    if (isNonEmptyString(suspect.name)) {
+      const firstName = getSuspectFirstName(suspect.name);
+      if (!SUSPECT_GENDERS[firstName]) {
+        addError(
+          errors,
+          `${prefix}.name first name "${firstName}" is missing from SUSPECT_GENDERS in src/shared/suspect-sprites.ts`
+        );
+      }
+    }
     validateText(errors, `${prefix}.role`, suspect.role);
     validateText(errors, `${prefix}.testimony`, suspect.testimony);
 

@@ -1,0 +1,117 @@
+[
+  {
+    "id": "char_01",
+    "label": "Baker (male, apron + white bonnet)",
+    "hash": "sex=male&body=Body_Color_light&head=Human_Male_light&expression=Neutral_light&hair=Plain_black&clothes=TShirt_white&apron=Apron_white&hat=Bonnie_white&legs=Pants_brown&shoes=Basic_Shoes_leather"
+  },
+  {
+    "id": "char_02",
+    "label": "Cashier (female, sky blouse + scarf)",
+    "hash": "sex=female&body=Body_Color_olive&head=Human_Female_olive&expression=Neutral_olive&hair=Bob_black&clothes=Longsleeve_blouse_sky&neck=Scarf_navy&legs=Formal_Pants_navy&shoes=Sara_Shoes_black"
+  },
+  {
+    "id": "char_03",
+    "label": "Critic (male, navy jacket + bowler)",
+    "hash": "sex=male&body=Body_Color_taupe&head=Human_Male_taupe&expression=Neutral_taupe&hair=Parted_gray&clothes=TShirt_navy&jacket=Collared_coat_navy&hat=Formal_Bowler_Hat_black&legs=Formal_Pants_black&shoes=Basic_Shoes_black"
+  },
+  {
+    "id": "char_04",
+    "label": "Cleaner (female, yellow shirt + apron)",
+    "hash": "sex=female&body=Body_Color_brown&head=Human_Female_brown&expression=Neutral_brown&hair=Ponytail_chestnut&clothes=TShirt_yellow&apron=Apron_white&shoes=Basic_Shoes_black"
+  },
+  {
+    "id": "char_05",
+    "label": "Librarian (female, maroon cardigan + glasses)",
+    "hash": "sex=female&body=Body_Color_amber&head=Human_Female_amber&expression=Neutral_amber&hair=Page_dark_brown&clothes=Cardigan_maroon&facial_eyes=Halfmoon_Glasses_black&legs=Long_Pants_black&shoes=Sara_Shoes_brown"
+  },
+  {
+    "id": "char_06",
+    "label": "Gardener (male, forest shirt + cap)",
+    "hash": "sex=male&body=Body_Color_bronze&head=Human_Male_bronze&expression=Neutral_bronze&hair=Messy1_light_brown&clothes=TShirt_forest&hat=Bonnie_brown&legs=Pants_brown&shoes=Basic_Shoes_brown"
+  },
+  {
+    "id": "char_07",
+    "label": "Student (female, pink scoop + scarf)",
+    "hash": "sex=female&body=Body_Color_light&head=Human_Female_light&expression=Neutral_light&hair=Pigtails_blonde&clothes=TShirt_Scoop_pink&neck=Scarf_white&legs=Pants_sky&shoes=Sara_Shoes_white"
+  },
+  {
+    "id": "char_08",
+    "label": "Waiter (male, charcoal vest)",
+    "hash": "sex=male&body=Body_Color_black&head=Human_Male_black&expression=Neutral_black&hair=Buzzcut_black&clothes=Longsleeve_2_charcoal&vest=Vest_charcoal&legs=Formal_Pants_black&shoes=Basic_Shoes_black"
+  },
+  {
+    "id": "char_09",
+    "label": "Mechanic (male, slate overalls)",
+    "hash": "sex=male&body=Body_Color_brown&head=Human_Male_brown&expression=Neutral_brown&hair=Bedhead_dark_brown&clothes=TShirt_slate&overalls=Overalls_slate&shoes=Basic_Shoes_black"
+  },
+  {
+    "id": "char_10",
+    "label": "Grandmother (female, rose kimono + scarf)",
+    "hash": "sex=female&body=Body_Color_light&head=Human_Female_light&expression=Neutral_light&hair=Long_gray&clothes=TShirt_rose&dress=Kimono_rose&neck=Scarf_rose&shoes=Sara_Shoes_brown"
+  },
+  {
+    "id": "char_11",
+    "label": "Florist (female, teal apron)",
+    "hash": "sex=female&body=Body_Color_olive&head=Human_Female_olive&expression=Neutral_olive&hair=Braid_chestnut&clothes=TShirt_teal&apron=Apron_teal&shoes=Sara_Shoes_brown"
+  },
+  {
+    "id": "char_12",
+    "label": "Clockmaker (male, purple shirt + glasses)",
+    "hash": "sex=male&body=Body_Color_taupe&head=Human_Male_taupe&expression=Neutral_taupe&hair=Parted_2_dark_brown&clothes=Longsleeve_2_purple&facial_eyes=Halfmoon_Glasses_black&legs=Formal_Pants_charcoal&shoes=Basic_Shoes_black"
+  },
+  {
+    "id": "char_13",
+    "label": "Courier (male, orange cap)",
+    "hash": "sex=male&body=Body_Color_amber&head=Human_Male_amber&expression=Neutral_amber&hair=Messy2_light_brown&clothes=TShirt_orange&hat=Bonnie_orange&legs=Pants_brown&shoes=Basic_Shoes_brown"
+  },
+  {
+    "id": "char_14",
+    "label": "Tailor (female, brown blouse + scarf)",
+    "hash": "sex=female&body=Body_Color_bronze&head=Human_Female_bronze&expression=Neutral_bronze&hair=Bunches_black&clothes=TShirt_brown&neck=Scarf_leather&legs=Long_Pants_black&shoes=Sara_Shoes_black"
+  },
+  {
+    "id": "char_15",
+    "label": "Grocer (male, leather apron)",
+    "hash": "sex=male&body=Body_Color_black&head=Human_Male_black&expression=Neutral_black&hair=High_and_tight_black&clothes=TShirt_leather&apron=Apron_leather&legs=Pants_charcoal&shoes=Basic_Shoes_black"
+  },
+  {
+    "id": "char_16",
+    "label": "Archivist (female, walnut blouse + glasses)",
+    "hash": "sex=female&body=Body_Color_light&head=Human_Female_light&expression=Neutral_light&hair=Lob_chestnut&clothes=Longsleeve_blouse_walnut&facial_eyes=Halfmoon_Glasses_walnut&legs=Formal_Pants_black&shoes=Sara_Shoes_brown"
+  },
+  {
+    "id": "char_17",
+    "label": "Barber (male, green vest)",
+    "hash": "sex=male&body=Body_Color_bronze&head=Human_Male_bronze&expression=Neutral_bronze&hair=Flat_top_fade_black&clothes=TShirt_green&vest=Vest_green&legs=Pants_black&shoes=Basic_Shoes_black"
+  },
+  {
+    "id": "char_18",
+    "label": "Museum guide (female, gray scarf)",
+    "hash": "sex=female&body=Body_Color_taupe&head=Human_Female_taupe&expression=Neutral_taupe&hair=Wavy_strawberry&clothes=TShirt_gray&neck=Scarf_gray&legs=Long_Pants_black&shoes=Sara_Shoes_black"
+  },
+  {
+    "id": "char_19",
+    "label": "Farmer (male, black cap)",
+    "hash": "sex=male&body=Body_Color_olive&head=Human_Male_olive&expression=Neutral_olive&hair=Messy3_light_brown&clothes=TShirt_black&hat=Bonnie_black&overalls=Overalls_black&legs=Pants_brown&shoes=Basic_Shoes_brown"
+  },
+  {
+    "id": "char_20",
+    "label": "Tea shop owner (female, lavender apron)",
+    "hash": "sex=female&body=Body_Color_amber&head=Human_Female_amber&expression=Neutral_amber&hair=Curly_short_redhead&clothes=TShirt_lavender&apron=Apron_lavender&legs=Pants_slate&shoes=Sara_Shoes_white"
+  },
+  {
+    "id": "char_21",
+    "label": "Painter (male, red shirt + scarf)",
+    "hash": "sex=male&body=Body_Color_light&head=Human_Male_light&expression=Neutral_light&hair=Spiked_beehive_red&clothes=Longsleeve_2_red&neck=Scarf_red&legs=Pants_bluegray&shoes=Basic_Shoes_black"
+  },
+  {
+    "id": "char_22",
+    "label": "Watchmaker (female, bluegray shirt + glasses)",
+    "hash": "sex=female&body=Body_Color_brown&head=Human_Female_brown&expression=Neutral_brown&hair=Page_dark_brown&clothes=TShirt_bluegray&facial_eyes=Halfmoon_Glasses_bluegray&legs=Long_Pants_charcoal&shoes=Sara_Shoes_black"
+  },
+  {
+    "id": "detective",
+    "label": "Detective (male, hat and coat)",
+    "hash": "sex=male&body=Body_Color_light&head=Human_Male_light&expression=Neutral_light&hair=Swoop_chestnut&clothes=Longsleeve_2_white&hat=Formal_Tophat_brown&jacket=Trench_coat_dark_gray&legs=Formal_Pants_black&shoes=Basic_Shoes_black"
+  }
+]

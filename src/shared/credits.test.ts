@@ -1,8 +1,9 @@
 import { describe, expect, test } from 'vitest';
 import {
+  CREDIT_LINES_PER_PAGE,
   EXTRA_CREDITS_TEXT,
   getCompactCreditPages,
-  getCompactCredits,
+  getCreditPageLines,
   LPC_CREDITS_TEXT,
 } from './credits';
 
@@ -13,22 +14,24 @@ const rawValues = (field: string): string[] =>
     .filter((value) => value.length > 0);
 
 describe('compact credits', () => {
-  test('keeps every author and license from the full credits', () => {
-    const compact = getCompactCredits();
-    const authors = compact.authors.map((name) => name.toLowerCase());
-    const licenses = compact.licenses.map((license) => license.toLowerCase());
+  test('keeps every author and license from the full credits in the pages', () => {
+    const all = getCompactCreditPages().join('\n').toLowerCase();
 
     for (const name of rawValues('authors')) {
-      expect(authors).toContain(name.toLowerCase());
+      expect(all).toContain(name.toLowerCase());
     }
     for (const license of rawValues('licenses')) {
-      expect(licenses).toContain(license.toLowerCase());
+      expect(all).toContain(license.toLowerCase());
     }
   });
 
-  test('produces four short pages with no long URLs and keeps the tool credits', () => {
+  test('page count matches the generated content and fits the Credits scene', () => {
+    const lines = getCreditPageLines();
     const pages = getCompactCreditPages();
-    expect(pages).toHaveLength(4);
+
+    expect(lines.length).toBeGreaterThan(0);
+    expect(pages).toHaveLength(Math.ceil(lines.length / CREDIT_LINES_PER_PAGE));
+    expect(pages.join('\n')).toBe(lines.join('\n'));
 
     const all = pages.join('\n');
     expect(all).toContain('Liberated Pixel Cup');
@@ -39,8 +42,10 @@ describe('compact credits', () => {
     expect(EXTRA_CREDITS_TEXT).toContain('Phaser');
 
     for (const page of pages) {
+      const pageLines = page.split('\n');
+      expect(pageLines.length).toBeLessThanOrEqual(CREDIT_LINES_PER_PAGE);
       expect(page.length).toBeLessThan(700);
-      for (const line of page.split('\n')) {
+      for (const line of pageLines) {
         expect(line.length).toBeLessThanOrEqual(38);
       }
     }

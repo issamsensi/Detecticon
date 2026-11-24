@@ -1,4 +1,9 @@
-export const CHARACTER_KEYS = Array.from({ length: 30 }, (_, i) => {
+import {
+  getSpriteKeysForGender,
+  getSuspectGender,
+} from '../../shared/suspect-sprites';
+
+export const CHARACTER_KEYS = Array.from({ length: 22 }, (_, i) => {
   const n = String(i + 1).padStart(2, '0');
   return `char_${n}`;
 });
@@ -28,8 +33,27 @@ export const hashString = (value: string): number => {
   return Math.abs(hash);
 };
 
-export const getSuspectSpriteKey = (puzzleId: string, suspectIndex: number): string => {
+/**
+ * Gender-matched, deterministic sprite for one suspect.
+ *
+ * The gender comes from the explicit first-name map in shared/suspect-sprites.ts;
+ * the sprite is chosen from that gender's pool (from art-source/sprites.json) by
+ * puzzle id + suspect index. Each pool has 11 sprites and a puzzle has 4
+ * suspects, so distinct indices always give distinct sprites in one puzzle.
+ * Only an unmapped name falls back to the old hash-based choice.
+ */
+export const getSuspectSpriteKey = (
+  puzzleId: string,
+  suspectIndex: number,
+  suspectName?: string
+): string => {
+  const gender = suspectName ? getSuspectGender(suspectName) : undefined;
+  if (gender) {
+    const pool = getSpriteKeysForGender(gender);
+    const key = pool[(hashString(puzzleId) + suspectIndex) % pool.length];
+    if (key) return key;
+  }
+
   const base = hashString(puzzleId) % CHARACTER_KEYS.length;
-  const keyIndex = (base + suspectIndex) % CHARACTER_KEYS.length;
-  return CHARACTER_KEYS[keyIndex] ?? CHARACTER_KEYS[0]!;
+  return CHARACTER_KEYS[(base + suspectIndex) % CHARACTER_KEYS.length] ?? CHARACTER_KEYS[0]!;
 };
