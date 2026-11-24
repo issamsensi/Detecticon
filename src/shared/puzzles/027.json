@@ -1,44 +1,44 @@
 {
-  "id": "027",
-  "number": 27,
-  "title": "The Gone Manuscript",
-  "scene": "At 10:40 AM, the archive manuscript disappeared. The reading lift was stuck from 10:25 to 10:55.",
-  "suspects": [
-    {
-      "id": "yara",
-      "name": "Yara Voss",
-      "role": "Archivist",
-      "color": 4553629,
-      "testimony": "I was in the lift at 10:40, trapped between floors.",
-      "contradiction": "The lift was empty when rescue opened it, and the manuscript was under Yara's coat.",
-      "isKiller": true
-    },
-    {
-      "id": "zane",
-      "name": "Zane Cole",
-      "role": "Guard",
-      "color": 11064762,
-      "testimony": "I was at the archive door at 10:40.",
-      "alibiProof": "The door camera shows Zane at 10:38 and 10:46.",
-      "isKiller": false
-    },
-    {
-      "id": "bella",
-      "name": "Bella Reed",
-      "role": "Researcher",
-      "color": 16032353,
-      "testimony": "I was at the microfilm desk at 10:40.",
-      "alibiProof": "The microfilm log shows Bella's request at 10:36.",
-      "isKiller": false
-    },
-    {
-      "id": "cyrus",
-      "name": "Cyrus Hale",
-      "role": "Intern",
-      "color": 11888029,
-      "testimony": "I was shelving boxes in the back at 10:40.",
-      "alibiProof": "The shelf camera shows Cyrus at 10:39 and 10:45.",
-      "isKiller": false
-    }
-  ]
+    "id": "027",
+    "number": 27,
+    "title": "The Prize Cheddar Wheel",
+    "scene": "At 10:25 AM, the aged cheddar wheel vanished from the cellar. The 10:00 AM milk train takes 40 minutes to reach Meadowbrook.",
+    "suspects": [
+        {
+            "id": "bonnie",
+            "name": "Bonnie Fletcher",
+            "role": "Cheesemaker",
+            "color": 15709545,
+            "testimony": "I wiped wooden shelves right beside the cellar door from 10:10 to 10:30 AM.",
+            "alibiProof": "Two farmhands carried crates past Bonnie wiping shelves by the cellar from 10:10 to 10:30 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "yara",
+            "name": "Yara Bakir",
+            "role": "Baker",
+            "color": 14114355,
+            "testimony": "I braided brioche loaves in the kitchen from 10:05 to 10:30 AM and never went downstairs.",
+            "alibiProof": "The dairy's delivery driver watched Yara braiding loaves in the kitchen from 10:05 to 10:30 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "martin",
+            "name": "Martin Tanner",
+            "role": "Merchant",
+            "color": 6199655,
+            "testimony": "I boarded the 10:00 AM milk train and was already tasting jams at Meadowbrook by 10:20 AM.",
+            "contradiction": "The 10:00 AM train doesn't reach Meadowbrook until 10:40 AM, and the cheddar was in Martin's crate.",
+            "isKiller": true
+        },
+        {
+            "id": "wallace",
+            "name": "Wallace Griffin",
+            "role": "Driver",
+            "color": 4815275,
+            "testimony": "I washed milk cans in the yard from 10:00 to 10:30 AM, whistling to the barn cat.",
+            "alibiProof": "The mail carrier waved to Wallace washing milk cans in the yard at 10:10 and 10:25 AM.",
+            "isKiller": false
+        }
+    ]
 }

@@ -1,44 +1,44 @@
 {
-  "id": "010",
-  "number": 10,
-  "title": "The Spilled Ink",
-  "scene": "At 10:15 PM, the press ink tank was emptied onto the floor. The press room was locked for the 10:00 edition.",
-  "suspects": [
-    {
-      "id": "ruth",
-      "name": "Ruth Kade",
-      "role": "Editor",
-      "color": 14524637,
-      "testimony": "I was proofing the front page in the newsroom at 10:15.",
-      "alibiProof": "The newsroom markup shows Ruth's initials at 10:14 and 10:19.",
-      "isKiller": false
-    },
-    {
-      "id": "abel",
-      "name": "Abel Fenn",
-      "role": "Printer",
-      "color": 3906559,
-      "testimony": "I was changing the rolls on press two from 10:05 to 10:25.",
-      "alibiProof": "The press counter logged Abel's badge at 10:06 and 10:24.",
-      "isKiller": false
-    },
-    {
-      "id": "nia",
-      "name": "Nia Cole",
-      "role": "Reporter",
-      "color": 8499866,
-      "testimony": "I was filing a story from the cafe next door at 10:15.",
-      "alibiProof": "Nia's draft saved from the cafe network at 10:13.",
-      "isKiller": false
-    },
-    {
-      "id": "victor",
-      "name": "Victor Hale",
-      "role": "Night Guard",
-      "color": 15912079,
-      "testimony": "I was patrolling the lobby at 10:15, far from the press room.",
-      "contradiction": "The lobby camera never shows Victor after 9:58, and ink stains mark his flashlight grip.",
-      "isKiller": true
-    }
-  ]
+    "id": "010",
+    "number": 10,
+    "title": "The Vanished Brass Compass",
+    "scene": "At 11:25 AM, the brass compass vanished from the lighthouse desk. The 11:00 AM ferry takes 35 minutes to cross to Gull Island.",
+    "suspects": [
+        {
+            "id": "martha",
+            "name": "Martha Cross",
+            "role": "Keeper",
+            "color": 5337982,
+            "testimony": "I polished the brass rail right outside the lighthouse desk from 11:10 to 11:30 AM.",
+            "alibiProof": "Two tourists photographed Martha polishing the rail outside the desk at 11:20 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "julian",
+            "name": "Julian Ross",
+            "role": "Historian",
+            "color": 14114394,
+            "testimony": "I boarded the 11:00 AM ferry and was already sketching Gull Island's pier by 11:20 AM.",
+            "contradiction": "The 11:00 AM ferry doesn't dock at Gull Island until 11:35 AM, and the compass was in Julian's pocket.",
+            "isKiller": true
+        },
+        {
+            "id": "elena",
+            "name": "Elena Cho",
+            "role": "Curator",
+            "color": 15709532,
+            "testimony": "I sorted postcards in the gift shop from 11:05 to 11:30 AM and never climbed the tower.",
+            "alibiProof": "The gift shop register shows Elena ringing up five customers between 11:05 and 11:30 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "graham",
+            "name": "Graham Beck",
+            "role": "Sailor",
+            "color": 6723989,
+            "testimony": "I coiled mooring ropes on the main dock from 11:00 to 11:30 AM, watching the harbor.",
+            "alibiProof": "The harbormaster chatted with Graham on the main dock from 11:05 to 11:30 AM.",
+            "isKiller": false
+        }
+    ]
 }

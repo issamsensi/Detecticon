@@ -1,44 +1,44 @@
 {
-  "id": "029",
-  "number": 29,
-  "title": "The Silent Organ",
-  "scene": "At 3:55 PM, the theater organ key cover was stolen. The organ loft was locked from 3:40 to 4:10.",
-  "suspects": [
-    {
-      "id": "hilda",
-      "name": "Hilda Wren",
-      "role": "Organist",
-      "color": 4014171,
-      "testimony": "I was in the cafe at 3:55, taking a break.",
-      "alibiProof": "The cafe receipt for Hilda is stamped 3:54.",
-      "isKiller": false
-    },
-    {
-      "id": "ivor",
-      "name": "Ivor Pike",
-      "role": "Stage Manager",
-      "color": 2792847,
-      "testimony": "I was in the wings at 3:55, checking lights.",
-      "alibiProof": "The light board log shows Ivor's cues at 3:52 and 3:58.",
-      "isKiller": false
-    },
-    {
-      "id": "kira",
-      "name": "Kira Reed",
-      "role": "Usher",
-      "color": 15320170,
-      "testimony": "I was sweeping the loft at 3:55, as always.",
-      "contradiction": "The loft was locked from outside at 3:40, and the velvet cover was in Kira's locker.",
-      "isKiller": true
-    },
-    {
-      "id": "karla",
-      "name": "Karla Voss",
-      "role": "Singer",
-      "color": 15167313,
-      "testimony": "I was warming up in the dressing room at 3:55.",
-      "alibiProof": "The dressing room camera shows Karla at 3:53 and 3:59.",
-      "isKiller": false
-    }
-  ]
+    "id": "029",
+    "number": 29,
+    "title": "The Heirloom Silver Thimble",
+    "scene": "At 11:40 AM, the heirloom silver thimble vanished from the display cushion. Only the archivist saw the loose coral button left behind.",
+    "suspects": [
+        {
+            "id": "petra",
+            "name": "Petra Lindqvist",
+            "role": "Collector",
+            "color": 14969520,
+            "testimony": "I sketched lace collars by the window from 11:20 to 11:45 AM—I didn't drop any loose coral button!",
+            "contradiction": "Nobody had mentioned a loose coral button, and the silver thimble was tucked in Petra's glove.",
+            "isKiller": true
+        },
+        {
+            "id": "mabel",
+            "name": "Mabel Thornton",
+            "role": "Archivist",
+            "color": 11572720,
+            "testimony": "I brewed chamomile tea in the pantry from 11:20 to 11:40 AM before checking the display cushion.",
+            "alibiProof": "Two guild members drank tea with Mabel in the pantry from 11:20 to 11:40 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "jude",
+            "name": "Jude Morales",
+            "role": "Weaver",
+            "color": 4617530,
+            "testimony": "I wound linen bobbins right beside the display cushion from 11:25 to 11:45 AM.",
+            "alibiProof": "A visiting student watched Jude winding bobbins beside the cushion from 11:25 to 11:45 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "arjun",
+            "name": "Arjun Mehta",
+            "role": "Historian",
+            "color": 6725320,
+            "testimony": "I cataloged pattern books in the reading room from 11:20 to 11:45 AM and never entered the hall.",
+            "alibiProof": "The reading room webcam shows Arjun cataloging books continuously from 11:20 to 11:45 AM.",
+            "isKiller": false
+        }
+    ]
 }

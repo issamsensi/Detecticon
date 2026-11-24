@@ -1,44 +1,44 @@
 {
-  "id": "022",
-  "number": 22,
-  "title": "The Lost Necklace",
-  "scene": "At 5:25 PM, the jeweler's necklace case was emptied. The shop shutter was down from 5:10 to 5:40.",
-  "suspects": [
-    {
-      "id": "elsie",
-      "name": "Elsie Wren",
-      "role": "Jeweler",
-      "color": 14524637,
-      "testimony": "I was polishing rings at the bench at 5:25.",
-      "alibiProof": "The bench camera shows Elsie polishing at 5:23 and 5:29.",
-      "isKiller": false
-    },
-    {
-      "id": "frank",
-      "name": "Frank Ash",
-      "role": "Guard",
-      "color": 3906559,
-      "testimony": "I was watching the shutter from inside at 5:25.",
-      "alibiProof": "The shutter camera shows Frank's reflection at 5:24.",
-      "isKiller": false
-    },
-    {
-      "id": "greta",
-      "name": "Greta Lund",
-      "role": "Apprentice",
-      "color": 8499866,
-      "testimony": "I was ordering gems in the office at 5:25.",
-      "alibiProof": "The office order was submitted by Greta at 5:22.",
-      "isKiller": false
-    },
-    {
-      "id": "hank",
-      "name": "Hank Pike",
-      "role": "Courier",
-      "color": 15912079,
-      "testimony": "I was outside the shutter at 5:25 with a package.",
-      "contradiction": "The shutter was down and no delivery was logged, and the necklace clasp was in Hank's pocket.",
-      "isKiller": true
-    }
-  ]
+    "id": "022",
+    "number": 22,
+    "title": "The Vanished Geisha Beans",
+    "scene": "At 9:20 AM, the rare Geisha beans vanished from the tasting bar. A full roast cycle in the drum roaster takes 35 minutes.",
+    "suspects": [
+        {
+            "id": "samira",
+            "name": "Samira Haddad",
+            "role": "Barista",
+            "color": 5337910,
+            "testimony": "I wiped espresso wands right beside the tasting bar from 9:05 to 9:25 AM.",
+            "alibiProof": "Two morning regulars watched Samira cleaning the espresso bar from 9:05 to 9:25 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "jasper",
+            "name": "Jasper Flynn",
+            "role": "Roaster",
+            "color": 14114380,
+            "testimony": "I loaded green beans into the drum roaster at 9:00 AM and bagged the finished roast at 9:20 AM.",
+            "contradiction": "A 35-minute roast started at 9:00 AM finishes at 9:35 AM, and the Geisha tin was in Jasper's locker.",
+            "isKiller": true
+        },
+        {
+            "id": "audrey",
+            "name": "Audrey Blake",
+            "role": "Buyer",
+            "color": 15709590,
+            "testimony": "I reviewed invoices in the loft office from 9:00 to 9:25 AM and never came downstairs.",
+            "alibiProof": "The loft camera shows Audrey typing at her desk continuously from 9:00 to 9:25 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "rafael",
+            "name": "Rafael Costa",
+            "role": "Baker",
+            "color": 6723910,
+            "testimony": "I glazed cinnamon rolls in the pastry nook from 9:05 to 9:30 AM, keeping the oven warm.",
+            "alibiProof": "The delivery driver tasted one of Rafael's rolls in the pastry nook at 9:15 and 9:25 AM.",
+            "isKiller": false
+        }
+    ]
 }

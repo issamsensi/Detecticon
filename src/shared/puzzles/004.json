@@ -1,44 +1,44 @@
 {
-  "id": "004",
-  "number": 4,
-  "title": "The Vanishing Violin",
-  "scene": "At 9:10 PM, the solo violin vanished backstage. The hall's fire doors were sealed for the encore from 9:00 to 9:20.",
-  "suspects": [
-    {
-      "id": "mara",
-      "name": "Mara Voss",
-      "role": "Concertmaster",
-      "color": 8499866,
-      "testimony": "I was tuning onstage with the orchestra from 9:02 to 9:18. The doors stayed shut behind us.",
-      "alibiProof": "The conductor's score notes show Mara's tuning cue at 9:03 and her stand empty until 9:19.",
-      "isKiller": false
-    },
-    {
-      "id": "elias",
-      "name": "Elias Fenn",
-      "role": "Stagehand",
-      "color": 14711391,
-      "testimony": "I was stacking chairs in the side wing from 9:00 to 9:20. I never went near the green room.",
-      "alibiProof": "The wing camera shows Elias folding chairs at 9:05, 9:12 and 9:18.",
-      "isKiller": false
-    },
-    {
-      "id": "juno",
-      "name": "Juno Marsh",
-      "role": "Manager",
-      "color": 10194136,
-      "testimony": "I was in the lobby at 9:10, selling programs while the doors were sealed.",
-      "contradiction": "The lobby till had no sales after 9:02, and the sealed-door log lists Juno as the only bearer of a backstage key.",
-      "isKiller": true
-    },
-    {
-      "id": "tessa",
-      "name": "Tessa Lund",
-      "role": "Violinist",
-      "color": 15912079,
-      "testimony": "I was beside Mara onstage from 9:02 to 9:18. We shared the same stand.",
-      "alibiProof": "Tessa's bow rosin and seat are visible in the 9:16 stage photo.",
-      "isKiller": false
-    }
-  ]
+    "id": "004",
+    "number": 4,
+    "title": "The Vanished Jazz Vinyl",
+    "scene": "At 6:30 PM, the jazz vinyl vanished from the study. The lounge phonograph plays a full 40-minute record before stopping automatically.",
+    "suspects": [
+        {
+            "id": "leo",
+            "name": "Leo Vance",
+            "role": "Pianist",
+            "color": 5862542,
+            "testimony": "I tuned the upright piano in the hall from 6:00 to 6:35 PM, right outside the study door.",
+            "alibiProof": "The housekeeper heard Leo tuning the hall piano continuously from 6:00 to 6:35 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "gideon",
+            "name": "Gideon Park",
+            "role": "Host",
+            "color": 15906651,
+            "testimony": "I mixed lemonade in the kitchen from 6:05 to 6:30 PM and never stepped into the study.",
+            "alibiProof": "Two guests chatted with Gideon in the kitchen from 6:05 to 6:30 PM while he poured drinks.",
+            "isKiller": false
+        },
+        {
+            "id": "june",
+            "name": "June Mercer",
+            "role": "Critic",
+            "color": 8096935,
+            "testimony": "I jotted notes on the porch from 6:00 to 6:30 PM, watching the sunset over the lawn.",
+            "alibiProof": "A neighbor waved to June on the porch at 6:10 and 6:25 PM while walking his dog.",
+            "isKiller": false
+        },
+        {
+            "id": "mira",
+            "name": "Mira Solis",
+            "role": "Singer",
+            "color": 14896747,
+            "testimony": "I put a full record on the lounge phonograph at 6:00 PM and sat listening until it stopped at 6:25 PM.",
+            "contradiction": "A 40-minute record started at 6:00 PM runs until 6:40 PM, and the jazz sleeve was in Mira's tote.",
+            "isKiller": true
+        }
+    ]
 }

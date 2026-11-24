@@ -1,44 +1,44 @@
 {
-  "id": "023",
-  "number": 23,
-  "title": "The Melted Ice",
-  "scene": "At 8:50 PM, the rink ice swan melted. The Zamboni was out of service and the doors locked from 8:30 to 9:10.",
-  "suspects": [
-    {
-      "id": "ivan",
-      "name": "Ivan Vale",
-      "role": "Rink Manager",
-      "color": 4014171,
-      "testimony": "I was in the stands at 8:50, watching the skate.",
-      "contradiction": "The stands camera shows no one at 8:50, and meltwater soaked Ivan's gloves.",
-      "isKiller": true
-    },
-    {
-      "id": "julia",
-      "name": "Julia Nath",
-      "role": "Skater",
-      "color": 2792847,
-      "testimony": "I was on the ice at 8:50 during the routine.",
-      "alibiProof": "The rink camera shows Julia in the center at 8:49 and 8:52.",
-      "isKiller": false
-    },
-    {
-      "id": "kyle",
-      "name": "Kyle Reed",
-      "role": "Referee",
-      "color": 15320170,
-      "testimony": "I was at the penalty box at 8:50.",
-      "alibiProof": "The game log shows Kyle's whistle at 8:48 and 8:51.",
-      "isKiller": false
-    },
-    {
-      "id": "lena",
-      "name": "Lena Pike",
-      "role": "Vendor",
-      "color": 15167313,
-      "testimony": "I was selling cocoa at the concession at 8:50.",
-      "alibiProof": "The concession camera shows Lena at 8:47 and 8:54.",
-      "isKiller": false
-    }
-  ]
+    "id": "023",
+    "number": 23,
+    "title": "The Gilded Atlas",
+    "scene": "At 1:45 PM, the gilded atlas vanished from the press table. Only the binder saw the frayed copper bookmark left on the floor.",
+    "suspects": [
+        {
+            "id": "edward",
+            "name": "Edward Norris",
+            "role": "Binder",
+            "color": 12477790,
+            "testimony": "I brewed mint tea in the back room from 1:25 to 1:45 PM before returning to the press table.",
+            "alibiProof": "The postman chatted with Edward at the back door from 1:30 to 1:45 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "simone",
+            "name": "Simone Laurent",
+            "role": "Illustrator",
+            "color": 6199690,
+            "testimony": "I trimmed parchment sheets right beside the press table from 1:30 to 1:50 PM.",
+            "alibiProof": "A client watched Simone trimming parchment beside the press table from 1:30 to 1:50 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "clive",
+            "name": "Clive Bennett",
+            "role": "Dealer",
+            "color": 14969490,
+            "testimony": "I browsed the front shelves from 1:25 to 1:50 PM—I never dropped any frayed copper bookmark!",
+            "contradiction": "Nobody had mentioned a frayed copper bookmark, and gold leaf flecks clung to Clive's cuff.",
+            "isKiller": true
+        },
+        {
+            "id": "mei",
+            "name": "Mei Zhou",
+            "role": "Apprentice",
+            "color": 4815250,
+            "testimony": "I swept the front stoop from 1:25 to 1:50 PM, chatting with passing neighbors.",
+            "alibiProof": "The café owner across the lane saw Mei sweeping the front stoop from 1:25 to 1:50 PM.",
+            "isKiller": false
+        }
+    ]
 }

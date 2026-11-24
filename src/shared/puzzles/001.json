@@ -1,44 +1,44 @@
 {
-  "id": "001",
-  "number": 1,
-  "title": "The Vanished Crown",
-  "scene": "At 7:45 PM, the glitter crown vanished from the prop table. The theater power was out from 7:30 to 7:50. One of the four is lying.",
-  "suspects": [
-    {
-      "id": "dana",
-      "name": "Dana Reyes",
-      "role": "Director",
-      "color": 14540253,
-      "testimony": "I was giving the cast a pep talk onstage from 7:35 to 7:50. I never went near the prop table.",
-      "alibiProof": "The cast's group selfie is timestamped 7:44, with Dana standing in the middle onstage.",
-      "isKiller": false
-    },
-    {
-      "id": "felix",
-      "name": "Felix Moran",
-      "role": "Lighting Tech",
-      "color": 3903359,
-      "testimony": "I was testing the spotlights in the booth from 7:35 to 7:50. I stayed there the whole time.",
-      "contradiction": "The booth log shows no power draw until 7:50, and glitter was stuck to his sleeve.",
-      "isKiller": true
-    },
-    {
-      "id": "nell",
-      "name": "Nell Ashby",
-      "role": "Costume Designer",
-      "color": 11393254,
-      "testimony": "I was hemming a cloak by the wardrobe window, since it was the only light. I was there at 7:40.",
-      "alibiProof": "Her phone photo of the half-hemmed cloak is timestamped 7:41, taken at the wardrobe window.",
-      "isKiller": false
-    },
-    {
-      "id": "owen",
-      "name": "Owen Hart",
-      "role": "Stage Manager",
-      "color": 16758861,
-      "testimony": "I was fetching candles from the storage closet for the outage. I got back around 7:45.",
-      "alibiProof": "The candle sign-out sheet is signed 7:42, and the janitor saw him in the closet.",
-      "isKiller": false
-    }
-  ]
+    "id": "001",
+    "number": 1,
+    "title": "The Swapped Lemon Tart",
+    "scene": "At 2:15 PM, judges found the prize lemon tart swapped for a store pie. The dessert tent was empty from 2:00 to 2:15 PM.",
+    "suspects": [
+        {
+            "id": "clara",
+            "name": "Clara Finch",
+            "role": "Baker",
+            "color": 15970671,
+            "testimony": "I was in the greenhouse potting herbs from 2:00 to 2:20 PM, and Owen was right beside me the whole time.",
+            "contradiction": "Tessa's greenhouse log and a smudge of lemon curd on Clara's apron confirm she was in the tent.",
+            "isKiller": true
+        },
+        {
+            "id": "owen",
+            "name": "Owen Marsh",
+            "role": "Botanist",
+            "color": 5025616,
+            "testimony": "I was in the greenhouse from 2:00 to 2:20 PM, completely alone; Clara never came in.",
+            "alibiProof": "The greenhouse sign-in sheet and Tessa's photo at 2:10 PM show Owen working alone inside.",
+            "isKiller": false
+        },
+        {
+            "id": "tessa",
+            "name": "Tessa Bloom",
+            "role": "Florist",
+            "color": 13860507,
+            "testimony": "I watered ferns outside the greenhouse window from 2:00 to 2:20 PM; only Owen was inside.",
+            "alibiProof": "The garden watering timer and a visitor's snapshot confirm Tessa was by the window from 2:00 to 2:20 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "milo",
+            "name": "Milo Grant",
+            "role": "Judge",
+            "color": 6392244,
+            "testimony": "I tallied scorecards in the gazebo from 2:00 to 2:15 PM, glancing toward the dessert tent twice.",
+            "alibiProof": "Two other judges sat with Milo in the gazebo from 2:00 to 2:15 PM while he tallied scores.",
+            "isKiller": false
+        }
+    ]
 }

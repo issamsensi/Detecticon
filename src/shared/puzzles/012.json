@@ -1,44 +1,44 @@
 {
-  "id": "012",
-  "number": 12,
-  "title": "The Lost Locket",
-  "scene": "At 7:25 PM, a silver locket vanished from a cruise cabin. A lifeboat drill locked the corridor from 7:15 to 7:40.",
-  "suspects": [
-    {
-      "id": "bea",
-      "name": "Bea Merrill",
-      "role": "Cabin Steward",
-      "color": 4553629,
-      "testimony": "I was making beds in cabin twelve at 7:25, down the hall.",
-      "alibiProof": "The housekeeping tablet shows Bea's key card at cabin twelve at 7:23.",
-      "isKiller": false
-    },
-    {
-      "id": "hugo",
-      "name": "Hugo Pike",
-      "role": "Passenger",
-      "color": 11064762,
-      "testimony": "I was on deck for the drill at 7:25 with my life vest on.",
-      "alibiProof": "The drill roll call lists Hugo at station four at 7:24.",
-      "isKiller": false
-    },
-    {
-      "id": "ingrid",
-      "name": "Ingrid Vale",
-      "role": "Companion",
-      "color": 16032353,
-      "testimony": "I was in the lounge at 7:25, listening to the band play.",
-      "contradiction": "The lounge band started at 7:31, and the locket clasp was in Ingrid's purse.",
-      "isKiller": true
-    },
-    {
-      "id": "rafael",
-      "name": "Rafael Ash",
-      "role": "Photographer",
-      "color": 11888029,
-      "testimony": "I was photographing the drill from the stairwell at 7:25.",
-      "alibiProof": "Rafael's camera has twelve drill photos timestamped 7:20 to 7:26.",
-      "isKiller": false
-    }
-  ]
+    "id": "012",
+    "number": 12,
+    "title": "The Blue Ribbon Quilt",
+    "scene": "Between 2:20 and 2:40 PM, the blue ribbon quilt vanished from the display hall. The sewing room keeps a sign-in sheet by its door.",
+    "suspects": [
+        {
+            "id": "beatrice",
+            "name": "Beatrice Ford",
+            "role": "Quilter",
+            "color": 10318529,
+            "testimony": "I pressed fabric in the sewing room from 2:15 to 2:45 PM, completely alone the whole time.",
+            "alibiProof": "The sewing room sign-in sheet and Isaac's view through the doorway show Beatrice alone.",
+            "isKiller": false
+        },
+        {
+            "id": "isaac",
+            "name": "Isaac Patel",
+            "role": "Volunteer",
+            "color": 5868652,
+            "testimony": "I brewed tea at the table facing the open sewing room door from 2:15 to 2:45 PM; only Beatrice was inside.",
+            "alibiProof": "Two visitors drank tea with Isaac at the hallway table from 2:15 to 2:45 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "stella",
+            "name": "Stella Hayes",
+            "role": "Judge",
+            "color": 13530234,
+            "testimony": "I arranged folding chairs right outside the display hall from 2:20 to 2:40 PM.",
+            "alibiProof": "The hall custodian helped Stella line up chairs outside the display hall from 2:20 to 2:40 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "luke",
+            "name": "Luke Meyer",
+            "role": "Treasurer",
+            "color": 15241825,
+            "testimony": "I was in the sewing room with Beatrice from 2:15 to 2:45 PM, helping her sort thread spools.",
+            "contradiction": "Isaac saw Beatrice alone in the sewing room, and the folded quilt was hidden in Luke's trunk.",
+            "isKiller": true
+        }
+    ]
 }

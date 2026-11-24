@@ -1,44 +1,44 @@
 {
-  "id": "019",
-  "number": 19,
-  "title": "The Dry Paint",
-  "scene": "At 11:05 AM, the shop sign was found unpainted. Rain halted work on the outdoor banner from 10:50 to 11:20.",
-  "suspects": [
-    {
-      "id": "ravi",
-      "name": "Ravi Hale",
-      "role": "Painter",
-      "color": 14524637,
-      "testimony": "I was painting the banner under the awning at 11:05.",
-      "contradiction": "The awning camera shows the banner untouched at 11:05, and wet paint marked Ravi's gloves.",
-      "isKiller": true
-    },
-    {
-      "id": "selma",
-      "name": "Selma Pike",
-      "role": "Designer",
-      "color": 3906559,
-      "testimony": "I was sketching the lettering in the office at 11:05.",
-      "alibiProof": "Selma's sketch saved at 11:04 with the final lettering.",
-      "isKiller": false
-    },
-    {
-      "id": "theo",
-      "name": "Theo Lund",
-      "role": "Apprentice",
-      "color": 8499866,
-      "testimony": "I was mixing colors in the back room at 11:05.",
-      "alibiProof": "The mixing log shows Theo's initials at 11:03 and 11:09.",
-      "isKiller": false
-    },
-    {
-      "id": "uma",
-      "name": "Uma Reed",
-      "role": "Customer",
-      "color": 15912079,
-      "testimony": "I was browsing inside at 11:05, waiting out the rain.",
-      "alibiProof": "The shop camera shows Uma at 11:02 and 11:11.",
-      "isKiller": false
-    }
-  ]
+    "id": "019",
+    "number": 19,
+    "title": "The Rare Penny Stamp",
+    "scene": "Between 10:15 and 10:35 AM, the rare penny stamp vanished from the sorting desk. The mailroom has a scanner log and a window to the dock.",
+    "suspects": [
+        {
+            "id": "esther",
+            "name": "Esther Yoon",
+            "role": "Clerk",
+            "color": 5337940,
+            "testimony": "I sorted parcels in the mailroom from 10:10 to 10:40 AM, completely alone the whole time.",
+            "alibiProof": "The mailroom scanner log and Gloria's view through the window confirm Esther was alone.",
+            "isKiller": false
+        },
+        {
+            "id": "gloria",
+            "name": "Gloria Mendez",
+            "role": "Courier",
+            "color": 15709560,
+            "testimony": "I loaded mailbags outside the open mailroom window from 10:10 to 10:40 AM; only Esther was inside.",
+            "alibiProof": "The dock supervisor helped Gloria lift mailbags outside the window from 10:10 to 10:40 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "malcolm",
+            "name": "Malcolm Briggs",
+            "role": "Collector",
+            "color": 14114320,
+            "testimony": "I was in the mailroom with Esther from 10:10 to 10:40 AM, helping her stack the parcel bins.",
+            "contradiction": "Gloria saw Esther alone in the mailroom, and the penny stamp was tucked inside Malcolm's wallet.",
+            "isKiller": true
+        },
+        {
+            "id": "bernard",
+            "name": "Bernard Clay",
+            "role": "Postmaster",
+            "color": 6723940,
+            "testimony": "I weighed letters right beside the sorting desk from 10:15 to 10:35 AM.",
+            "alibiProof": "Two customers watched Bernard weighing letters beside the sorting desk from 10:15 to 10:35 AM.",
+            "isKiller": false
+        }
+    ]
 }

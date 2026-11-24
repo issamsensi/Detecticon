@@ -1,44 +1,44 @@
 {
-  "id": "007",
-  "number": 7,
-  "title": "The Missing Oar",
-  "scene": "At 6:20 PM, the club spare oar vanished. Fog closed the boathouse slip from 6:00 to 6:40.",
-  "suspects": [
-    {
-      "id": "rosie",
-      "name": "Rosie Kade",
-      "role": "Coach",
-      "color": 8499866,
-      "testimony": "I was rigging shells in the main bay from 6:05 to 6:35.",
-      "alibiProof": "The bay camera shows Rosie rigging at 6:08, 6:20 and 6:33.",
-      "isKiller": false
-    },
-    {
-      "id": "felix",
-      "name": "Felix Dunne",
-      "role": "Boatkeeper",
-      "color": 14711391,
-      "testimony": "I was at the slip end at 6:20, watching the fog roll in.",
-      "contradiction": "The slip gate was chained from inside at 6:02, and the oar rack key hangs only on Felix's belt.",
-      "isKiller": true
-    },
-    {
-      "id": "anika",
-      "name": "Anika Rao",
-      "role": "Rower",
-      "color": 10194136,
-      "testimony": "I was stretching with the crew in the locker room at 6:20.",
-      "alibiProof": "The crew group photo at 6:19 has Anika in the front row.",
-      "isKiller": false
-    },
-    {
-      "id": "tomas",
-      "name": "Tomas Vale",
-      "role": "Mechanic",
-      "color": 15912079,
-      "testimony": "I was fixing the winch in the workshop from 6:10 to 6:30.",
-      "alibiProof": "The tool log shows Tomas signing out a wrench at 6:11 and returning it at 6:29.",
-      "isKiller": false
-    }
-  ]
+    "id": "007",
+    "number": 7,
+    "title": "The Stopped Cuckoo Clock",
+    "scene": "At 3:20 PM, the brass cuckoo clock stopped in the workshop. Only the owner noticed the tiny red wax seal wedged in its gears.",
+    "suspects": [
+        {
+            "id": "willa",
+            "name": "Willa Dunn",
+            "role": "Apprentice",
+            "color": 5736345,
+            "testimony": "I polished pendulums at the bench right beside the workshop door from 3:05 to 3:25 PM.",
+            "alibiProof": "A customer watched Willa polishing pendulums at the bench from 3:05 to 3:25 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "otis",
+            "name": "Otis Greer",
+            "role": "Owner",
+            "color": 13538132,
+            "testimony": "I brewed tea in the kitchen from 3:00 to 3:20 PM, then came back and found the stopped clock.",
+            "alibiProof": "The mail carrier chatted with Otis at the kitchen back door from 3:05 to 3:20 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "faye",
+            "name": "Faye Novak",
+            "role": "Collector",
+            "color": 14974824,
+            "testimony": "I browsed the front window from 3:05 to 3:25 PM—I don't even carry red wax seals!",
+            "contradiction": "Nobody had mentioned a red wax seal, and warm red wax flecks were on Faye's thumb.",
+            "isKiller": true
+        },
+        {
+            "id": "percy",
+            "name": "Percy Walsh",
+            "role": "Jeweler",
+            "color": 4948384,
+            "testimony": "I balanced ledgers in the reading nook from 3:00 to 3:25 PM and never entered the workshop.",
+            "alibiProof": "The shop webcam shows Percy writing steadily in his ledger from 3:00 to 3:25 PM.",
+            "isKiller": false
+        }
+    ]
 }

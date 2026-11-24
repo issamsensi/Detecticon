@@ -1,44 +1,44 @@
 {
-  "id": "017",
-  "number": 17,
-  "title": "The Empty Birdcage",
-  "scene": "At 1:50 PM, the shop prize finch vanished. A storm kept the front shutters down from 1:30 to 2:10.",
-  "suspects": [
-    {
-      "id": "iris",
-      "name": "Iris Pike",
-      "role": "Owner",
-      "color": 4014171,
-      "testimony": "I was feeding the other birds at 1:50 behind the counter.",
-      "alibiProof": "The counter camera shows Iris with the feed tin at 1:49.",
-      "isKiller": false
-    },
-    {
-      "id": "jasper",
-      "name": "Jasper Vale",
-      "role": "Clerk",
-      "color": 2792847,
-      "testimony": "I was in the stockroom at 1:50, counting seed bags.",
-      "contradiction": "The stock tally was last signed at 1:20, and finch feathers stuck to Jasper's sweater.",
-      "isKiller": true
-    },
-    {
-      "id": "kayla",
-      "name": "Kayla Nath",
-      "role": "Customer",
-      "color": 15320170,
-      "testimony": "I was at the front window at 1:50, watching the storm.",
-      "alibiProof": "The window camera shows Kayla at 1:47 and 1:53.",
-      "isKiller": false
-    },
-    {
-      "id": "lionel",
-      "name": "Lionel Reed",
-      "role": "Vet",
-      "color": 15167313,
-      "testimony": "I was examining a parrot in the back room at 1:50.",
-      "alibiProof": "The exam log shows Lionel's entry at 1:44 and exit at 1:56.",
-      "isKiller": false
-    }
-  ]
+    "id": "017",
+    "number": 17,
+    "title": "The Missing Silk Sash",
+    "scene": "At 12:15 PM, the silk wedding sash vanished from the fitting room. Only the tailor saw the bent brass pin left on the velvet stool.",
+    "suspects": [
+        {
+            "id": "priya",
+            "name": "Priya Nair",
+            "role": "Guest",
+            "color": 14969410,
+            "testimony": "I browsed lace trims by the window from 12:00 to 12:20 PM—I never dropped any bent brass pin!",
+            "contradiction": "Nobody had mentioned a bent brass pin, and ivory silk threads clung to Priya's handbag clasp.",
+            "isKiller": true
+        },
+        {
+            "id": "celeste",
+            "name": "Celeste Moreau",
+            "role": "Tailor",
+            "color": 11572610,
+            "testimony": "I pressed linens in the front shop from 11:55 AM to 12:15 PM before stepping into the fitting room.",
+            "alibiProof": "Two bridesmaids chatted with Celeste at the front ironing board from 11:55 AM to 12:15 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "gavin",
+            "name": "Gavin O'Brien",
+            "role": "Cutter",
+            "color": 4617420,
+            "testimony": "I measured wool bolts at the table right outside the fitting room curtain from 12:00 to 12:20 PM.",
+            "alibiProof": "The shop assistant helped Gavin unroll wool bolts outside the curtain from 12:00 to 12:20 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "oliver",
+            "name": "Oliver Kent",
+            "role": "Photographer",
+            "color": 6725210,
+            "testimony": "I cleaned camera lenses on the porch bench from 11:55 AM to 12:20 PM and never went inside.",
+            "alibiProof": "The florist next door waved to Oliver on the porch bench at 12:05 and 12:15 PM.",
+            "isKiller": false
+        }
+    ]
 }

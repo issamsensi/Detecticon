@@ -1,44 +1,44 @@
 {
-  "id": "018",
-  "number": 18,
-  "title": "The Cracked Trophy",
-  "scene": "At 8:30 PM, the school trophy was cracked. The gym doors were locked for the assembly from 8:15 to 8:45.",
-  "suspects": [
-    {
-      "id": "mira",
-      "name": "Mira Cole",
-      "role": "Coach",
-      "color": 4553629,
-      "testimony": "I was with the team in the locker room at 8:30.",
-      "alibiProof": "The team group photo at 8:29 includes Mira.",
-      "isKiller": false
-    },
-    {
-      "id": "noah",
-      "name": "Noah Fenn",
-      "role": "Custodian",
-      "color": 11064762,
-      "testimony": "I was mopping the hallway at 8:30, outside the gym.",
-      "alibiProof": "The hallway camera shows Noah mopping at 8:28 and 8:33.",
-      "isKiller": false
-    },
-    {
-      "id": "olive",
-      "name": "Olive Sato",
-      "role": "Teacher",
-      "color": 16032353,
-      "testimony": "I was at the assembly microphone at 8:30.",
-      "alibiProof": "The sound desk log shows Olive's mic active from 8:25 to 8:38.",
-      "isKiller": false
-    },
-    {
-      "id": "quinn",
-      "name": "Quinn Ash",
-      "role": "Principal",
-      "color": 11888029,
-      "testimony": "I was in my office at 8:30, signing papers.",
-      "contradiction": "The office light was off from 8:20, and trophy glass was embedded in Quinn's shoe.",
-      "isKiller": true
-    }
-  ]
+    "id": "018",
+    "number": 18,
+    "title": "The Missing Jade Teapot",
+    "scene": "Between 4:40 and 5:00 PM, the antique jade teapot vanished from the tasting counter. The pavilion has glass walls facing the garden path.",
+    "suspects": [
+        {
+            "id": "maude",
+            "name": "Maude Jenkins",
+            "role": "Sommelier",
+            "color": 5868610,
+            "testimony": "I sorted oolong leaves in the garden pavilion from 4:35 to 5:05 PM, completely alone the whole time.",
+            "alibiProof": "The pavilion chime stayed silent, and Linnea's view through the glass confirms Maude was alone.",
+            "isKiller": false
+        },
+        {
+            "id": "alistair",
+            "name": "Alistair Boyd",
+            "role": "Collector",
+            "color": 13530210,
+            "testimony": "I was in the garden pavilion with Maude from 4:35 to 5:05 PM, helping her weigh the tea tins.",
+            "contradiction": "Linnea saw Maude alone in the pavilion, and the jade teapot was wrapped inside Alistair's scarf.",
+            "isKiller": true
+        },
+        {
+            "id": "linnea",
+            "name": "Linnea Berg",
+            "role": "Botanist",
+            "color": 10318510,
+            "testimony": "I trimmed bonsai trees outside the pavilion window from 4:35 to 5:05 PM; only Maude was inside.",
+            "alibiProof": "A tea house server brought Linnea a glass of water by the pavilion window at 4:45 and 5:00 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "mateo",
+            "name": "Mateo Rios",
+            "role": "Musician",
+            "color": 15241810,
+            "testimony": "I tuned my acoustic guitar on the stool right beside the tasting counter from 4:40 to 5:00 PM.",
+            "alibiProof": "Three patrons listened to Mateo tuning his guitar beside the tasting counter from 4:40 to 5:00 PM.",
+            "isKiller": false
+        }
+    ]
 }

@@ -1,44 +1,44 @@
 {
-  "id": "002",
-  "number": 2,
-  "title": "The Salted Pie",
-  "scene": "At 1:20 PM, the dining car's apple pie was found full of salt, not sugar. The train was in a tunnel from 1:10 to 1:25.",
-  "suspects": [
-    {
-      "id": "greta",
-      "name": "Greta Lund",
-      "role": "Chef",
-      "color": 5763719,
-      "testimony": "I was rolling dough in the galley from 1:10 to 1:30. I left the pie cooling on the rack.",
-      "alibiProof": "The galley camera shows her rolling dough nonstop from 1:10 to 1:30.",
-      "isKiller": false
-    },
-    {
-      "id": "milo",
-      "name": "Milo Baxter",
-      "role": "Conductor",
-      "color": 15844367,
-      "testimony": "I was punching tickets in carriage four around 1:15. I never entered the dining car.",
-      "alibiProof": "Three passengers' tickets in carriage four are punched between 1:14 and 1:18.",
-      "isKiller": false
-    },
-    {
-      "id": "agnes",
-      "name": "Agnes Whitlow",
-      "role": "Retired Teacher",
-      "color": 10181046,
-      "testimony": "I was napping in my sleeper cabin during the tunnel. I woke up when we came out.",
-      "alibiProof": "The cabin door lock log shows it stayed shut from 1:05 to 1:30.",
-      "isKiller": false
-    },
-    {
-      "id": "silas",
-      "name": "Silas Crane",
-      "role": "Photographer",
-      "color": 3447003,
-      "testimony": "I was snapping photos of the mountain view from my window seat at 1:15. It was lovely.",
-      "contradiction": "His camera has no photos from 1:08 to 1:26, and salt dust was on his cuff.",
-      "isKiller": true
-    }
-  ]
+    "id": "002",
+    "number": 2,
+    "title": "The Missing Coastal Map",
+    "scene": "A rare map vanished from the station bookshop between 4:10 and 4:25 PM. The 4:00 PM bus takes 30 minutes to reach Harbor Pier.",
+    "suspects": [
+        {
+            "id": "bram",
+            "name": "Bram Holt",
+            "role": "Bookseller",
+            "color": 13078114,
+            "testimony": "I was sorting paperbacks in the back room from 4:05 to 4:30 PM while the counter bell stayed silent.",
+            "alibiProof": "Stockroom security footage shows Bram shelving paperbacks continuously from 4:05 to 4:30 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "victor",
+            "name": "Victor Moss",
+            "role": "Collector",
+            "color": 9662635,
+            "testimony": "I caught the 4:00 PM bus and was already browsing the Harbor Pier market by 4:15 PM.",
+            "contradiction": "The 4:00 PM bus didn't reach Harbor Pier until 4:30 PM, and the map tube was found in Victor's coat.",
+            "isKiller": true
+        },
+        {
+            "id": "nadia",
+            "name": "Nadia Sterling",
+            "role": "Ticket Clerk",
+            "color": 4817594,
+            "testimony": "I sold snacks at the kiosk from 4:00 to 4:30 PM; I never stepped inside the bookshop.",
+            "alibiProof": "Kiosk register receipts show Nadia ringing up customers every two minutes from 4:00 to 4:30 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "hazel",
+            "name": "Hazel Quinn",
+            "role": "Painter",
+            "color": 15386485,
+            "testimony": "I sketched the bookshop awning from the bench across the platform from 4:05 to 4:30 PM.",
+            "alibiProof": "A commuter's video of the platform shows Hazel sketching on the bench from 4:05 to 4:30 PM.",
+            "isKiller": false
+        }
+    ]
 }

@@ -1,44 +1,44 @@
 {
-  "id": "016",
-  "number": 16,
-  "title": "The Gone Guitar",
-  "scene": "At 4:45 PM, the shop vintage guitar disappeared. The alarm test locked the display room from 4:30 to 5:00.",
-  "suspects": [
-    {
-      "id": "elena",
-      "name": "Elena Cruz",
-      "role": "Owner",
-      "color": 14524637,
-      "testimony": "I was at the register at 4:45, talking to a customer.",
-      "alibiProof": "The register camera shows Elena with a customer at 4:44.",
-      "isKiller": false
-    },
-    {
-      "id": "finn",
-      "name": "Finn Ash",
-      "role": "Repair Tech",
-      "color": 3906559,
-      "testimony": "I was restringing a lute in the workshop at 4:45.",
-      "alibiProof": "The bench camera shows Finn's hands at 4:43 and 4:47.",
-      "isKiller": false
-    },
-    {
-      "id": "gina",
-      "name": "Gina Voss",
-      "role": "Sales Clerk",
-      "color": 8499866,
-      "testimony": "I was in the display room at 4:45, dusting the stands.",
-      "contradiction": "The display room was sealed by the alarm test, and guitar polish was on Gina's sleeves.",
-      "isKiller": true
-    },
-    {
-      "id": "hugo",
-      "name": "Hugo Lund",
-      "role": "Delivery Driver",
-      "color": 15912079,
-      "testimony": "I was carrying boxes to the stockroom at 4:45.",
-      "alibiProof": "The stockroom dolly log shows Hugo's scan at 4:42 and 4:49.",
-      "isKiller": false
-    }
-  ]
+    "id": "016",
+    "number": 16,
+    "title": "The Vanished Sourdough",
+    "scene": "At 8:20 AM, the prize sourdough loaf vanished from the cooling rack. The hearth oven takes 45 minutes to bake a batch of croissants.",
+    "suspects": [
+        {
+            "id": "bryn",
+            "name": "Bryn Holloway",
+            "role": "Pastry Chef",
+            "color": 14658124,
+            "testimony": "I dusted flour on the marble counter right beside the cooling rack from 8:05 to 8:25 AM.",
+            "alibiProof": "The morning cashier watched Bryn rolling dough beside the rack continuously from 8:05 to 8:25 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "keiko",
+            "name": "Keiko Sato",
+            "role": "Barista",
+            "color": 15709512,
+            "testimony": "I steamed milk at the espresso bar from 8:00 to 8:30 AM and never walked to the back kitchen.",
+            "alibiProof": "Four regular customers ordered lattes from Keiko at the front bar between 8:00 and 8:30 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "tomas",
+            "name": "Tomas Vega",
+            "role": "Delivery Driver",
+            "color": 4817512,
+            "testimony": "I unloaded flour sacks by the alley door from 8:05 to 8:25 AM, keeping the van engine off.",
+            "alibiProof": "The alley security camera shows Tomas unloading flour sacks continuously from 8:05 to 8:25 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "duncan",
+            "name": "Duncan Farrell",
+            "role": "Baker",
+            "color": 5862994,
+            "testimony": "I slid raw croissants into the hearth oven at 8:00 AM and pulled them out fully baked at 8:25 AM.",
+            "contradiction": "A 45-minute bake started at 8:00 AM finishes at 8:45 AM, and the sourdough was in Duncan's crate.",
+            "isKiller": true
+        }
+    ]
 }

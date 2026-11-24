@@ -1,44 +1,44 @@
 {
-  "id": "003",
-  "number": 3,
-  "title": "The Missing Mittens",
-  "scene": "At 3:30 PM, every guest's left mitten vanished from the lodge drying rack. A snowstorm kept the front door shut from 3:00 to 3:40.",
-  "suspects": [
-    {
-      "id": "rolf",
-      "name": "Rolf Hayes",
-      "role": "Ski Instructor",
-      "color": 16744192,
-      "testimony": "I was out on the slope teaching a lesson from 3:10 to 3:40. I only came in afterward.",
-      "contradiction": "The door lock log shows no exits, and the rack camera caught his sleeve at 3:22.",
-      "isKiller": true
-    },
-    {
-      "id": "pia",
-      "name": "Pia Moreau",
-      "role": "Lodge Cook",
-      "color": 14540253,
-      "testimony": "I was stirring chili in the kitchen all afternoon. I stepped out for nothing.",
-      "alibiProof": "The stove timer was reset by her badge at 3:12 and again at 3:28.",
-      "isKiller": false
-    },
-    {
-      "id": "wanda",
-      "name": "Wanda Pell",
-      "role": "Guest",
-      "color": 11393254,
-      "testimony": "I was soaking in the hot tub room from 3:00 to 3:40. I only left to fetch a towel.",
-      "alibiProof": "Her towel slip reads 3:02 in and 3:38 out, signed at the spa desk.",
-      "isKiller": false
-    },
-    {
-      "id": "theo",
-      "name": "Theo Marsh",
-      "role": "Front Desk Clerk",
-      "color": 5763719,
-      "testimony": "I was at the front desk answering phones all afternoon. I never touched the drying rack.",
-      "alibiProof": "The desk phone log shows five calls under his login between 3:05 and 3:35.",
-      "isKiller": false
-    }
-  ]
+    "id": "003",
+    "number": 3,
+    "title": "The Snipped Blue Orchid",
+    "scene": "At 11:15 AM, staff found the prized orchid snipped from its pot in the glasshouse. Only the curator saw the silver shears left behind.",
+    "suspects": [
+        {
+            "id": "fiona",
+            "name": "Fiona Frost",
+            "role": "Curator",
+            "color": 7185086,
+            "testimony": "I locked the office at 11:00 AM and greeted donors at the fountain until 11:15 AM, when I found the pot.",
+            "alibiProof": "Three donors confirm Fiona stayed with them by the fountain from 11:00 to 11:15 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "arthur",
+            "name": "Arthur Wren",
+            "role": "Donor",
+            "color": 14394995,
+            "testimony": "I sipped tea on the terrace from 10:55 to 11:20 AM; I never even went near the glasshouse.",
+            "alibiProof": "The terrace waiter poured Arthur's tea at 11:00 AM and chatted with him until 11:20 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "daphne",
+            "name": "Daphne Brooks",
+            "role": "Florist",
+            "color": 11759029,
+            "testimony": "I was arranging centerpieces in the parlor from 11:00 to 11:20 AM—I don't even own silver shears!",
+            "contradiction": "Nobody had mentioned silver shears yet, and blue orchid pollen was dusted across Daphne's cuff.",
+            "isKiller": true
+        },
+        {
+            "id": "simon",
+            "name": "Simon Tate",
+            "role": "Gardener",
+            "color": 6656878,
+            "testimony": "I trimmed hedges just outside the glasshouse door from 11:00 to 11:15 AM, carrying my rusty clippers.",
+            "alibiProof": "A tour group watched Simon trimming the outer hedges from 11:00 to 11:15 AM.",
+            "isKiller": false
+        }
+    ]
 }

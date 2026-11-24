@@ -1,44 +1,44 @@
 {
-  "id": "024",
-  "number": 24,
-  "title": "The Empty Tank",
-  "scene": "At 2:05 PM, the aquarium rare fish vanished. The pump room was sealed during maintenance from 1:50 to 2:20.",
-  "suspects": [
-    {
-      "id": "marco",
-      "name": "Marco Hale",
-      "role": "Curator",
-      "color": 4553629,
-      "testimony": "I was giving a tour at 2:05 in the main hall.",
-      "alibiProof": "The tour tickets show Marco's badge at 2:02 and 2:12.",
-      "isKiller": false
-    },
-    {
-      "id": "nadia",
-      "name": "Nadia Cruz",
-      "role": "Diver",
-      "color": 11064762,
-      "testimony": "I was in the viewing tunnel at 2:05, cleaning glass.",
-      "alibiProof": "The tunnel camera shows Nadia's tank suit at 2:04.",
-      "isKiller": false
-    },
-    {
-      "id": "omar",
-      "name": "Omar Fenn",
-      "role": "Technician",
-      "color": 16032353,
-      "testimony": "I was in the pump room at 2:05, checking the seal.",
-      "contradiction": "The pump room was sealed from outside, and algae slime marked Omar's sleeves.",
-      "isKiller": true
-    },
-    {
-      "id": "petra",
-      "name": "Petra Lund",
-      "role": "Guide",
-      "color": 11888029,
-      "testimony": "I was at the entrance desk at 2:05.",
-      "alibiProof": "The desk log shows Petra stamping tickets at 2:03 and 2:09.",
-      "isKiller": false
-    }
-  ]
+    "id": "024",
+    "number": 24,
+    "title": "The Wildflower Honey Jar",
+    "scene": "Between 11:10 and 11:30 AM, the wildflower honey jar vanished from the tasting shed. The barn is too small for a second person to hide.",
+    "suspects": [
+        {
+            "id": "ruth",
+            "name": "Ruth Dawson",
+            "role": "Beekeeper",
+            "color": 10318540,
+            "testimony": "I bottled beeswax balm in the barn from 11:05 to 11:35 AM, completely alone the whole time.",
+            "alibiProof": "The barn door chime stayed silent, and Anita's view through the doorway confirms Ruth was alone.",
+            "isKiller": false
+        },
+        {
+            "id": "anita",
+            "name": "Anita Gomez",
+            "role": "Gardener",
+            "color": 5868640,
+            "testimony": "I weeded lavender beds facing the open barn door from 11:05 to 11:35 AM; only Ruth was inside.",
+            "alibiProof": "Two farm visitors asked Anita about lavender care outside the barn from 11:05 to 11:35 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "leonard",
+            "name": "Leonard Perry",
+            "role": "Carpenter",
+            "color": 13530240,
+            "testimony": "I fixed a loose shutter right beside the tasting shed from 11:10 to 11:30 AM.",
+            "alibiProof": "The farm dog and two delivery helpers watched Leonard hammering by the shed from 11:10 to 11:30 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "desmond",
+            "name": "Desmond Curry",
+            "role": "Inspector",
+            "color": 15241840,
+            "testimony": "I was in the barn with Ruth from 11:05 to 11:35 AM, helping her seal the balm tins.",
+            "contradiction": "Anita saw Ruth alone in the barn, and the honey jar was tucked inside Desmond's coat.",
+            "isKiller": true
+        }
+    ]
 }

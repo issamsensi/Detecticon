@@ -1,44 +1,44 @@
 {
-  "id": "025",
-  "number": 25,
-  "title": "The Missing Briefcase",
-  "scene": "At 4:35 PM, a briefcase vanished from the station bench. Platform three closed during a signal fault from 4:20 to 4:50.",
-  "suspects": [
-    {
-      "id": "quinn",
-      "name": "Quinn Sato",
-      "role": "Commuter",
-      "color": 14524637,
-      "testimony": "I was on platform two at 4:35, waiting for my train.",
-      "alibiProof": "The platform two camera shows Quinn at 4:31 and 4:39.",
-      "isKiller": false
-    },
-    {
-      "id": "rosa",
-      "name": "Rosa Vale",
-      "role": "Porter",
-      "color": 3906559,
-      "testimony": "I was carrying luggage on platform three at 4:35.",
-      "contradiction": "Platform three was closed by the signal fault, and the case tag was in Rosa's pocket.",
-      "isKiller": true
-    },
-    {
-      "id": "sam",
-      "name": "Sam Ash",
-      "role": "Clerk",
-      "color": 8499866,
-      "testimony": "I was at the ticket window at 4:35.",
-      "alibiProof": "The window camera shows Sam at 4:33 and 4:41.",
-      "isKiller": false
-    },
-    {
-      "id": "tito",
-      "name": "Tito Reed",
-      "role": "Cab Driver",
-      "color": 15912079,
-      "testimony": "I was outside on the forecourt at 4:35.",
-      "alibiProof": "The forecourt camera shows Tito's cab at 4:32 and 4:44.",
-      "isKiller": false
-    }
-  ]
+    "id": "025",
+    "number": 25,
+    "title": "The Missing Rose Oil",
+    "scene": "At 3:40 PM, the rare rose oil vial vanished from the mixing bench. Only the perfumer saw the cracked amber dropper left beside it.",
+    "suspects": [
+        {
+            "id": "astrid",
+            "name": "Astrid Sorensen",
+            "role": "Buyer",
+            "color": 14969425,
+            "testimony": "I reviewed invoices in the alcove from 3:20 to 3:45 PM—I never touched any cracked amber dropper!",
+            "contradiction": "Nobody had mentioned a cracked amber dropper, and rose oil scented Astrid's coat cuff.",
+            "isKiller": true
+        },
+        {
+            "id": "camille",
+            "name": "Camille Duval",
+            "role": "Perfumer",
+            "color": 13530390,
+            "testimony": "I greeted clients in the front parlor from 3:20 to 3:40 PM before returning to the mixing bench.",
+            "alibiProof": "Two brides sampled scents with Camille in the front parlor from 3:20 to 3:40 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "anton",
+            "name": "Anton Kovic",
+            "role": "Glassmaker",
+            "color": 5337965,
+            "testimony": "I unpacked empty vials right beside the mixing bench from 3:25 to 3:45 PM.",
+            "alibiProof": "The shop assistant helped Anton count unpacked vials beside the bench from 3:25 to 3:45 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "bruno",
+            "name": "Bruno Ricci",
+            "role": "Botanist",
+            "color": 6723975,
+            "testimony": "I pressed dried petals in the courtyard from 3:20 to 3:45 PM and never stepped inside.",
+            "alibiProof": "The florist next door chatted with Bruno across the courtyard fence from 3:20 to 3:45 PM.",
+            "isKiller": false
+        }
+    ]
 }

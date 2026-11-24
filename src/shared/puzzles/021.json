@@ -1,44 +1,44 @@
 {
-  "id": "021",
-  "number": 21,
-  "title": "The Silent Radio",
-  "scene": "At 7:15 AM, the station microphone was unplugged. The transmitter room was sealed for testing from 7:00 to 7:30.",
-  "suspects": [
-    {
-      "id": "anita",
-      "name": "Anita Fenn",
-      "role": "Host",
-      "color": 4553629,
-      "testimony": "I was reading news on air at 7:15.",
-      "alibiProof": "The broadcast log shows Anita's voice from 7:12 to 7:18.",
-      "isKiller": false
-    },
-    {
-      "id": "barry",
-      "name": "Barry Cole",
-      "role": "Engineer",
-      "color": 11064762,
-      "testimony": "I was in the transmitter room at 7:15, running the test.",
-      "contradiction": "The transmitter was locked from outside at 7:02, and the mic cable was coiled in Barry's bag.",
-      "isKiller": true
-    },
-    {
-      "id": "carla",
-      "name": "Carla Voss",
-      "role": "Producer",
-      "color": 16032353,
-      "testimony": "I was cueing guests in the booth at 7:15.",
-      "alibiProof": "The booth camera shows Carla with cue cards at 7:14.",
-      "isKiller": false
-    },
-    {
-      "id": "devon",
-      "name": "Devon Reed",
-      "role": "Intern",
-      "color": 11888029,
-      "testimony": "I was fetching coffee from the cafe at 7:15.",
-      "alibiProof": "The cafe receipt for Devon is stamped 7:16.",
-      "isKiller": false
-    }
-  ]
+    "id": "021",
+    "number": 21,
+    "title": "The Ruby Glass Panel",
+    "scene": "At 2:10 PM, the ruby glass panel vanished from the workbench. Only the master saw the tiny brass key left on the lead tray.",
+    "suspects": [
+        {
+            "id": "wanda",
+            "name": "Wanda Keller",
+            "role": "Patron",
+            "color": 5868690,
+            "testimony": "I admired the window displays from 1:50 to 2:15 PM—I never left any tiny brass key behind!",
+            "contradiction": "Nobody had mentioned a tiny brass key, and red glass dust smudged Wanda's velvet glove.",
+            "isKiller": true
+        },
+        {
+            "id": "ines",
+            "name": "Ines Delgado",
+            "role": "Master",
+            "color": 10318570,
+            "testimony": "I sketched patterns in the front office from 1:50 to 2:10 PM before returning to the workbench.",
+            "alibiProof": "A delivery courier waited with Ines in the front office from 1:55 to 2:10 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "cedric",
+            "name": "Cedric Lloyd",
+            "role": "Apprentice",
+            "color": 15241870,
+            "testimony": "I swept glass scraps right beside the workbench from 1:55 to 2:15 PM.",
+            "alibiProof": "The studio window faces the street, where a neighbor watched Cedric sweeping from 1:55 to 2:15 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "oscar",
+            "name": "Oscar Kim",
+            "role": "Framer",
+            "color": 13530280,
+            "testimony": "I sanded oak frames in the courtyard from 1:50 to 2:15 PM and never entered the studio.",
+            "alibiProof": "Two café guests on the adjoining patio heard Oscar sanding frames from 1:50 to 2:15 PM.",
+            "isKiller": false
+        }
+    ]
 }

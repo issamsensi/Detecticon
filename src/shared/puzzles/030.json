@@ -1,44 +1,44 @@
 {
-  "id": "030",
-  "number": 30,
-  "title": "The Faded Poster",
-  "scene": "At 5:15 PM, the print shop master poster was scrubbed blank. The press floor was locked from 5:00 to 5:30.",
-  "suspects": [
-    {
-      "id": "leo",
-      "name": "Leo Ash",
-      "role": "Printer",
-      "color": 4553629,
-      "testimony": "I was at the counter at 5:15, wrapping copies.",
-      "alibiProof": "The counter camera shows Leo wrapping at 5:14.",
-      "isKiller": false
-    },
-    {
-      "id": "mina",
-      "name": "Mina Sato",
-      "role": "Designer",
-      "color": 11064762,
-      "testimony": "I was in the office at 5:15, emailing the client.",
-      "alibiProof": "Mina's email was sent at 5:13 from the office network.",
-      "isKiller": false
-    },
-    {
-      "id": "nate",
-      "name": "Nate Cole",
-      "role": "Apprentice",
-      "color": 16032353,
-      "testimony": "I was in the stockroom at 5:15, counting paper.",
-      "alibiProof": "The stockroom log shows Nate's count at 5:12 and 5:19.",
-      "isKiller": false
-    },
-    {
-      "id": "opal",
-      "name": "Opal Vale",
-      "role": "Manager",
-      "color": 11888029,
-      "testimony": "I was at the front door at 5:15, locking up early.",
-      "contradiction": "The door was locked from 5:00, and solvent stained Opal's apron.",
-      "isKiller": true
-    }
-  ]
+    "id": "030",
+    "number": 30,
+    "title": "The Carved Ivory Queen",
+    "scene": "Between 4:15 and 4:35 PM, the carved ivory queen vanished from Board One. The sunroom's glass wall looks out over the garden.",
+    "suspects": [
+        {
+            "id": "sylvie",
+            "name": "Sylvie Marchand",
+            "role": "Club President",
+            "color": 5868720,
+            "testimony": "I reset chess clocks in the sunroom from 4:10 to 4:40 PM, completely alone the whole time.",
+            "alibiProof": "The sunroom door chime stayed silent, and Keira's view through the glass confirms Sylvie was alone.",
+            "isKiller": false
+        },
+        {
+            "id": "gordon",
+            "name": "Gordon Pierce",
+            "role": "Challenger",
+            "color": 13530320,
+            "testimony": "I was in the sunroom with Sylvie from 4:10 to 4:40 PM, helping her wind the chess clocks.",
+            "contradiction": "Keira saw Sylvie alone in the sunroom, and the ivory queen was hidden in Gordon's coat pocket.",
+            "isKiller": true
+        },
+        {
+            "id": "keira",
+            "name": "Keira Sullivan",
+            "role": "Arbiter",
+            "color": 10318620,
+            "testimony": "I watered ferns facing the glass sunroom wall from 4:10 to 4:40 PM; only Sylvie was inside.",
+            "alibiProof": "The park groundskeeper chatted with Keira outside the sunroom from 4:10 to 4:40 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "samir",
+            "name": "Samir Al-Mansoor",
+            "role": "Coach",
+            "color": 15241920,
+            "testimony": "I arranged spare wooden pawns right beside Board One from 4:15 to 4:35 PM.",
+            "alibiProof": "Two junior players sat with Samir beside Board One from 4:15 to 4:35 PM.",
+            "isKiller": false
+        }
+    ]
 }

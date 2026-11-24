@@ -1,44 +1,44 @@
 {
-  "id": "013",
-  "number": 13,
-  "title": "The Faded Painting",
-  "scene": "At 3:20 PM, the studio painting was splashed with thinner. The studio lights tripped off from 3:10 to 3:35.",
-  "suspects": [
-    {
-      "id": "celia",
-      "name": "Celia Wren",
-      "role": "Painter",
-      "color": 14524637,
-      "testimony": "I was sketching by the window at 3:20 while the lights were out.",
-      "alibiProof": "Celia's sketch has a pencil date at 3:19 and daylight shading.",
-      "isKiller": false
-    },
-    {
-      "id": "nolan",
-      "name": "Nolan Fenn",
-      "role": "Framer",
-      "color": 3906559,
-      "testimony": "I was measuring frames in the back room at 3:20.",
-      "alibiProof": "The saw bench camera shows Nolan cutting at 3:18 and 3:23.",
-      "isKiller": false
-    },
-    {
-      "id": "yara",
-      "name": "Yara Cole",
-      "role": "Student",
-      "color": 8499866,
-      "testimony": "I was cleaning brushes at the sink from 3:15 to 3:30.",
-      "alibiProof": "The sink log shows Yara's badge at 3:16 and running water until 3:29.",
-      "isKiller": false
-    },
-    {
-      "id": "bruno",
-      "name": "Bruno Hale",
-      "role": "Dealer",
-      "color": 15912079,
-      "testimony": "I was in the cafe downstairs at 3:20, waiting for the lights.",
-      "contradiction": "The cafe stayed closed until 3:40, and thinner drips trail from Bruno's shoes.",
-      "isKiller": true
-    }
-  ]
+    "id": "013",
+    "number": 13,
+    "title": "The Missing Maple Bow",
+    "scene": "At 9:40 AM, the prized maple violin bow vanished from the stage. Only the dean saw the snapped purple silk tassel left on the stand.",
+    "suspects": [
+        {
+            "id": "benson",
+            "name": "Benson Gray",
+            "role": "Conductor",
+            "color": 9464998,
+            "testimony": "I graded scores in the office from 9:20 to 9:45 AM—I never touched any bow with a purple silk tassel!",
+            "contradiction": "Nobody had mentioned the purple silk tassel, and rosin dust coated Benson's jacket sleeve.",
+            "isKiller": true
+        },
+        {
+            "id": "soren",
+            "name": "Soren Lind",
+            "role": "Dean",
+            "color": 5146528,
+            "testimony": "I brewed coffee in the lounge from 9:20 to 9:40 AM before walking onstage and finding the empty case.",
+            "alibiProof": "Two cellists chatted with Soren in the lounge from 9:20 to 9:40 AM while he poured coffee.",
+            "isKiller": false
+        },
+        {
+            "id": "margot",
+            "name": "Margot Blythe",
+            "role": "Violinist",
+            "color": 14386545,
+            "testimony": "I tuned my violin in the wings right beside the stage from 9:25 to 9:45 AM.",
+            "alibiProof": "The stagehand watched Margot tuning her violin in the wings from 9:25 to 9:45 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "naomi",
+            "name": "Naomi Flores",
+            "role": "Pianist",
+            "color": 15707234,
+            "testimony": "I practiced scales in Room 4 from 9:20 to 9:45 AM and never stepped near the auditorium.",
+            "alibiProof": "The hall monitor heard Naomi practicing scales in Room 4 continuously from 9:20 to 9:45 AM.",
+            "isKiller": false
+        }
+    ]
 }

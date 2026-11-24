@@ -62,6 +62,9 @@ const validatePuzzle = (file: string, puzzle: Puzzle): { errors: string[]; kille
   }
   validateText(errors, 'title', puzzle.title);
   validateText(errors, 'scene', puzzle.scene);
+  if (typeof puzzle.scene === 'string' && puzzle.scene.includes('One of the four')) {
+    addError(errors, 'scene must not contain "One of the four"');
+  }
 
   if (!Array.isArray(puzzle.suspects)) {
     addError(errors, 'suspects must be an array of exactly 4 suspects');
@@ -167,6 +170,7 @@ const main = async (): Promise<void> => {
   }
 
   const globalPuzzleIds = new Map<string, string>();
+  const nameOwners = new Map<string, Set<string>>();
   const perFileErrors = new Map<string, string[]>();
   const killerPositions: Array<{ file: string; position: number }> = [];
   let hasErrors = false;
@@ -217,9 +221,34 @@ const main = async (): Promise<void> => {
     if (result.killerPosition != null) {
       killerPositions.push({ file, position: result.killerPosition });
     }
+    if (Array.isArray(puzzle.suspects)) {
+      for (const raw of puzzle.suspects) {
+        const suspect = (raw ?? {}) as Suspect;
+        if (isNonEmptyString(suspect.name)) {
+          const owners = nameOwners.get(suspect.name) ?? new Set<string>();
+          owners.add(file);
+          nameOwners.set(suspect.name, owners);
+        }
+      }
+    }
 
     perFileErrors.set(file, errors);
     if (errors.length > 0) {
+      hasErrors = true;
+    }
+  }
+
+  for (const [name, owners] of nameOwners.entries()) {
+    if (owners.size <= 1) {
+      continue;
+    }
+    const filesWithName = [...owners].sort().join(', ');
+    for (const file of owners) {
+      const errors = perFileErrors.get(file) ?? [];
+      errors.push(
+        `suspect name "${name}" is used in more than one puzzle (${filesWithName})`
+      );
+      perFileErrors.set(file, errors);
       hasErrors = true;
     }
   }
@@ -241,19 +270,20 @@ const main = async (): Promise<void> => {
     }
   }
 
-  // Position distribution warning
+  // Position distribution must stay balanced across the whole puzzle set.
   if (killerPositions.length > 0) {
     const counts = new Map<number, number>();
     for (const { position } of killerPositions) {
       counts.set(position, (counts.get(position) ?? 0) + 1);
     }
-    for (const [position, count] of counts.entries()) {
+    for (const [position, count] of [...counts.entries()].sort((a, b) => a[0] - b[0])) {
       const ratio = count / killerPositions.length;
-      if (ratio > 0.4) {
+      if (ratio > 0.35) {
         const pct = Math.round(ratio * 100);
-        console.warn(
-          `WARNING: killer position ${position} appears ${count}/${killerPositions.length} times (${pct}% > 40%)`
+        console.error(
+          `ERROR: killer position ${position} appears ${count}/${killerPositions.length} times (${pct}% > 35%)`
         );
+        hasErrors = true;
       }
     }
   }

@@ -1,44 +1,44 @@
 {
-  "id": "014",
-  "number": 14,
-  "title": "The Cold Coffee",
-  "scene": "At 12:40 PM, the cafe espresso machine was sabotaged. The kitchen gas was shut off from 12:30 to 12:55.",
-  "suspects": [
-    {
-      "id": "mara",
-      "name": "Mara Lund",
-      "role": "Barista",
-      "color": 4014171,
-      "testimony": "I was taking orders at the counter at 12:40, machine or no machine.",
-      "alibiProof": "The counter camera shows Mara serving at 12:38 and 12:43.",
-      "isKiller": false
-    },
-    {
-      "id": "gideon",
-      "name": "Gideon Pike",
-      "role": "Manager",
-      "color": 2792847,
-      "testimony": "I was checking the gas valve in the kitchen at 12:40.",
-      "contradiction": "The gas valve needs a key held only by Gideon, and coffee grounds were in his pocket.",
-      "isKiller": true
-    },
-    {
-      "id": "leila",
-      "name": "Leila Sato",
-      "role": "Waitress",
-      "color": 15320170,
-      "testimony": "I was clearing tables in the back room at 12:40.",
-      "alibiProof": "Leila's tray log shows table six cleared at 12:39.",
-      "isKiller": false
-    },
-    {
-      "id": "oscar",
-      "name": "Oscar Reed",
-      "role": "Delivery Driver",
-      "color": 15167313,
-      "testimony": "I was unloading crates at the side door at 12:40.",
-      "alibiProof": "The delivery app shows Oscar's scan at 12:41.",
-      "isKiller": false
-    }
-  ]
+    "id": "014",
+    "number": 14,
+    "title": "The Missing Tin Robot",
+    "scene": "Between 3:10 and 3:30 PM, the wind-up tin robot vanished from the display shelf. A mirror in the back alcove reflects the whole room.",
+    "suspects": [
+        {
+            "id": "edgar",
+            "name": "Edgar Pratt",
+            "role": "Collector",
+            "color": 6265254,
+            "testimony": "I sorted model trains in the back alcove from 3:05 to 3:35 PM, completely alone the whole time.",
+            "alibiProof": "The alcove mirror and Phoebe's view from the counter confirm Edgar was alone from 3:05 to 3:35 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "lydia",
+            "name": "Lydia Knox",
+            "role": "Dealer",
+            "color": 14896242,
+            "testimony": "I was in the back alcove with Edgar from 3:05 to 3:35 PM, helping him pack the model trains.",
+            "contradiction": "Phoebe saw Edgar alone in the alcove, and the tin robot was tucked inside Lydia's coat pocket.",
+            "isKiller": true
+        },
+        {
+            "id": "phoebe",
+            "name": "Phoebe Tran",
+            "role": "Clerk",
+            "color": 15447134,
+            "testimony": "I wrapped gifts at the counter facing the open alcove from 3:05 to 3:35 PM; only Edgar was inside.",
+            "alibiProof": "Three shoppers watched Phoebe wrapping gifts at the counter from 3:05 to 3:35 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "calvin",
+            "name": "Calvin Rowe",
+            "role": "Restorer",
+            "color": 4619684,
+            "testimony": "I dusted dollhouses right beside the display shelf from 3:10 to 3:30 PM.",
+            "alibiProof": "The shop security camera shows Calvin dusting dollhouses continuously from 3:10 to 3:30 PM.",
+            "isKiller": false
+        }
+    ]
 }

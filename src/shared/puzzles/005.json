@@ -1,44 +1,44 @@
 {
-  "id": "005",
-  "number": 5,
-  "title": "The Iced Cake",
-  "scene": "At 4:15 PM, the wedding cake had its sugar roses crushed. The bakery walk-in freezer jammed shut from 4:00 to 4:30.",
-  "suspects": [
-    {
-      "id": "nora",
-      "name": "Nora Pike",
-      "role": "Pastry Chef",
-      "color": 4014171,
-      "testimony": "I was frosting the cake in the display case until 4:15. The freezer never held me.",
-      "contradiction": "The display case was empty from 4:02, and flour marks on the freezer handle match Nora's gloves.",
-      "isKiller": true
-    },
-    {
-      "id": "basil",
-      "name": "Basil Reed",
-      "role": "Decorator",
-      "color": 2792847,
-      "testimony": "I was piping borders at the front bench from 4:05 to 4:25.",
-      "alibiProof": "The bench camera shows Basil piping nonstop from 4:04 to 4:26.",
-      "isKiller": false
-    },
-    {
-      "id": "imani",
-      "name": "Imani Cole",
-      "role": "Delivery Driver",
-      "color": 15320170,
-      "testimony": "I was loading boxes at the back dock from 4:00 to 4:20; the freezer door faced away.",
-      "alibiProof": "The dock manifest has Imani's signature at 4:02 and 4:19.",
-      "isKiller": false
-    },
-    {
-      "id": "otto",
-      "name": "Otto Vale",
-      "role": "Cashier",
-      "color": 15167313,
-      "testimony": "I was ringing up a customer at 4:15, right beside the display case.",
-      "alibiProof": "Register three logged a sale at 4:14 under Otto's till code.",
-      "isKiller": false
-    }
-  ]
+    "id": "005",
+    "number": 5,
+    "title": "The Broken Porcelain Vase",
+    "scene": "At 10:15 AM, the prized vase was found broken in the kiln room. Only the owner saw the blue velvet ribbon tied to its handle.",
+    "suspects": [
+        {
+            "id": "toby",
+            "name": "Toby Shaw",
+            "role": "Collector",
+            "color": 6725242,
+            "testimony": "I browsed the gallery from 10:00 to 10:20 AM—I never touched any vase with a blue velvet ribbon!",
+            "contradiction": "Nobody had mentioned the blue velvet ribbon, and a porcelain shard was tucked in Toby's cuff.",
+            "isKiller": true
+        },
+        {
+            "id": "iris",
+            "name": "Iris Webb",
+            "role": "Sculptor",
+            "color": 11572674,
+            "testimony": "I wedged clay at the main table from 9:55 to 10:20 AM, right beside the kiln room door.",
+            "alibiProof": "Two apprentices worked across from Iris at the main table from 9:55 to 10:20 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "hugo",
+            "name": "Hugo Klein",
+            "role": "Owner",
+            "color": 4617368,
+            "testimony": "I sorted glazes in the front shop from 9:50 to 10:15 AM before walking back to the kiln room.",
+            "alibiProof": "The shop bell log and a delivery driver confirm Hugo was at the front counter until 10:15 AM.",
+            "isKiller": false
+        },
+        {
+            "id": "cora",
+            "name": "Cora Lin",
+            "role": "Painter",
+            "color": 15442264,
+            "testimony": "I sketched patterns on the patio from 10:00 to 10:20 AM; I never went inside the studio.",
+            "alibiProof": "The café barista across the street saw Cora sketching on the patio from 10:00 to 10:20 AM.",
+            "isKiller": false
+        }
+    ]
 }

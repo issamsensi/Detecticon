@@ -1,44 +1,44 @@
 {
-  "id": "028",
-  "number": 28,
-  "title": "The Broken Clock",
-  "scene": "At 6:05 PM, the town hall clock stopped. The tower stairs were roped off from 5:50 to 6:20.",
-  "suspects": [
-    {
-      "id": "dora",
-      "name": "Dora Fenn",
-      "role": "Clerk",
-      "color": 14524637,
-      "testimony": "I was at the front desk at 6:05, sorting mail.",
-      "alibiProof": "The mail log shows Dora's initials at 6:04 and 6:11.",
-      "isKiller": false
-    },
-    {
-      "id": "emil",
-      "name": "Emil Pike",
-      "role": "Janitor",
-      "color": 3906559,
-      "testimony": "I was mopping the lobby at 6:05.",
-      "alibiProof": "The lobby camera shows Emil at 6:03 and 6:09.",
-      "isKiller": false
-    },
-    {
-      "id": "freya",
-      "name": "Freya Lund",
-      "role": "Clockkeeper",
-      "color": 8499866,
-      "testimony": "I was in the tower at 6:05, winding the gears.",
-      "contradiction": "The tower rope barrier was intact at 6:05, and gear oil marked Freya's hands.",
-      "isKiller": true
-    },
-    {
-      "id": "gus",
-      "name": "Gus Ash",
-      "role": "Visitor",
-      "color": 15912079,
-      "testimony": "I was in the courtyard at 6:05, taking photos.",
-      "alibiProof": "Gus's photo of the clock is timestamped 6:04.",
-      "isKiller": false
-    }
-  ]
+    "id": "028",
+    "number": 28,
+    "title": "The Painted Silk Lantern",
+    "scene": "At 6:20 PM, the painted silk lantern vanished from the drying rack. The 6:00 PM harbor shuttle takes 30 minutes to reach Pine Point.",
+    "suspects": [
+        {
+            "id": "gwen",
+            "name": "Gwen Sawyer",
+            "role": "Painter",
+            "color": 14658240,
+            "testimony": "I mixed gold ink at the table right beside the drying rack from 6:05 to 6:25 PM.",
+            "alibiProof": "Two festival volunteers watched Gwen mixing gold ink beside the rack from 6:05 to 6:25 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "talia",
+            "name": "Talia Okafor",
+            "role": "Weaver",
+            "color": 15709620,
+            "testimony": "I cut bamboo strips on the back porch from 6:00 to 6:25 PM and never stepped inside.",
+            "alibiProof": "The neighbor next door chatted with Talia on the back porch from 6:00 to 6:25 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "niels",
+            "name": "Niels Lindholm",
+            "role": "Carpenter",
+            "color": 4817620,
+            "testimony": "I sanded lantern frames in the courtyard from 6:00 to 6:30 PM, watching the dusk settle.",
+            "alibiProof": "The delivery courier waved to Niels sanding frames in the courtyard at 6:10 and 6:25 PM.",
+            "isKiller": false
+        },
+        {
+            "id": "elias",
+            "name": "Elias Donovan",
+            "role": "Calligrapher",
+            "color": 5863120,
+            "testimony": "I caught the 6:00 PM harbor shuttle and was already hanging banners at Pine Point by 6:15 PM.",
+            "contradiction": "The 6:00 PM shuttle doesn't reach Pine Point until 6:30 PM, and the lantern was in Elias's trunk.",
+            "isKiller": true
+        }
+    ]
 }
