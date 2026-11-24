@@ -8,6 +8,7 @@ type StatusState = {
   puzzleNumber?: number;
   puzzleTitle?: string;
   statusText: string;
+  ctaText: string;
   solvedTodayText?: string;
   practice?: boolean;
   devOverride?: boolean;
@@ -15,6 +16,7 @@ type StatusState = {
 
 const defaultStatus: StatusState = {
   statusText: 'New case today',
+  ctaText: 'Play',
 };
 
 const fetchJson = async <T,>(url: string): Promise<T> => {
@@ -39,6 +41,7 @@ export const Splash = () => {
             state: {
               puzzleNumber: number;
               attemptsUsed: number;
+              attemptsLeft: number;
               finished: boolean;
               solved: boolean;
               practice: boolean;
@@ -60,24 +63,45 @@ export const Splash = () => {
           return;
         }
 
-        const { puzzleNumber, attemptsUsed, finished, solved, practice, devOverride } =
-          today.state;
+        const {
+          puzzleNumber,
+          attemptsUsed,
+          attemptsLeft,
+          finished,
+          solved,
+          practice,
+          devOverride,
+        } = today.state;
         const solvedToday = stats
           ? stats.stats.solved1 + stats.stats.solved2 + stats.stats.solved3
           : null;
 
         let statusText = 'New case today';
+        let ctaText = 'Play';
         if (finished) {
           statusText = solved ? `Solved in ${attemptsUsed}/3` : 'Case failed';
+          ctaText = 'View result';
+        } else if (attemptsUsed > 0) {
+          const triesLeft = attemptsLeft ?? Math.max(0, 3 - attemptsUsed);
+          statusText = `In progress · ${triesLeft} ${triesLeft === 1 ? 'try' : 'tries'} left`;
+          ctaText = 'Resume';
         }
+
+        const solvedLabel =
+          solvedToday != null
+            ? practice
+              ? `${solvedToday} solved`
+              : `${solvedToday} solved today`
+            : undefined;
 
         setStatus({
           puzzleNumber,
           puzzleTitle: today.puzzle.title,
           statusText,
+          ctaText,
           practice,
           devOverride,
-          ...(solvedToday != null ? { solvedTodayText: `${solvedToday} solved today` } : {}),
+          ...(solvedLabel ? { solvedTodayText: solvedLabel } : {}),
         });
       } catch {
         if (!cancelled) {
@@ -101,23 +125,23 @@ export const Splash = () => {
   ].filter((badge) => badge !== null);
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-[#101826] px-4 py-5 text-[#f4f1de]">
-      <main className="flex w-full max-w-[420px] flex-col items-center gap-4 text-center">
+    <div className="flex min-h-screen w-full items-center justify-center bg-[#101826] px-4 py-3 text-[#f4f1de]">
+      <main className="flex w-full max-w-[420px] flex-col items-center gap-2.5 text-center">
         <img
           src="/assets/detective.png"
           alt="Detective"
-          width={192}
-          height={192}
-          className="h-[192px] w-[192px] select-none"
+          width={144}
+          height={144}
+          className="h-28 w-28 select-none sm:h-36 sm:w-36"
           style={{ imageRendering: 'pixelated' }}
           draggable={false}
         />
 
-        <div className="flex flex-col items-center gap-1">
-          <h1 className="text-3xl font-extrabold tracking-wide text-[#f4f1de] sm:text-4xl">
+        <div className="flex flex-col items-center gap-0.5">
+          <h1 className="text-2xl font-extrabold tracking-wide text-[#f4f1de] sm:text-3xl">
             Detecticon
           </h1>
-          <p className="text-lg font-semibold text-[#f2cc8f] sm:text-xl">{puzzleLabel}</p>
+          <p className="text-base font-semibold text-[#f2cc8f] sm:text-lg">{puzzleLabel}</p>
           <p className="text-sm text-[#c9d1e1] sm:text-base">4 suspects. 1 liar. 3 tries.</p>
           {badges.length > 0 ? (
             <p className="text-xs font-semibold text-[#e07a5f] sm:text-sm">
@@ -126,19 +150,19 @@ export const Splash = () => {
           ) : null}
         </div>
 
-        <section className="w-full rounded-xl border border-[#2f3b52] bg-[#182235] px-4 py-3 shadow-sm">
+        <section className="w-full rounded-xl border border-[#2f3b52] bg-[#182235] px-4 py-2.5 shadow-sm">
           <p className="text-base font-semibold text-[#f4f1de] sm:text-lg">{status.statusText}</p>
           {status.solvedTodayText ? (
-            <p className="mt-1 text-sm text-[#9fb0cf] sm:text-base">{status.solvedTodayText}</p>
+            <p className="mt-0.5 text-sm text-[#9fb0cf] sm:text-base">{status.solvedTodayText}</p>
           ) : null}
         </section>
 
         <button
           type="button"
-          className="mt-1 flex h-14 w-full max-w-[320px] cursor-pointer items-center justify-center rounded-xl bg-[#e07a5f] px-6 text-lg font-bold text-[#101826] shadow-md transition-colors hover:bg-[#f08a70] active:bg-[#cc694f] sm:text-xl"
+          className="mt-0.5 flex h-12 w-full max-w-[320px] cursor-pointer items-center justify-center rounded-xl bg-[#e07a5f] px-6 text-lg font-bold text-[#101826] shadow-md transition-colors hover:bg-[#f08a70] active:bg-[#cc694f] sm:h-14 sm:text-xl"
           onClick={(e) => requestExpandedMode(e.nativeEvent, 'game')}
         >
-          Play
+          {status.ctaText}
         </button>
       </main>
     </div>

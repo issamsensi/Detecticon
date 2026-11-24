@@ -195,9 +195,13 @@ export class AccuseScene extends Phaser.Scene {
 
     this.busy = true;
     this.setCaseFileEnabled(false);
+    this.infoText.setColor('#a7b1c2');
     this.infoText.setText('Checking...');
     try {
       const response = await accuse(this.puzzle.id, suspect.id);
+      if (!this.scene.isActive()) {
+        return;
+      }
       this.state = response.state;
       this.updateHud();
 
@@ -237,12 +241,16 @@ export class AccuseScene extends Phaser.Scene {
         () => {
           this.clearFeedback();
           this.renderSuspects();
+          this.infoText.setColor('#a7b1c2');
           this.infoText.setText('Not them. Tap another suspect.');
           this.hintText.setText('');
         },
         tailX
       );
     } catch (error) {
+      if (!this.scene.isActive()) {
+        return;
+      }
       if (error instanceof ApiError && error.status === 401) {
         // Keep flow intact: show clear login message without changing game state.
         this.infoText.setColor('#f2cc8f');
@@ -253,12 +261,16 @@ export class AccuseScene extends Phaser.Scene {
         (error.status === 400 || error.status === 404)
       ) {
         // State/puzzle may have changed (finished, eliminated, or new day): reload and route.
+        this.infoText.setColor('#a7b1c2');
         this.infoText.setText('Syncing latest puzzle...');
         this.hintText.setText('');
         try {
           await reloadToday(this.game);
           return;
         } catch {
+          if (!this.scene.isActive()) {
+            return;
+          }
           this.infoText.setColor('#e07a5f');
           this.infoText.setText('Could not sync. Tap to retry.');
           this.hintText.setText('tap to continue');
@@ -285,7 +297,12 @@ export class AccuseScene extends Phaser.Scene {
       }
     } finally {
       this.busy = false;
-      if (!this.feedbackBubble && !this.state.finished && !this.pendingAction) {
+      if (
+        this.scene.isActive() &&
+        !this.feedbackBubble &&
+        !this.state.finished &&
+        !this.pendingAction
+      ) {
         this.updateHud();
         this.setCaseFileEnabled(true);
       }
@@ -323,7 +340,7 @@ export class AccuseScene extends Phaser.Scene {
       centerX: true,
       padding,
       minHeight: 80,
-      maxHeight: 210,
+      maxHeight: 232,
       text,
       tail: { direction: 'up', x: tailX, width: 24, height: 14 },
       textStyle: {
@@ -337,6 +354,7 @@ export class AccuseScene extends Phaser.Scene {
     });
     this.pendingAction = onContinue;
     this.hintText.setText(hint);
+    this.infoText.setColor('#a7b1c2');
     this.infoText.setText(this.feedbackBubble.isTyping() ? 'tap to skip' : hint);
   }
 
@@ -360,6 +378,7 @@ export class AccuseScene extends Phaser.Scene {
       }
       const action = this.pendingAction;
       if (action) {
+        this.pendingAction = null;
         action();
       }
       return;

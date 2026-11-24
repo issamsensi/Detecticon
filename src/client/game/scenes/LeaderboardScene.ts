@@ -14,6 +14,13 @@ type LeaderboardSceneData = {
   state?: GameState;
 };
 
+const MAX_USERNAME_CHARS = 15;
+
+const truncateUsername = (username: string): string =>
+  username.length > MAX_USERNAME_CHARS
+    ? `${username.slice(0, MAX_USERNAME_CHARS - 1)}…`
+    : username;
+
 export class LeaderboardScene extends Phaser.Scene {
   private from: 'IntroScene' | 'ResultScene' = 'IntroScene';
   private puzzleId = '';
@@ -137,11 +144,17 @@ export class LeaderboardScene extends Phaser.Scene {
     }
 
     board.entries.forEach((entry, index) => {
-      this.addRow(106 + index * 38, entry.rank, entry.username, entry.points, me?.rank === entry.rank);
+      this.addRow(
+        106 + index * 38,
+        entry.rank,
+        entry.username,
+        entry.points,
+        me?.username === entry.username
+      );
     });
 
     // The API also returns the current player when they fall outside the top 10.
-    if (me && !board.entries.some((entry) => entry.rank === me.rank)) {
+    if (me && !board.entries.some((entry) => entry.username === me.username)) {
       this.addRow(522, me.rank, `You (${me.username})`, me.points, true);
     }
   }
@@ -167,7 +180,7 @@ export class LeaderboardScene extends Phaser.Scene {
       color: highlight ? '#f4f1de' : '#d9dde7',
     };
     this.add.text(panelX + 16, y, String(rank).padStart(2, '0'), style).setOrigin(0, 0.5);
-    this.add.text(panelX + 58, y, username, style).setOrigin(0, 0.5);
+    this.add.text(panelX + 58, y, truncateUsername(username), style).setOrigin(0, 0.5);
     this.add
       .text(panelX + panelW - 16, y, formatPointsEarned(points), style)
       .setOrigin(1, 0.5);

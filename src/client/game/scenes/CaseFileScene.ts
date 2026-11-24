@@ -72,20 +72,20 @@ export class CaseFileScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
 
-    const prev = this.makeButton(78, BUTTONS_Y, 92, 44, 'Prev', 0x3d405b, () =>
+    const prev = this.makeButton(64, BUTTONS_Y, 88, 44, 'Prev', 0x3d405b, () =>
       this.changePage(-1)
     );
     this.prevButton = prev.rectangle;
     this.prevLabel = prev.label;
 
-    const next = this.makeButton(282, BUTTONS_Y, 92, 44, 'Next', 0x81b29a, () =>
+    const next = this.makeButton(296, BUTTONS_Y, 88, 44, 'Next', 0x81b29a, () =>
       this.changePage(1)
     );
     this.nextButton = next.rectangle;
     this.nextLabel = next.label;
 
     // Close is always rendered last (on top) and is never disabled by pagination.
-    this.makeButton(width / 2, BUTTONS_Y, 120, 44, 'Close', 0xe07a5f, () => {
+    this.makeButton(width / 2, BUTTONS_Y, 116, 44, 'Close', 0xe07a5f, () => {
       this.scene.start('AccuseScene', { puzzle: this.puzzle, state: this.state });
     });
 

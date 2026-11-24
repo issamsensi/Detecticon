@@ -405,7 +405,16 @@ export class ResultScene extends Phaser.Scene {
       }
       this.drawStats(stats, bucket);
     } catch {
-      // No chart on fetch errors; the label stays without a count.
+      if (!this.scene.isActive()) {
+        return;
+      }
+      this.add
+        .text(this.scale.width / 2, Y.barBaseline, 'Stats unavailable', {
+          fontFamily: 'monospace',
+          fontSize: '12px',
+          color: '#a7b1c2',
+        })
+        .setOrigin(0.5);
     }
   }
 
