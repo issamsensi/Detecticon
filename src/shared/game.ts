@@ -20,8 +20,6 @@ export type GameState = {
   pointsEarned: number;
   /** Old posts remain playable but never award stats or weekly points. */
   practice: boolean;
-  /** True while a moderator test override affects this post or the rotation. */
-  devOverride: boolean;
   sharedToComments: boolean;
   revealedKillerId?: string;
   shareText?: string;
@@ -42,7 +40,6 @@ export const createInitialGameState = (
   finished: false,
   pointsEarned: 0,
   practice: false,
-  devOverride: false,
   sharedToComments: false,
 });
 

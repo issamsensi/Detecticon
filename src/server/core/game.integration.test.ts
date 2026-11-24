@@ -4,7 +4,7 @@ import { test } from '../test';
 import { formatPointsDelta, pointsForAttempts } from '../../shared/scoring';
 import { decodeLeaderboardPoints, leaderboardKey } from '../../shared/leaderboard';
 import { getWeekId } from '../../shared/week';
-import { getLeaderboard, revertAwardedPoints } from './leaderboard';
+import { getLeaderboard } from './leaderboard';
 import { statsKey } from './game';
 import {
   accuseSuspect,
@@ -15,14 +15,13 @@ import {
 import { getTodayInfo } from './puzzle';
 import type { PuzzleSession } from './session';
 
-const makeSession = async (overrides: Partial<PuzzleSession> = {}): Promise<PuzzleSession> => {
-  const today = await getTodayInfo();
+const makeSession = (overrides: Partial<PuzzleSession> = {}): PuzzleSession => {
+  const today = getTodayInfo();
   return {
     puzzle: today.puzzle,
     date: today.date,
     displayNumber: today.displayNumber,
     practice: false,
-    devOverride: false,
     ...overrides,
   };
 };
@@ -56,7 +55,6 @@ test('a first-attempt solve awards 3 points in both the result and the weekly bo
   expect(rawScore).toBeDefined();
   expect(decodeLeaderboardPoints(rawScore!)).toBe(3);
   expect((await getLeaderboard()).me?.points).toBe(3);
-  expect(result.progress.awardedWeekId).toBe(weekId);
   expect(await getStats(session.puzzle.id, session.date)).toMatchObject({ solved1: 1 });
 });
 
@@ -172,37 +170,11 @@ test('practice posts score no points, increment no stats and cannot share', asyn
   });
 });
 
-test('dev override posts score no points, increment no stats and cannot share', async () => {
-  const session = await makeSession({ devOverride: true });
-  const result = await accuseSuspect(session, killerId(session));
-
-  expect(result.state.pointsEarned).toBe(0);
-  expect(result.state.devOverride).toBe(true);
-  expect((await getLeaderboard()).me).toBeNull();
-  expect(Object.keys(await redis.hGetAll(statsKey(session.date, session.puzzle.id)))).toHaveLength(
-    0
-  );
-  await expect(shareResultToComments(session)).rejects.toMatchObject({
-    status: 400,
-    message: 'Dev test puzzles cannot be shared to comments',
-  });
-});
-
 test('practice state also hides points when built from stored progress', async () => {
-  const session = await makeSession({ date: '2026-11-01', practice: true });
+  const session = makeSession({ date: '2026-11-01', practice: true });
   const finished = await accuseSuspect(session, killerId(session));
   const state = toGameState(session.puzzle, finished.progress, session);
 
   expect(state.pointsEarned).toBe(0);
   expect(state.practice).toBe(true);
-  expect(state.devOverride).toBe(false);
-});
-
-test('the dev reset action’s point reversal clears a weekly award', async ({ username }) => {
-  const session = await makeSession();
-  const result = await accuseSuspect(session, killerId(session));
-  expect((await getLeaderboard()).me?.points).toBe(3);
-
-  await revertAwardedPoints(username, pointsForAttempts(1, true), result.progress.awardedWeekId);
-  expect((await getLeaderboard()).me).toBeNull();
 });

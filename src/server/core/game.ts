@@ -22,8 +22,6 @@ export type StoredProgress = {
   solved: boolean;
   revealedKillerId?: string;
   statsCounted: boolean;
-  /** Week the weekly award was added to, so moderator resets target that board. */
-  awardedWeekId?: string;
   sharedToComments: boolean;
 };
 
@@ -96,7 +94,6 @@ const readProgressRecord = (data: Record<string, string> | undefined): StoredPro
   const statsCounted = data.statsCounted === '1';
   const sharedToComments = data.sharedToComments === '1';
   const revealedKillerId = data.revealedKillerId || undefined;
-  const awardedWeekId = data.awardedWeekId || undefined;
 
   return {
     attemptsUsed: safeAttemptsUsed,
@@ -108,7 +105,6 @@ const readProgressRecord = (data: Record<string, string> | undefined): StoredPro
     statsCounted,
     sharedToComments,
     ...(revealedKillerId ? { revealedKillerId } : {}),
-    ...(awardedWeekId ? { awardedWeekId } : {}),
   };
 };
 
@@ -122,7 +118,6 @@ const progressHash = (progress: StoredProgress): Record<string, string> => ({
   statsCounted: progress.statsCounted ? '1' : '0',
   sharedToComments: progress.sharedToComments ? '1' : '0',
   revealedKillerId: progress.revealedKillerId ?? '',
-  awardedWeekId: progress.awardedWeekId ?? '',
 });
 
 export const getProgress = async (puzzleId: string, date: string): Promise<StoredProgress> => {
@@ -130,15 +125,6 @@ export const getProgress = async (puzzleId: string, date: string): Promise<Store
   if (!player) {
     return defaultProgress();
   }
-  return getStoredProgress(date, puzzleId, player);
-};
-
-/** Used by moderator dev actions to work out which points to remove. */
-export const getStoredProgress = async (
-  date: string,
-  puzzleId: string,
-  player: string
-): Promise<StoredProgress> => {
   const data = await redis.hGetAll(progressKey(date, puzzleId, player));
   return readProgressRecord(data);
 };
@@ -274,18 +260,15 @@ export const accuseSuspect = async (
         suspectId
       );
 
-      // Old posts and dev-override posts stay fully playable but never touch
-      // stats or the weekly leaderboard.
+      // Old posts stay fully playable but never touch stats or the weekly leaderboard.
       const shouldCount =
         finishedNow &&
         statField &&
         !current.statsCounted &&
-        !session.practice &&
-        !session.devOverride;
+        !session.practice;
       let leaderboardScore: number | null = null;
       if (shouldCount) {
         next.statsCounted = true;
-        next.awardedWeekId = weekId;
         const points = pointsForAttempts(next.attemptsUsed, next.solved);
         if (points > 0) {
           const currentScore = await redis.zScore(lbKey, player);
@@ -329,10 +312,7 @@ export const accuseSuspect = async (
   throw new GameError('Could not save progress, please try again', 409);
 };
 
-type GameStateSession = Pick<
-  PuzzleSession,
-  'date' | 'displayNumber' | 'practice' | 'devOverride'
->;
+type GameStateSession = Pick<PuzzleSession, 'date' | 'displayNumber' | 'practice'>;
 
 export const toGameState = (
   puzzle: Puzzle,
@@ -357,7 +337,6 @@ export const toGameState = (
   const date = session?.date ?? getUtcDateString();
   const displayNumber = session?.displayNumber ?? getDisplayPuzzleNumber(date);
   const practice = session?.practice ?? false;
-  const devOverride = session?.devOverride ?? false;
   return {
     puzzleId: puzzle.id,
     puzzleNumber: displayNumber,
@@ -367,10 +346,8 @@ export const toGameState = (
     ...(Object.keys(eliminatedAlibis).length > 0 ? { eliminatedAlibis } : {}),
     results: progress.results,
     solved: progress.solved,
-    pointsEarned:
-      practice || devOverride ? 0 : pointsForAttempts(progress.attemptsUsed, progress.solved),
+    pointsEarned: practice ? 0 : pointsForAttempts(progress.attemptsUsed, progress.solved),
     practice,
-    devOverride,
     sharedToComments: progress.sharedToComments,
     ...(progress.revealedKillerId ? { revealedKillerId: progress.revealedKillerId } : {}),
     finished: progress.finished,
@@ -403,9 +380,6 @@ export const shareResultToComments = async (
   }
   if (session.practice) {
     throw new GameError('Practice puzzles cannot be shared to comments', 400);
-  }
-  if (session.devOverride) {
-    throw new GameError('Dev test puzzles cannot be shared to comments', 400);
   }
 
   const { puzzle, date } = session;

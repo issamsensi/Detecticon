@@ -1,7 +1,6 @@
 import { redis, reddit } from '@devvit/web/server';
 import {
   decodeLeaderboardPoints,
-  LEADERBOARD_SCORE_UNIT,
   leaderboardKey,
   type LeaderboardEntry,
   type LeaderboardResponse,
@@ -46,33 +45,4 @@ export const getLeaderboard = async (now: Date = new Date()): Promise<Leaderboar
   }
 
   return { weekId, entries, me, secondsUntilReset: secondsUntilWeekReset(now) };
-};
-
-/** Removes points awarded for one puzzle from the week it was awarded in. */
-export const revertAwardedPoints = async (
-  username: string,
-  points: number,
-  weekId: string = getWeekId(new Date())
-): Promise<void> => {
-  if (points <= 0) return;
-  const key = leaderboardKey(weekId);
-  const score = await redis.zScore(key, username);
-  if (score === undefined) return;
-
-  const remaining = decodeLeaderboardPoints(score) - points;
-  if (remaining <= 0) {
-    await redis.zRem(key, [username]);
-    return;
-  }
-  // Preserve the weekly timestamp; only remove the point bucket being reverted.
-  await redis.zAdd(key, {
-    member: username,
-    score: score - points * LEADERBOARD_SCORE_UNIT,
-  });
-};
-
-export const clearWeeklyLeaderboard = async (now: Date = new Date()): Promise<string> => {
-  const key = leaderboardKey(getWeekId(now));
-  await redis.del(key);
-  return key;
 };

@@ -121,14 +121,10 @@ export class ResultScene extends Phaser.Scene {
       )
       .setOrigin(0.5);
 
-    const noPoints = currentState.practice || currentState.devOverride;
-    const badges = [
-      currentState.practice ? 'Practice: no points' : null,
-      currentState.devOverride ? 'Dev: test puzzle · no points' : null,
-    ].filter((badge): badge is string => badge !== null);
-    if (badges.length > 0) {
+    const noPoints = currentState.practice;
+    if (currentState.practice) {
       this.add
-        .text(centerX, Y.badges, badges.join(' · '), {
+        .text(centerX, Y.badges, 'Practice: no points', {
           fontFamily: 'monospace',
           fontSize: '12px',
           color: '#e07a5f',
@@ -273,11 +269,7 @@ export class ResultScene extends Phaser.Scene {
 
     let posting = false;
     let confirming = false;
-    const idlePostLabel = currentState.practice
-      ? 'Practice: sharing off'
-      : currentState.devOverride
-        ? 'Dev: sharing off'
-        : 'Post to comments';
+    const idlePostLabel = currentState.practice ? 'Practice: sharing off' : 'Post to comments';
 
     const setPostEnabled = (enabled: boolean): void => {
       if (enabled) {

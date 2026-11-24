@@ -12,7 +12,6 @@ type StatusState = {
   ctaText: string;
   solvedTodayText?: string;
   practice?: boolean;
-  devOverride?: boolean;
 };
 
 const defaultStatus: StatusState = {
@@ -46,7 +45,6 @@ export const Splash = () => {
               finished: boolean;
               solved: boolean;
               practice: boolean;
-              devOverride: boolean;
             };
           }>('/api/puzzle/today'),
           fetchJson<{
@@ -71,7 +69,6 @@ export const Splash = () => {
           finished,
           solved,
           practice,
-          devOverride,
         } = today.state;
         const solvedToday = stats
           ? stats.stats.solved1 + stats.stats.solved2 + stats.stats.solved3
@@ -101,7 +98,6 @@ export const Splash = () => {
           statusText,
           ctaText,
           practice,
-          devOverride,
           ...(solvedLabel ? { solvedTodayText: solvedLabel } : {}),
         });
       } catch {
@@ -120,10 +116,7 @@ export const Splash = () => {
   const puzzleLabel = status.puzzleNumber
     ? `Puzzle #${status.puzzleNumber}${status.puzzleTitle ? `: ${status.puzzleTitle}` : ''}`
     : 'Puzzle #—';
-  const badges = [
-    status.practice ? 'Practice: no points' : null,
-    status.devOverride ? 'Dev: test puzzle · no points' : null,
-  ].filter((badge) => badge !== null);
+  const badge = status.practice ? 'Practice: no points' : null;
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-[#101826] px-4 py-3 text-[#f4f1de]">
@@ -146,10 +139,8 @@ export const Splash = () => {
           <p className="text-sm text-[#c9d1e1] sm:text-base">
             4 suspects. 1 liar. {MAX_ATTEMPTS} tries.
           </p>
-          {badges.length > 0 ? (
-            <p className="text-xs font-semibold text-[#e07a5f] sm:text-sm">
-              {badges.join(' · ')}
-            </p>
+          {badge ? (
+            <p className="text-xs font-semibold text-[#e07a5f] sm:text-sm">{badge}</p>
           ) : null}
         </div>
 

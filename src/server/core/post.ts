@@ -16,9 +16,9 @@ const DAILY_POST_TTL_SECONDS = 90 * 86_400;
 const dailyPostKey = (date: string): string => `detecticon:daily-post:${date}`;
 
 // Every post carries its own UTC date + puzzle id so old posts keep showing
-// the puzzle they were created for. Dev override is marked explicitly.
-const todayPostData = async () => {
-  const { puzzle, date, displayNumber, isDevOverride } = await getTodayInfo();
+// the puzzle they were created for.
+const todayPostData = () => {
+  const { puzzle, date, displayNumber } = getTodayInfo();
   return {
     puzzle,
     date,
@@ -26,13 +26,12 @@ const todayPostData = async () => {
     postData: buildPuzzlePostData({
       date,
       puzzleId: puzzle.id,
-      ...(isDevOverride ? { devOverride: true } : {}),
     }),
   };
 };
 
 export const createTodaysDetectivoPost = async (): Promise<DailyPostResult> => {
-  const { puzzle, date, displayNumber, postData } = await todayPostData();
+  const { puzzle, date, displayNumber, postData } = todayPostData();
   const title = `Detecticon #${displayNumber}: ${puzzle.title}`;
   const key = dailyPostKey(date);
 

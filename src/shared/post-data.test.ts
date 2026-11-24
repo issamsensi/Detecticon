@@ -27,12 +27,6 @@ describe('parsePuzzlePostData', () => {
     });
   });
 
-  test('keeps the dev override marker', () => {
-    expect(
-      parsePuzzlePostData({ date: '2026-11-24', puzzleId: '017', devOverride: true })
-    ).toEqual({ date: '2026-11-24', puzzleId: '017', devOverride: true });
-  });
-
   test('rejects missing, invalid or array data', () => {
     expect(parsePuzzlePostData(undefined)).toBeNull();
     expect(parsePuzzlePostData(null)).toBeNull();
@@ -44,16 +38,9 @@ describe('parsePuzzlePostData', () => {
   });
 });
 
-test('buildPuzzlePostData only includes a dev marker when set', () => {
+test('buildPuzzlePostData stores date and puzzleId', () => {
   expect(buildPuzzlePostData({ date: '2026-11-24', puzzleId: '017' })).toEqual({
     date: '2026-11-24',
     puzzleId: '017',
-  });
-  expect(
-    buildPuzzlePostData({ date: '2026-11-24', puzzleId: '017', devOverride: true })
-  ).toEqual({
-    date: '2026-11-24',
-    puzzleId: '017',
-    devOverride: true,
   });
 });

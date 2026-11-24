@@ -20,7 +20,6 @@ export type TodayResponse = {
   progress: ProgressPayload;
   state: GameState;
   practice?: boolean;
-  devOverride?: boolean;
 };
 
 export type AccuseResponse = {

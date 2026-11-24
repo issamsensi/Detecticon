@@ -18,7 +18,6 @@ export type PuzzleSession = {
   date: string;
   displayNumber: number;
   practice: boolean;
-  devOverride: boolean;
 };
 
 /**
@@ -35,7 +34,6 @@ export const selectPuzzleSession = (postData: unknown, today: TodayPuzzle): Puzz
         date: stored.date,
         displayNumber: getDisplayPuzzleNumber(stored.date),
         practice: stored.date !== today.date,
-        devOverride: today.isDevOverride || stored.devOverride === true,
       };
     }
   }
@@ -45,9 +43,8 @@ export const selectPuzzleSession = (postData: unknown, today: TodayPuzzle): Puzz
     date: today.date,
     displayNumber: today.displayNumber,
     practice: false,
-    devOverride: today.isDevOverride,
   };
 };
 
-export const resolvePuzzleSession = async (now: Date = new Date()): Promise<PuzzleSession> =>
-  selectPuzzleSession(context.postData, await getTodayInfo(now));
+export const resolvePuzzleSession = (now: Date = new Date()): PuzzleSession =>
+  selectPuzzleSession(context.postData, getTodayInfo(now));

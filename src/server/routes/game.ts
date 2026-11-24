@@ -17,7 +17,7 @@ export const game = new Hono();
 // Every route resolves the puzzle from this post's stored date/id (with a
 // fallback to today's rotation for posts created before post data existed).
 game.get('/puzzle/today', async (c) => {
-  const session = await resolvePuzzleSession();
+  const session = resolvePuzzleSession();
   const progress = await getProgress(session.puzzle.id, session.date);
   const state = toGameState(session.puzzle, progress, session);
   return c.json({
@@ -25,7 +25,6 @@ game.get('/puzzle/today', async (c) => {
     progress,
     state,
     practice: session.practice,
-    devOverride: session.devOverride,
   });
 });
 
@@ -47,7 +46,7 @@ game.post('/accuse', async (c) => {
   }
 
   try {
-    const session = await resolvePuzzleSession();
+    const session = resolvePuzzleSession();
     if (puzzleId !== session.puzzle.id) {
       return c.json({ error: 'This post plays a different puzzle' }, 400);
     }
@@ -83,7 +82,7 @@ game.post('/share', async (c) => {
   }
 
   try {
-    const session = await resolvePuzzleSession();
+    const session = resolvePuzzleSession();
     if (puzzleId !== session.puzzle.id) {
       return c.json({ error: 'This post plays a different puzzle' }, 400);
     }
@@ -109,7 +108,7 @@ game.post('/seen-howto', async (c) => {
 });
 
 game.get('/stats/today', async (c) => {
-  const session = await resolvePuzzleSession();
+  const session = resolvePuzzleSession();
   const stats = await getStats(session.puzzle.id, session.date);
   return c.json({
     puzzleId: session.puzzle.id,
