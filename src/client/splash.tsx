@@ -6,8 +6,11 @@ import { createRoot } from 'react-dom/client';
 
 type StatusState = {
   puzzleNumber?: number;
+  puzzleTitle?: string;
   statusText: string;
   solvedTodayText?: string;
+  practice?: boolean;
+  devOverride?: boolean;
 };
 
 const defaultStatus: StatusState = {
@@ -32,11 +35,14 @@ export const Splash = () => {
       try {
         const [todayResult, statsResult] = await Promise.allSettled([
           fetchJson<{
+            puzzle: { title: string };
             state: {
               puzzleNumber: number;
               attemptsUsed: number;
               finished: boolean;
               solved: boolean;
+              practice: boolean;
+              devOverride: boolean;
             };
           }>('/api/puzzle/today'),
           fetchJson<{
@@ -54,7 +60,8 @@ export const Splash = () => {
           return;
         }
 
-        const { puzzleNumber, attemptsUsed, finished, solved } = today.state;
+        const { puzzleNumber, attemptsUsed, finished, solved, practice, devOverride } =
+          today.state;
         const solvedToday = stats
           ? stats.stats.solved1 + stats.stats.solved2 + stats.stats.solved3
           : null;
@@ -66,7 +73,10 @@ export const Splash = () => {
 
         setStatus({
           puzzleNumber,
+          puzzleTitle: today.puzzle.title,
           statusText,
+          practice,
+          devOverride,
           ...(solvedToday != null ? { solvedTodayText: `${solvedToday} solved today` } : {}),
         });
       } catch {
@@ -82,7 +92,13 @@ export const Splash = () => {
     };
   }, []);
 
-  const puzzleLabel = status.puzzleNumber ? `Puzzle #${status.puzzleNumber}` : 'Puzzle #—';
+  const puzzleLabel = status.puzzleNumber
+    ? `Puzzle #${status.puzzleNumber}${status.puzzleTitle ? `: ${status.puzzleTitle}` : ''}`
+    : 'Puzzle #—';
+  const badges = [
+    status.practice ? 'Practice: no points' : null,
+    status.devOverride ? 'Dev: test puzzle · no points' : null,
+  ].filter((badge) => badge !== null);
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-[#101826] px-4 py-5 text-[#f4f1de]">
@@ -103,6 +119,11 @@ export const Splash = () => {
           </h1>
           <p className="text-lg font-semibold text-[#f2cc8f] sm:text-xl">{puzzleLabel}</p>
           <p className="text-sm text-[#c9d1e1] sm:text-base">4 suspects. 1 liar. 3 tries.</p>
+          {badges.length > 0 ? (
+            <p className="text-xs font-semibold text-[#e07a5f] sm:text-sm">
+              {badges.join(' · ')}
+            </p>
+          ) : null}
         </div>
 
         <section className="w-full rounded-xl border border-[#2f3b52] bg-[#182235] px-4 py-3 shadow-sm">

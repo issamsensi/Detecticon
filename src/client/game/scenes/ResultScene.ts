@@ -6,14 +6,50 @@ import { DETECTIVE_KEY } from '../assets';
 import { createInterrogationBackdrop } from '../ui/backdrop';
 import { createCharacter } from '../ui/Character';
 
-const STATS_TITLE_Y = 250;
-const BAR_BOTTOM_Y = 318;
-const BAR_MAX_HEIGHT = 40;
-const STATS_LABEL_Y = 324;
+/**
+ * Fixed 360x640 layout. Every `y` below is a vertical centre unless its name
+ * says "top" or "baseline". Panels are stacked with at least a 6px gap, so
+ * wrapped text and long values cannot push into the next section.
+ */
+const Y = {
+  headerTop: 8,
+  headerHeight: 150,
+  detective: 38,
+  title: 80,
+  culprit: 105,
+  attempts: 128,
+  badges: 148,
+
+  shareCard: 186,
+  shareCardHeight: 44,
+
+  statsBox: 260,
+  statsHeight: 86,
+  statsHeading: 230,
+  barBaseline: 278,
+  statsLabels: 284,
+
+  countdown: 322,
+  feedback: 352,
+
+  rankingButton: 404,
+  postButton: 460,
+  cancelHint: 498,
+  footer: 620,
+} as const;
+
+const PANEL_WIDTH = 312;
+const PANEL_PADDING = 24;
+const BAR_WIDTH = 36;
+const BAR_MAX_HEIGHT = 38;
+const BUTTON_WIDTH = 250;
+const BUTTON_HEIGHT = 44;
+const SHARE_TEXT_WIDTH = PANEL_WIDTH - 2 * (PANEL_PADDING + 4);
 
 export class ResultScene extends Phaser.Scene {
   private countdownText: Phaser.GameObjects.Text | undefined;
   private countdownEvent: Phaser.Time.TimerEvent | undefined;
+  private statsTitleText: Phaser.GameObjects.Text | undefined;
 
   constructor() {
     super('ResultScene');
@@ -21,85 +57,113 @@ export class ResultScene extends Phaser.Scene {
 
   public create(data: { state: GameState }): void {
     let currentState = data.state;
-    const { width, height } = this.scale;
+    const { width } = this.scale;
+    const centerX = width / 2;
+
     this.cameras.main.setBackgroundColor('#1b1f2a');
     createInterrogationBackdrop(this, currentState.puzzleId, { simple: true });
 
     const solved = currentState.solved;
     const shareText = currentState.shareText ?? buildShareText(currentState);
 
-    createCharacter({
-      scene: this,
-      x: width / 2,
-      y: 36,
-      textureKey: DETECTIVE_KEY,
-      fallbackColor: 0x81b29a,
-      width: 48,
-      height: 56,
-      scale: 1,
-    });
+    this.addPanel(centerX, Y.headerTop, Y.headerHeight, 0x141926, 0x3d405b);
+
+    // Only draw the detective sprite when it loaded: no green fallback square.
+    if (this.textures.exists(DETECTIVE_KEY)) {
+      createCharacter({
+        scene: this,
+        x: centerX,
+        y: Y.detective,
+        textureKey: DETECTIVE_KEY,
+        fallbackColor: 0x141926,
+        width: 48,
+        height: 48,
+        displayWidth: 48,
+        displayHeight: 48,
+      });
+    }
 
     this.add
-      .text(width / 2, 84, solved ? 'Case Solved' : 'Case Closed', {
+      .text(centerX, Y.title, solved ? 'Case Solved' : 'Case Closed', {
         fontFamily: 'monospace',
-        fontSize: '32px',
+        fontSize: '26px',
         color: solved ? '#81b29a' : '#e07a5f',
-      })
-      .setOrigin(0.5);
-
-    this.add
-      .text(width / 2, 118, `Attempts used: ${currentState.attemptsUsed} / 3`, {
-        fontFamily: 'monospace',
-        fontSize: '22px',
-        color: '#f4f1de',
       })
       .setOrigin(0.5);
 
     if (currentState.culprit) {
       this.add
-        .text(width / 2, 148, `Culprit: ${currentState.culprit.name}`, {
+        .text(centerX, Y.culprit, `Culprit: ${currentState.culprit.name}`, {
           fontFamily: 'monospace',
-          fontSize: '18px',
+          fontSize: '14px',
           color: '#a7b1c2',
           align: 'center',
-          wordWrap: { width: width - 40 },
+          wordWrap: { width: PANEL_WIDTH - 2 * PANEL_PADDING },
         })
         .setOrigin(0.5);
     }
 
+    // One line, always in the same slot: attempts used and points earned.
     this.add
-      .text(width / 2, 172, `+${formatPointsEarned(currentState.pointsEarned)}`, {
+      .text(
+        centerX,
+        Y.attempts,
+        `Attempts ${currentState.attemptsUsed}/3 · +${formatPointsEarned(currentState.pointsEarned)}`,
+        {
+          fontFamily: 'monospace',
+          fontSize: '17px',
+          color: '#f4f1de',
+          align: 'center',
+          wordWrap: { width: PANEL_WIDTH - 16 },
+        }
+      )
+      .setOrigin(0.5);
+
+    const noPoints = currentState.practice || currentState.devOverride;
+    const badges = [
+      currentState.practice ? 'Practice: no points' : null,
+      currentState.devOverride ? 'Dev: test puzzle · no points' : null,
+    ].filter((badge): badge is string => badge !== null);
+    if (badges.length > 0) {
+      this.add
+        .text(centerX, Y.badges, badges.join(' · '), {
+          fontFamily: 'monospace',
+          fontSize: '12px',
+          color: '#e07a5f',
+          align: 'center',
+          wordWrap: { width: PANEL_WIDTH - 16 },
+        })
+        .setOrigin(0.5);
+    }
+
+    this.addPanel(centerX, Y.shareCard, Y.shareCardHeight, 0xf4f1de, 0x3d405b);
+    this.add
+      .text(centerX, Y.shareCard, shareText, {
         fontFamily: 'monospace',
-        fontSize: '20px',
+        fontSize: '17px',
+        color: '#1b1f2a',
+        align: 'center',
+        wordWrap: { width: SHARE_TEXT_WIDTH },
+      })
+      .setOrigin(0.5);
+
+    this.addPanel(centerX, Y.statsBox, Y.statsHeight, 0x141926, 0x6b7280);
+    this.statsTitleText = this.add
+      .text(centerX, Y.statsHeading, 'Detectives today: —', {
+        fontFamily: 'monospace',
+        fontSize: '12px',
         color: '#f2cc8f',
       })
       .setOrigin(0.5);
-
-    this.add
-      .rectangle(width / 2, 212, width - 48, 60, 0xf4f1de)
-      .setStrokeStyle(4, 0x3d405b);
-
-    this.add
-      .text(width / 2, 212, shareText, {
-        fontFamily: 'monospace',
-        fontSize: '20px',
-        color: '#1b1f2a',
-        align: 'center',
-        wordWrap: { width: width - 72 },
-      })
-      .setOrigin(0.5);
-
-    // Area y=250..336 is reserved for the stats chart; it stays blank when the
-    // fetch fails or nobody has finished today's puzzle yet.
     void this.loadStats(currentState);
 
     this.countdownText = this.add
-      .text(width / 2, 350, '', {
+      .text(centerX, Y.countdown, '', {
         fontFamily: 'monospace',
-        fontSize: '18px',
+        fontSize: '15px',
         color: '#f2cc8f',
         align: 'center',
-        wordWrap: { width: width - 40 },
+        wordWrap: { width: PANEL_WIDTH },
       })
       .setOrigin(0.5);
     this.updateCountdown();
@@ -114,21 +178,21 @@ export class ResultScene extends Phaser.Scene {
     });
 
     const feedback = this.add
-      .text(width / 2, 382, '', {
+      .text(centerX, Y.feedback, '', {
         fontFamily: 'monospace',
-        fontSize: '14px',
+        fontSize: '12px',
         color: '#81b29a',
         align: 'center',
-        wordWrap: { width: width - 32 },
+        wordWrap: { width: PANEL_WIDTH },
       })
       .setOrigin(0.5);
 
     const rankingButton = this.add
-      .rectangle(width / 2, 448, 220, 44, 0x3d405b)
+      .rectangle(centerX, Y.rankingButton, BUTTON_WIDTH, BUTTON_HEIGHT, 0x3d405b)
       .setStrokeStyle(2, 0xf4f1de)
       .setInteractive({ useHandCursor: true });
     const rankingLabel = this.add
-      .text(width / 2, 448, 'Weekly ranking', {
+      .text(centerX, Y.rankingButton, 'Weekly ranking', {
         fontFamily: 'monospace',
         fontSize: '18px',
         color: '#f4f1de',
@@ -145,23 +209,22 @@ export class ResultScene extends Phaser.Scene {
     rankingButton.on('pointerdown', openLeaderboard);
     rankingLabel.on('pointerdown', openLeaderboard);
 
-    // No "Copy result" button: the clipboard API isn't available in the Reddit
+    // No "Copy result" button: the clipboard API is not reliable in the Reddit
     // webview, so "Post to comments" is the only sharing action offered.
-    // Post to comments (share text only: attempts + puzzle number). One post per player per puzzle.
     const postButton = this.add
-      .rectangle(width / 2, height - 106, 240, 48, 0xe07a5f)
-      .setStrokeStyle(4, 0xf4f1de);
+      .rectangle(centerX, Y.postButton, BUTTON_WIDTH, BUTTON_HEIGHT, 0xe07a5f)
+      .setStrokeStyle(3, 0xf4f1de);
     const postLabel = this.add
-      .text(width / 2, height - 106, 'Post to comments', {
+      .text(centerX, Y.postButton, 'Post to comments', {
         fontFamily: 'monospace',
-        fontSize: '20px',
+        fontSize: '18px',
         color: '#1b1f2a',
       })
       .setOrigin(0.5);
     const cancelText = this.add
-      .text(width / 2, height - 66, '', {
+      .text(centerX, Y.cancelHint, '', {
         fontFamily: 'monospace',
-        fontSize: '14px',
+        fontSize: '12px',
         color: '#a7b1c2',
       })
       .setOrigin(0.5)
@@ -169,6 +232,11 @@ export class ResultScene extends Phaser.Scene {
 
     let posting = false;
     let confirming = false;
+    const idlePostLabel = currentState.practice
+      ? 'Practice: sharing off'
+      : currentState.devOverride
+        ? 'Dev: sharing off'
+        : 'Post to comments';
 
     const setPostEnabled = (enabled: boolean): void => {
       if (enabled) {
@@ -195,12 +263,15 @@ export class ResultScene extends Phaser.Scene {
     const resetPostButton = (): void => {
       confirming = false;
       cancelText.setText('');
-      postLabel.setText('Post to comments');
+      postLabel.setText(idlePostLabel);
       postButton.setFillStyle(0xe07a5f);
-      setPostEnabled(!currentState.sharedToComments && !posting);
+      setPostEnabled(!currentState.sharedToComments && !posting && !noPoints);
     };
 
-    if (currentState.sharedToComments) {
+    if (noPoints) {
+      postLabel.setText(idlePostLabel);
+      setPostEnabled(false);
+    } else if (currentState.sharedToComments) {
       markPosted();
     } else {
       setPostEnabled(true);
@@ -214,7 +285,7 @@ export class ResultScene extends Phaser.Scene {
     cancelText.on('pointerdown', cancelConfirm);
 
     const handlePostTap = async (): Promise<void> => {
-      if (posting || currentState.sharedToComments) return;
+      if (posting || noPoints || currentState.sharedToComments) return;
       if (!confirming) {
         confirming = true;
         postLabel.setText('Confirm post');
@@ -245,7 +316,7 @@ export class ResultScene extends Phaser.Scene {
           feedback.setColor('#f2cc8f');
           feedback.setText('Log in to Reddit to post your result.');
         } else if (error instanceof ApiError && error.status === 409) {
-          // Already posted (e.g. from another session) - disable to enforce once per player per puzzle.
+          // Already posted from another session - keep it one per player per puzzle.
           markPosted();
           feedback.setColor('#81b29a');
           feedback.setText('Result already posted to comments.');
@@ -267,12 +338,24 @@ export class ResultScene extends Phaser.Scene {
     postLabel.on('pointerdown', onPostTap);
 
     this.add
-      .text(width / 2, height - 20, solved ? 'Nice work, Inspector.' : 'Better luck next case.', {
+      .text(centerX, Y.footer, solved ? 'Nice work, Inspector.' : 'Better luck next case.', {
         fontFamily: 'monospace',
-        fontSize: '14px',
+        fontSize: '12px',
         color: '#a7b1c2',
       })
       .setOrigin(0.5);
+  }
+
+  private addPanel(
+    centerX: number,
+    centerY: number,
+    height: number,
+    fill: number,
+    stroke: number
+  ): Phaser.GameObjects.Rectangle {
+    return this.add
+      .rectangle(centerX, centerY, PANEL_WIDTH, height, fill)
+      .setStrokeStyle(2, stroke);
   }
 
   private ownStatBucket(state: GameState): keyof StatsResponse['stats'] | null {
@@ -294,13 +377,9 @@ export class ResultScene extends Phaser.Scene {
       if (!this.scene.isActive()) {
         return;
       }
-      const total = stats.solved1 + stats.solved2 + stats.solved3 + stats.failed;
-      if (total <= 0) {
-        return;
-      }
       this.drawStats(stats, bucket);
     } catch {
-      // No chart on fetch errors; the reserved area just stays empty.
+      // No chart on fetch errors; the fixed box keeps its placeholder.
     }
   }
 
@@ -318,37 +397,31 @@ export class ResultScene extends Phaser.Scene {
       { key: 'failed', label: 'Failed' },
     ];
 
-    this.add
-      .text(width / 2, STATS_TITLE_Y, `Today: ${total} players`, {
-        fontFamily: 'monospace',
-        fontSize: '11px',
-        color: '#f2cc8f',
-      })
-      .setOrigin(0.5);
+    this.statsTitleText?.setText(`Detectives today: ${total}`);
 
-    const slotWidth = (width - 48) / entries.length;
+    const slotWidth = (PANEL_WIDTH - 2 * PANEL_PADDING) / entries.length;
+    const firstX = width / 2 - PANEL_WIDTH / 2 + PANEL_PADDING;
     entries.forEach((entry, index) => {
-      const x = 24 + slotWidth * (index + 0.5);
+      const x = firstX + slotWidth * (index + 0.5);
       const count = stats[entry.key];
-      const barHeight =
-        count === 0 ? 2 : Math.max(4, Math.round((count / max) * BAR_MAX_HEIGHT));
-      const top = BAR_BOTTOM_Y - barHeight;
+      const barHeight = count === 0 ? 2 : Math.max(4, Math.round((count / max) * BAR_MAX_HEIGHT));
+      const top = Y.barBaseline - barHeight;
       const mine = highlight === entry.key;
       const color = mine ? '#f4f1de' : '#a7b1c2';
 
       this.add
-        .rectangle(x, top, 34, barHeight, mine ? 0x81b29a : 0x3d405b)
+        .rectangle(x, top, BAR_WIDTH, barHeight, 0x3d405b)
         .setOrigin(0.5, 1)
-        .setStrokeStyle(mine ? 3 : 1, mine ? 0xf4f1de : 0x6b7280);
+        .setStrokeStyle(mine ? 2 : 1, mine ? 0xf4f1de : 0x6b7280);
       this.add
-        .text(x, top - 10, String(count), {
+        .text(x, Math.max(top + 2, Y.barBaseline - 15), String(count), {
           fontFamily: 'monospace',
-          fontSize: '11px',
-          color,
+          fontSize: '10px',
+          color: '#f4f1de',
         })
-        .setOrigin(0.5, 1);
+        .setOrigin(0.5, 0);
       this.add
-        .text(x, STATS_LABEL_Y, entry.label, {
+        .text(x, Y.statsLabels, entry.label, {
           fontFamily: 'monospace',
           fontSize: '10px',
           color,
@@ -382,4 +455,3 @@ export class ResultScene extends Phaser.Scene {
     this.countdownText.setText(`Next puzzle in ${hh}:${mm}:${ss}`);
   }
 }
-

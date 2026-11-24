@@ -1,4 +1,5 @@
 import { context, reddit, redis } from '@devvit/web/server';
+import { buildPuzzlePostData } from '../../shared/post-data';
 import { getTodayInfo } from './puzzle';
 
 export type DailyPostResult = {
@@ -12,14 +13,32 @@ export type DailyPostResult = {
 
 const dailyPostKey = (date: string): string => `detecticon:daily-post:${date}`;
 
+// Every post carries its own UTC date + puzzle id so old posts keep showing
+// the puzzle they were created for. Dev override is marked explicitly.
+const todayPostData = async () => {
+  const { puzzle, date, displayNumber, isDevOverride } = await getTodayInfo();
+  return {
+    puzzle,
+    date,
+    displayNumber,
+    postData: buildPuzzlePostData({
+      date,
+      puzzleId: puzzle.id,
+      ...(isDevOverride ? { devOverride: true } : {}),
+    }),
+  };
+};
+
 export const createPost = async () => {
+  const { postData } = await todayPostData();
   return await reddit.submitCustomPost({
     title: 'detecticon',
+    postData,
   });
 };
 
 export const createTodaysDetectivoPost = async (): Promise<DailyPostResult> => {
-  const { puzzle, date, displayNumber } = await getTodayInfo();
+  const { puzzle, date, displayNumber, postData } = await todayPostData();
   const title = `Detecticon #${displayNumber}: ${puzzle.title}`;
   const key = dailyPostKey(date);
 
@@ -43,6 +62,7 @@ export const createTodaysDetectivoPost = async (): Promise<DailyPostResult> => {
       ...(subredditName ? { subredditName } : {}),
       title,
       entry: 'default',
+      postData,
     });
 
     // Record the created post id for reference (date was already stored before creation).

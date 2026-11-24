@@ -8,7 +8,8 @@ import {
 } from '../../shared/leaderboard';
 import { pointsForAttempts } from '../../shared/scoring';
 import { getWeekId } from '../../shared/week';
-import { getDisplayPuzzleNumber, getPuzzleById, getTodayInfo, getUtcDateString } from './puzzle';
+import { getDisplayPuzzleNumber, getUtcDateString } from './puzzle';
+import type { PuzzleSession } from './session';
 
 export type StoredProgress = {
   attemptsLeft: number;
@@ -19,6 +20,8 @@ export type StoredProgress = {
   solved: boolean;
   revealedKillerId?: string;
   statsCounted: boolean;
+  /** Week the weekly award was added to, so moderator resets target that board. */
+  awardedWeekId?: string;
   sharedToComments: boolean;
 };
 
@@ -87,6 +90,7 @@ const readProgressRecord = (data: Record<string, string> | undefined): StoredPro
   const statsCounted = data.statsCounted === '1';
   const sharedToComments = data.sharedToComments === '1';
   const revealedKillerId = data.revealedKillerId || undefined;
+  const awardedWeekId = data.awardedWeekId || undefined;
 
   return {
     attemptsUsed: Number.isFinite(attemptsUsed) ? attemptsUsed : 0,
@@ -98,6 +102,7 @@ const readProgressRecord = (data: Record<string, string> | undefined): StoredPro
     statsCounted,
     sharedToComments,
     ...(revealedKillerId ? { revealedKillerId } : {}),
+    ...(awardedWeekId ? { awardedWeekId } : {}),
   };
 };
 
@@ -111,14 +116,14 @@ const progressHash = (progress: StoredProgress): Record<string, string> => ({
   statsCounted: progress.statsCounted ? '1' : '0',
   sharedToComments: progress.sharedToComments ? '1' : '0',
   revealedKillerId: progress.revealedKillerId ?? '',
+  awardedWeekId: progress.awardedWeekId ?? '',
 });
 
-export const getProgress = async (puzzleId: string): Promise<StoredProgress> => {
+export const getProgress = async (puzzleId: string, date: string): Promise<StoredProgress> => {
   const player = await getPlayerId();
   if (!player) {
     return defaultProgress();
   }
-  const { date } = await getTodayInfo();
   return getStoredProgress(date, puzzleId, player);
 };
 
@@ -134,18 +139,17 @@ export const getStoredProgress = async (
 
 export const saveProgress = async (
   puzzleId: string,
+  date: string,
   progress: StoredProgress
 ): Promise<void> => {
   const player = await getPlayerId();
   if (!player) {
     return; // do not persist anonymous/logged-out users
   }
-  const { date } = await getTodayInfo();
   await redis.hSet(progressKey(date, puzzleId, player), progressHash(progress));
 };
 
-export const getStats = async (puzzleId: string): Promise<Stats> => {
-  const { date } = await getTodayInfo();
+export const getStats = async (puzzleId: string, date: string): Promise<Stats> => {
   const data = await redis.hGetAll(statsKey(date, puzzleId));
   return {
     solved1: Number(data?.solved1 ?? 0) || 0,
@@ -234,7 +238,7 @@ const applyAccusation = (
 };
 
 export const accuseSuspect = async (
-  puzzleId: string,
+  session: PuzzleSession,
   suspectId: string
 ): Promise<AccuseResult> => {
   const player = await getPlayerId();
@@ -242,18 +246,14 @@ export const accuseSuspect = async (
     throw new GameError('Log in to play', 401);
   }
 
-  const puzzle = getPuzzleById(puzzleId);
-  if (!puzzle) {
-    throw new GameError('Puzzle not found', 404);
-  }
-
-  const { date } = await getTodayInfo();
-  const pKey = progressKey(date, puzzleId, player);
-  const sKey = statsKey(date, puzzleId);
+  const { puzzle, date } = session;
+  const pKey = progressKey(date, puzzle.id, player);
+  const sKey = statsKey(date, puzzle.id);
 
   for (let attempt = 0; attempt < 3; attempt++) {
     const now = new Date();
-    const lbKey = leaderboardKey(getWeekId(now));
+    const weekId = getWeekId(now);
+    const lbKey = leaderboardKey(weekId);
     // Watch the progress hash (the statsCounted guard) and the weekly set: the
     // set score is read before multi, so concurrent finishers must retry.
     const txn = await redis.watch(pKey, lbKey);
@@ -266,10 +266,18 @@ export const accuseSuspect = async (
         suspectId
       );
 
-      const shouldCount = finishedNow && statField && !current.statsCounted;
+      // Old posts and dev-override posts stay fully playable but never touch
+      // stats or the weekly leaderboard.
+      const shouldCount =
+        finishedNow &&
+        statField &&
+        !current.statsCounted &&
+        !session.practice &&
+        !session.devOverride;
       let leaderboardScore: number | null = null;
       if (shouldCount) {
         next.statsCounted = true;
+        next.awardedWeekId = weekId;
         const points = pointsForAttempts(next.attemptsUsed, next.solved);
         if (points > 0) {
           const currentScore = await redis.zScore(lbKey, player);
@@ -296,7 +304,7 @@ export const accuseSuspect = async (
         correct,
         reveal,
         progress: next,
-        state: toGameState(puzzle, next),
+        state: toGameState(puzzle, next, session),
       };
     } catch (error) {
       try {
@@ -311,7 +319,16 @@ export const accuseSuspect = async (
   throw new GameError('Could not save progress, please try again', 409);
 };
 
-export const toGameState = (puzzle: Puzzle, progress: StoredProgress): GameState => {
+type GameStateSession = Pick<
+  PuzzleSession,
+  'date' | 'displayNumber' | 'practice' | 'devOverride'
+>;
+
+export const toGameState = (
+  puzzle: Puzzle,
+  progress: StoredProgress,
+  session?: GameStateSession
+): GameState => {
   const killer = puzzle.suspects.find((s) => s.isKiller);
   const showCulprit = progress.finished && killer;
   // Only cleared (wrongly accused, non-killer) suspects get their alibi proof.
@@ -326,8 +343,11 @@ export const toGameState = (puzzle: Puzzle, progress: StoredProgress): GameState
       eliminatedAlibis[suspect.id] = suspect.alibiProof;
     }
   }
-  // Display numbering is date-based only; use the pure helper so this stays sync.
-  const displayNumber = getDisplayPuzzleNumber(getUtcDateString());
+  // Numbering comes from the post's own UTC date, not the date of the request.
+  const date = session?.date ?? getUtcDateString();
+  const displayNumber = session?.displayNumber ?? getDisplayPuzzleNumber(date);
+  const practice = session?.practice ?? false;
+  const devOverride = session?.devOverride ?? false;
   return {
     puzzleId: puzzle.id,
     puzzleNumber: displayNumber,
@@ -337,7 +357,10 @@ export const toGameState = (puzzle: Puzzle, progress: StoredProgress): GameState
     ...(Object.keys(eliminatedAlibis).length > 0 ? { eliminatedAlibis } : {}),
     results: progress.results,
     solved: progress.solved,
-    pointsEarned: pointsForAttempts(progress.attemptsUsed, progress.solved),
+    pointsEarned:
+      practice || devOverride ? 0 : pointsForAttempts(progress.attemptsUsed, progress.solved),
+    practice,
+    devOverride,
     sharedToComments: progress.sharedToComments,
     ...(progress.revealedKillerId ? { revealedKillerId: progress.revealedKillerId } : {}),
     finished: progress.finished,
@@ -358,58 +381,93 @@ export type ShareResult = {
   state: GameState;
 };
 
-export const shareResultToComments = async (puzzleId: string): Promise<ShareResult> => {
+type ShareSubmitter = (options: Parameters<typeof reddit.submitComment>[0]) => Promise<unknown>;
+
+export const shareResultToComments = async (
+  session: PuzzleSession,
+  submitComment: ShareSubmitter = (options) => reddit.submitComment(options)
+): Promise<ShareResult> => {
   const player = await getPlayerId();
   if (!player) {
     throw new GameError('Log in to play', 401);
   }
-
-  const puzzle = getPuzzleById(puzzleId);
-  if (!puzzle) {
-    throw new GameError('Puzzle not found', 404);
+  if (session.practice) {
+    throw new GameError('Practice puzzles cannot be shared to comments', 400);
+  }
+  if (session.devOverride) {
+    throw new GameError('Dev test puzzles cannot be shared to comments', 400);
   }
 
-  const { date, puzzle: todayPuzzle } = await getTodayInfo();
-  if (todayPuzzle.id !== puzzleId) {
-    throw new GameError('Puzzle not found', 404);
-  }
-
-  const pKey = progressKey(date, puzzleId, player);
-  const data = await redis.hGetAll(pKey);
-  const current = readProgressRecord(data);
-
-  if (!current.finished) {
-    throw new GameError('Finish the puzzle before sharing', 400);
-  }
-  if (current.sharedToComments) {
-    throw new GameError('Result already posted', 409);
-  }
-
+  const { puzzle, date } = session;
+  const pKey = progressKey(date, puzzle.id, player);
   const postId = context.postId;
   if (!postId) {
     throw new GameError('Post context unavailable', 400);
   }
 
-  // Comment must contain only attempts and the puzzle number (no killer/evidence/puzzle text).
-  const text = buildShareText({
-    puzzleNumber: getDisplayPuzzleNumber(date),
-    results: current.results,
-  });
+  const txn = await redis.watch(pKey);
+  try {
+    const data = await redis.hGetAll(pKey);
+    const current = readProgressRecord(data);
 
-  await reddit.submitComment({
-    id: postId as `t3_${string}`,
-    text,
-    runAs: 'USER',
-  });
+    if (!current.finished) {
+      throw new GameError('Finish the puzzle before sharing', 400);
+    }
+    if (current.sharedToComments) {
+      throw new GameError('Result already posted', 409);
+    }
 
-  const next: StoredProgress = {
-    ...current,
-    sharedToComments: true,
-  };
-  await redis.hSet(pKey, progressHash(next));
+    // Comment must contain only attempts and the puzzle number (no killer/evidence/puzzle text).
+    const text = buildShareText({
+      puzzleNumber: session.displayNumber,
+      results: current.results,
+    });
 
-  return {
-    progress: next,
-    state: toGameState(puzzle, next),
-  };
+    // Claim the share atomically before calling Reddit. A concurrent request
+    // watching the same progress hash will abort and get a 409 instead of
+    // posting a second copy of the comment.
+    const next: StoredProgress = {
+      ...current,
+      sharedToComments: true,
+    };
+    await txn.multi();
+    await txn.hSet(pKey, progressHash(next));
+    if ((await txn.exec()) == null) {
+      throw new GameError('Result already posted', 409);
+    }
+
+    try {
+      await submitComment({
+        id: postId,
+        text,
+        runAs: 'USER',
+      });
+    } catch (submitError) {
+      // If Reddit rejected the comment, release the claim so the player can
+      // retry. If this rollback fails, the progress hash stays claimed rather
+      // than risking a duplicate comment.
+      try {
+        await redis.hSet(pKey, progressHash(current));
+      } catch {
+        // Keep the claim; a moderator reset can clear it.
+      }
+      throw submitError;
+    }
+
+    return {
+      progress: next,
+      state: toGameState(puzzle, next, session),
+    };
+  } catch (error) {
+    try {
+      await txn.unwatch();
+    } catch {
+      // Already unwatched by exec(); ignore.
+    }
+    if (error instanceof GameError) {
+      throw error;
+    }
+    const message = error instanceof Error ? error.message : 'Could not post result';
+    throw new GameError(message, 400);
+  }
 };

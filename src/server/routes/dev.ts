@@ -16,7 +16,8 @@ import {
 /**
  * Moderator-only developer testing endpoints. Mounted under /internal so the full
  * paths are /internal/menu/dev-* and /internal/form/dev-puzzle-override.
- * These are temporary and should be removed before submission (see the handoff notes).
+ * They are intentionally kept for moderator testing; the puzzle override must
+ * be cleared before submission.
  */
 export const dev = new Hono();
 
@@ -59,7 +60,7 @@ dev.post('/menu/dev-reset-progress', async (c) => {
       : 0;
     await redis.del(key);
     if (awardedPoints > 0) {
-      await revertAwardedPoints(player, awardedPoints);
+      await revertAwardedPoints(player, awardedPoints, stored.awardedWeekId);
     }
     console.warn(
       `[DETECTICON DEV] Progress reset by ${actor()}: ${key} (removed ${awardedPoints} leaderboard points)`

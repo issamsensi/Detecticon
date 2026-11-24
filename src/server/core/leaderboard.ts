@@ -48,14 +48,14 @@ export const getLeaderboard = async (now: Date = new Date()): Promise<Leaderboar
   return { weekId, entries, me, secondsUntilReset: secondsUntilWeekReset(now) };
 };
 
-/** Removes points awarded for one puzzle from the current week's board. */
+/** Removes points awarded for one puzzle from the week it was awarded in. */
 export const revertAwardedPoints = async (
   username: string,
   points: number,
-  now: Date = new Date()
+  weekId: string = getWeekId(new Date())
 ): Promise<void> => {
   if (points <= 0) return;
-  const key = leaderboardKey(getWeekId(now));
+  const key = leaderboardKey(weekId);
   const score = await redis.zScore(key, username);
   if (score === undefined) return;
 

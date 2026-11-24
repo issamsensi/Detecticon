@@ -17,7 +17,6 @@ export class PreloadScene extends Phaser.Scene {
   public preload(): void {
     // Tolerate missing files: log and continue so fallback rectangles are used.
     this.load.on('loaderror', (file: Phaser.Loader.File) => {
-      // eslint-disable-next-line no-console
       console.warn(`Asset failed to load (using fallback): ${file?.key ?? 'unknown'}`);
     });
 

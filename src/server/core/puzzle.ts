@@ -16,6 +16,7 @@ export type TodayPuzzle = {
   puzzle: Puzzle;
   date: string; // UTC YYYY-MM-DD
   displayNumber: number;
+  isDevOverride: boolean;
 };
 
 const toUtcDateString = (year: number, month: number, day: number): string =>
@@ -67,14 +68,24 @@ export const getTodayInfo = async (now: Date = new Date()): Promise<TodayPuzzle>
           `instead of the daily rotation puzzle ${rotationPuzzle.id} for ${date}. ` +
           `Clear it with "Dev: clear puzzle override" (or delete ${DEV_PUZZLE_OVERRIDE_KEY}) before submission.`
       );
-      return { puzzle: overridePuzzle, date, displayNumber: getDisplayPuzzleNumber(date) };
+      return {
+        puzzle: overridePuzzle,
+        date,
+        displayNumber: getDisplayPuzzleNumber(date),
+        isDevOverride: true,
+      };
     }
     console.warn(
       `⚠️  [DETECTICON DEV] Ignoring invalid puzzle override "${overrideId}" at ${DEV_PUZZLE_OVERRIDE_KEY}.`
     );
   }
 
-  return { puzzle: rotationPuzzle, date, displayNumber: getDisplayPuzzleNumber(date) };
+  return {
+    puzzle: rotationPuzzle,
+    date,
+    displayNumber: getDisplayPuzzleNumber(date),
+    isDevOverride: false,
+  };
 };
 
 export const getTodaysPuzzle = async (now: Date = new Date()): Promise<Puzzle> =>

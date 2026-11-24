@@ -19,6 +19,8 @@ export type TodayResponse = {
   puzzle: PublicPuzzle;
   progress: ProgressPayload;
   state: GameState;
+  practice?: boolean;
+  devOverride?: boolean;
 };
 
 export type AccuseResponse = {

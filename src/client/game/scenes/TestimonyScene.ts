@@ -140,7 +140,6 @@ export class TestimonyScene extends Phaser.Scene {
 
     this.done = true;
     this.portrait?.setTalking(false);
-    console.log('testimonies done');
     this.scene.start('AccuseScene', { state: this.state });
   }
 

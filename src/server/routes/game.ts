@@ -7,20 +7,25 @@ import {
   shareResultToComments,
   toGameState,
 } from '../core/game';
-import { getTodayInfo, toClientPuzzle } from '../core/puzzle';
+import { toClientPuzzle } from '../core/puzzle';
+import { resolvePuzzleSession } from '../core/session';
 import { getLeaderboard } from '../core/leaderboard';
 import { getSeenHowTo, markHowToSeen } from '../core/howto';
 
 export const game = new Hono();
 
+// Every route resolves the puzzle from this post's stored date/id (with a
+// fallback to today's rotation for posts created before post data existed).
 game.get('/puzzle/today', async (c) => {
-  const { puzzle } = await getTodayInfo();
-  const progress = await getProgress(puzzle.id);
-  const state = toGameState(puzzle, progress);
+  const session = await resolvePuzzleSession();
+  const progress = await getProgress(session.puzzle.id, session.date);
+  const state = toGameState(session.puzzle, progress, session);
   return c.json({
-    puzzle: toClientPuzzle(puzzle),
+    puzzle: toClientPuzzle(session.puzzle),
     progress,
     state,
+    practice: session.practice,
+    devOverride: session.devOverride,
   });
 });
 
@@ -42,7 +47,11 @@ game.post('/accuse', async (c) => {
   }
 
   try {
-    const result = await accuseSuspect(puzzleId, suspectId);
+    const session = await resolvePuzzleSession();
+    if (puzzleId !== session.puzzle.id) {
+      return c.json({ error: 'This post plays a different puzzle' }, 400);
+    }
+    const result = await accuseSuspect(session, suspectId);
     return c.json({
       correct: result.correct,
       reveal: result.reveal,
@@ -74,7 +83,11 @@ game.post('/share', async (c) => {
   }
 
   try {
-    const result = await shareResultToComments(puzzleId);
+    const session = await resolvePuzzleSession();
+    if (puzzleId !== session.puzzle.id) {
+      return c.json({ error: 'This post plays a different puzzle' }, 400);
+    }
+    const result = await shareResultToComments(session);
     return c.json({
       progress: result.progress,
       state: result.state,
@@ -96,11 +109,11 @@ game.post('/seen-howto', async (c) => {
 });
 
 game.get('/stats/today', async (c) => {
-  const { puzzle } = await getTodayInfo();
-  const stats = await getStats(puzzle.id);
+  const session = await resolvePuzzleSession();
+  const stats = await getStats(session.puzzle.id, session.date);
   return c.json({
-    puzzleId: puzzle.id,
-    puzzleNumber: puzzle.number,
+    puzzleId: session.puzzle.id,
+    puzzleNumber: session.displayNumber,
     stats,
   });
 });

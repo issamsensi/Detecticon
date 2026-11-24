@@ -1,7 +1,9 @@
 /**
  * Weekly leaderboard scoring. Pure so both the client and the server can use it.
- * A solve earns 3 points on the first accusation, 2 on the second, and 1 on the
- * third. A failed case earns none.
+ * A solve earns 3, 2 or 1 points when it happens on the first, second or third
+ * accusation. A case that is not solved within three tries earns none.
+ * `attemptsUsed` counts the winning accusation too, so a correct third guess is
+ * `attemptsUsed === 3`.
  */
 export const pointsForAttempts = (attemptsUsed: number, solved: boolean): number => {
   if (!solved) return 0;
