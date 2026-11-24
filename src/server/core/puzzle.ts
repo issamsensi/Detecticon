@@ -19,10 +19,11 @@ export const isDevToolsEnabled = (): boolean => {
   return process.env.DETECTICON_DEV_TOOLS === 'true' || process.env.NODE_ENV === 'test';
 };
 
-// Launch date (UTC) for both puzzle rotation start and displayed puzzle numbering
-// so Launch Day (#1) starts cleanly on 001.json.
-export const LAUNCH_DATE_UTC = Date.UTC(2026, 10, 24); // 2026-11-24 UTC
-const START_DATE_UTC = LAUNCH_DATE_UTC;
+// Rotation epoch (UTC) for the deterministic daily puzzle cycle.
+const START_DATE_UTC = Date.UTC(2026, 10, 24); // 2026-11-24 UTC
+
+// Launch date (UTC) for displayed puzzle numbering (daysSinceLaunch + 1, clamped to 1).
+export const LAUNCH_DATE_UTC = Date.UTC(2026, 11, 5); // 2026-12-05 UTC
 
 export type TodayPuzzle = {
   puzzle: Puzzle;

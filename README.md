@@ -1,44 +1,58 @@
 # Detecticon
 
-A daily detective puzzle game for Reddit, built for Reddit's Game of the Day
-Hackathon. Four suspects give one testimony each as pixel characters, then the
-player has three chances to identify the killer.
+A daily detective puzzle for Reddit. Four suspects, four testimonies, three accusations,
+and a tiny grid of 🟥🟩 to share in the comments. Built for Reddit's Game of the Day Hackathon.
 
-Built with Devvit Web: React + Tailwind for the inline splash, Phaser for the
-expanded game, Hono + Redis on the server, and TypeScript shared between client
-and server. The game is English-only, mobile-first, and plays inside a fixed
-360×640 canvas.
+## Play it
 
-> The detective is original: **Inspector Quill**. Do not reuse names,
-> characters, or traits from existing detective franchises.
+- **Demo post:** <TODO link to a public post>
+- **Test subreddit:** r/Detecticon
+- **App listing:** https://developers.reddit.com/apps/detecticon
+
+## How to play
+
+1. Read the case, then listen to four suspects, one testimony each.
+2. One of them is lying. Find the testimony that doesn't add up. You can reopen the
+   Case file at any time.
+3. You have three tries. A wrong pick clears that suspect and shows their alibi.
+4. Score: **3 points** for solving on the 1st try, **2** on the 2nd, **1** on the 3rd,
+   **0** if you fail. Share your result as a comment, e.g. `Detecticon #12 🟥🟩`, and
+   climb the weekly ranking.
+
+## Built for Reddit
+
+- A new post is created automatically every day at 00:05 UTC. Each post keeps its own
+  puzzle; older posts stay playable as practice (no points).
+- Results are shared as comments, once per player per puzzle.
+- Weekly leaderboard (resets Monday 00:00 UTC); ties go to whoever finished first.
+- Daily solve statistics are shown after each case.
+
+## Credits
+
+Pixel characters were generated with the Universal LPC Spritesheet Character Generator
+(Liberated Pixel Cup contributors). Full per-asset credits and licenses are in
+[CREDITS.md](./CREDITS.md).
+
+---
+
+# Technical details
 
 ## Contents
 
-- [How a round works](#how-a-round-works)
-- [Scoring and sharing](#scoring-and-sharing)
-- [Post-bound puzzles](#post-bound-puzzles)
-- [Architecture](#architecture)
-- [Getting started](#getting-started)
-- [Commands](#commands)
-- [Adding a puzzle](#adding-a-puzzle)
-- [Redis keys](#redis-keys)
-- [Moderator tools](#moderator-tools)
-- [Submission checklist](#submission-checklist)
-
-## How a round works
-
-1. The inline splash shows the post's puzzle number and title, plus any
-   practice/dev badge.
-2. The expanded Phaser game opens the case file, then plays each testimony in
-   order with a typewriter speech bubble.
-3. After all four testimonies, the suspects line up and the player picks the
-   killer.
-4. A wrong pick reveals that suspect's `alibiProof`, removes them from the line,
-   and costs one attempt.
-5. The Result screen shows the outcome, the share text, today's solve stats, and
-   the weekly leaderboard.
-
-The player has **three attempts**. A correct pick ends the case immediately.
+- [Detecticon](#detecticon)
+  - [Play it](#play-it)
+  - [How to play](#how-to-play)
+  - [Built for Reddit](#built-for-reddit)
+  - [Credits](#credits)
+- [Technical details](#technical-details)
+  - [Contents](#contents)
+  - [Scoring and sharing](#scoring-and-sharing)
+  - [Post-bound puzzles](#post-bound-puzzles)
+  - [Architecture](#architecture)
+  - [Getting started](#getting-started)
+  - [Commands](#commands)
+  - [Adding a puzzle](#adding-a-puzzle)
+  - [Redis keys](#redis-keys)
 
 ## Scoring and sharing
 
@@ -67,45 +81,42 @@ Every custom post stores its own puzzle in Devvit `postData`:
 
 ```json
 {
-  "date": "2026-12-05",
-  "puzzleId": "001",
-  "devOverride": true
+  "date": "2026-11-24",
+  "puzzleId": "001"
 }
 ```
 
 - `date` is the UTC day the post was created (`YYYY-MM-DD`).
 - `puzzleId` is the puzzle chosen for that post.
-- `devOverride` is optional and only marks moderator test posts.
 
 `resolvePuzzleSession()` prefers this stored data. Posts created before
-`postData` existed fall back to the current daily rotation.
+`postData` existed fall back to the current daily puzzle.
 
 - If the stored date is not today, the post is **practice**: fully playable, but
   no points, no stats, and no comment share.
-- If a dev override was active when the post was created, it is marked
-  `Dev: test puzzle · no points` and is also non-scoring and non-sharing.
-- The splash and Result screen show that post's own puzzle number and title,
-  not whatever the rotation happens to be today.
+- The splash, Case file, and Result screen show that post's own puzzle number
+  and title, not whatever the rotation happens to be today.
 
-The daily post is created at 00:05 UTC by the scheduler, or on demand from the
-moderator menu. A `detecticon:daily-post:{date}` reservation prevents duplicate
-posts for the same UTC day.
+The daily post is created automatically at 00:05 UTC by the scheduler, and a
+moderator can also create today's post on demand from the subreddit menu. A
+`detecticon:daily-post:{date}` reservation prevents duplicate posts for the same
+UTC day.
 
 ## Architecture
 
-- `src/client/splash.tsx` — fast inline splash (React + Tailwind).
-- `src/client/game/` — Phaser game at 360×640:
-  `Preload → Intro → CaseFile → Testimony → Accuse → Result`, with
-  `Leaderboard` and `Credits` scenes.
+- `src/client/splash.tsx` — fast inline splash (React 19 + Tailwind CSS 4).
+- `src/client/game/` — Phaser 4 game at 360×640:
+  `Preload → Intro → Testimony → Accuse → Result`, with `CaseFile` (opened from
+  `Accuse`), `Leaderboard`, and `Credits` scenes.
 - `src/server/routes/game.ts` — public Hono REST API used by the game client.
-- `src/server/routes/menu.ts`, `dev.ts`, `triggers.ts` — moderator, dev, and
-  scheduler endpoints registered in `devvit.json`.
-- `src/server/core/` — session resolution, puzzle rotation, game state, stats,
-  leaderboard, post creation, and dev actions.
-- `src/shared/` — types, scoring, week helpers, post-data validation, and
-  puzzle JSON.
-- `assets/`, `public/assets/` — pixel sprites and media.
-- `devvit.json` — entrypoints, menu actions, scheduler, forms, and permissions.
+- `src/server/routes/menu.ts`, `triggers.ts` — moderator post-creation, install
+  trigger, and daily scheduler endpoints registered in `devvit.json`.
+- `src/server/core/` — session resolution, puzzle schedule/rotation, game state,
+  stats, leaderboard, post creation, and moderator checks.
+- `src/shared/` — types, scoring, schedule, week helpers, post-data validation,
+  credits, and puzzle JSON.
+- `public/assets/` — pixel sprites and media.
+- `devvit.json` — entrypoints, menu action, scheduler, triggers, and permissions.
 
 Gameplay uses REST under `/api`:
 
@@ -119,11 +130,9 @@ Gameplay uses REST under `/api`:
 | `GET /api/seen-howto`   | Read the how-to overlay flag.                    |
 | `POST /api/seen-howto`  | Mark the how-to overlay as seen.                 |
 
-A tRPC scaffold remains from the Devvit template but is not used by gameplay.
-
 ## Getting started
 
-Requires Node 24+ (see `package.json`) and the Devvit CLI.
+Requires Node 24+ (see `package.json` and `.nvmrc`) and the Devvit CLI.
 
 ```bash
 npm install
@@ -132,30 +141,35 @@ npm run test
 npm run dev
 ```
 
-`npm run dev` starts a live Devvit playtest and requires a human with Reddit
-login. Agent workflows do not run `login`, `deploy`, `launch`, or any reset
-action.
+`npm run dev` starts a live Devvit playtest and requires Reddit login.
 
 ## Commands
 
-| Command                                                         | What it does                           |
-| --------------------------------------------------------------- | -------------------------------------- |
-| `npm run validate`                                              | Validate every puzzle JSON file.       |
-| `npm run type-check` / `npm run test:types`                     | TypeScript check.                      |
-| `npm run lint`                                                  | ESLint over `src/**/*.{ts,tsx}`.       |
-| `npm run test:unit`                                             | Run all Vitest tests.                  |
-| `npm run test:unit -- src/server/core/game.integration.test.ts` | Run one test file.                     |
-| `npm run test`                                                  | Types + lint + unit + build.           |
-| `npm run build`                                                 | Build the webview and server bundle.   |
-| `npm run dev`                                                   | Live Devvit playtest (human-run only). |
-| `npm run login`, `npm run deploy`, `npm run launch`             | Human-run only.                        |
+| Command                                                         | What it does                                   |
+| --------------------------------------------------------------- | ---------------------------------------------- |
+| `npm run validate`                                              | Validate all puzzle JSON files and schedule.   |
+| `npm run type-check` / `npm run test:types`                     | TypeScript check.                              |
+| `npm run lint`                                                  | ESLint over `src/**/*.{ts,tsx}`.               |
+| `npm run test:unit`                                             | Run all Vitest tests.                          |
+| `npm run test:unit -- src/server/core/game.integration.test.ts` | Run one test file.                             |
+| `npm run test`                                                  | Types + lint + unit + build.                   |
+| `npm run build`                                                 | Build the webview and server bundle.           |
+| `npm run dev`                                                   | Live Devvit playtest.                          |
+| `npm run login`                                                 | Authenticate with the Devvit CLI.              |
+| `npm run deploy`                                                | Run checks and upload the app to Devvit.       |
+| `npm run launch`                                                | Deploy and publish the app on Devvit.          |
 
 ## Adding a puzzle
 
 Add `src/shared/puzzles/NNN.json` and follow the existing files. Puzzles are
-loaded in filename order and the daily rotation cycles by UTC day from
-2026-01-01. Display numbering is anchored to the planned launch date,
-2026-12-05.
+loaded in filename order. For a given UTC date, puzzle selection follows this
+resolution order:
+
+1. **Schedule** (`src/shared/schedule.json`) — explicit `YYYY-MM-DD` → puzzle id
+   mapping for that UTC date.
+2. **Date-based rotation** — deterministic UTC day cycle anchored at
+   `2026-11-24` UTC. Displayed puzzle numbering (`#1`, `#2`, …) is anchored at
+   the `2026-12-05` UTC launch date (`daysSinceLaunch + 1`, clamped to `1`).
 
 Each puzzle has `id`, `number`, `title`, `scene`, and exactly four `suspects`.
 Each suspect has `id`, `name`, `role`, `color`, `testimony`, and `isKiller`.
@@ -166,52 +180,25 @@ Each suspect has `id`, `name`, `role`, `color`, `testimony`, and `isKiller`.
 - Puzzle ids and suspect names must be unique across the whole set.
 - Suspect first names must exist in `src/shared/suspect-sprites.ts` so they can
   be matched to a pixel sprite.
-- Text values must be non-empty and under 160 characters.
-- Killer positions should stay balanced; no position may exceed 35% of all
+- Text values must be non-empty and at most 160 characters.
+- Killer positions must stay balanced; no position may exceed 35% of all
   puzzles.
-- The `scene` must not contain the template phrase `One of the four`.
+- The `scene` must not contain the phrase `One of the four`.
+- In `src/shared/schedule.json`, every date must be a valid, unique UTC
+  `YYYY-MM-DD`, every scheduled puzzle id must exist, and the validator rejects
+  any puzzle id scheduled twice within 8 days.
 
-Run `npm run validate` after adding or editing any puzzle. Do not change the
-JSON schema without discussing it first.
+Run `npm run validate` after adding or editing any puzzle or schedule entry.
 
 ## Redis keys
 
 | Key                                                | Purpose                                               |
 | -------------------------------------------------- | ----------------------------------------------------- |
-| `detecticon:progress:{date}:{puzzleId}:{username}` | Per-player attempts, eliminations, and result flags.  |
-| `detecticon:stats:{date}:{puzzleId}`               | Aggregate solve counters for one post puzzle.         |
-| `detecticon:lb:{weekId}`                           | Weekly leaderboard sorted set.                        |
-| `detecticon:daily-post:{date}`                     | One-post-per-UTC-day reservation and created post id. |
-| `detecticon:dev:puzzle-override`                   | Moderator-only puzzle override.                       |
-| `detecticon:howto:{username}`                      | How-to overlay seen flag.                             |
+| `detecticon:progress:{date}:{puzzleId}:{username}` | Per-player attempts, eliminations, and result flags (90-day TTL). |
+| `detecticon:stats:{date}:{puzzleId}`               | Aggregate solve counters for one post puzzle (90-day TTL).        |
+| `detecticon:lb:{weekId}`                           | Weekly leaderboard sorted set (8-day TTL).                        |
+| `detecticon:daily-post:{date}`                     | One-post-per-UTC-day reservation and created post id (90-day TTL). |
+| `detecticon:seen-howto:{username}`                 | How-to overlay seen flag.                                         |
 
 Progress and stats use the **post's** date, so old posts can never overwrite
 today's game. The weekly board uses the UTC week in which points were earned.
-Progress stores `awardedWeekId`, so a reset after a week rollover still removes
-points from the correct board.
-
-## Moderator tools
-
-Menu actions are registered in `devvit.json`:
-
-- Create a new post / create today's post.
-- Reset my progress for today.
-- Reset today's stats.
-- Set or clear the test puzzle override.
-- Reset this week's leaderboard.
-
-Resetting progress reads the stored `awardedWeekId` and points before deleting
-the progress hash, then subtracts those points from the right weekly board.
-Clear the puzzle override before public or review posts. Test plays made while
-the override is active are visibly marked and never score.
-
-## Submission checklist
-
-1. Clear the dev puzzle override.
-2. Confirm the review post's `postData` has the expected `date`, `puzzleId`, and
-   no `devOverride`.
-3. Run `npm run validate`.
-4. Run `npm run test`.
-5. Confirm a full play through Intro → Testimony → Accuse → Result on a
-   phone-sized view.
-6. A human runs the final login/deploy/launch commands.

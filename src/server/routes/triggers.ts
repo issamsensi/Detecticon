@@ -33,7 +33,7 @@ triggers.post('/on-app-install', async (c) => {
   }
 });
 
-// Scheduled task: runs daily at 00:00 UTC (configured in devvit.json) to create today's Detecticon post.
+// Scheduled task: runs daily at 00:05 UTC (configured in devvit.json) to create today's Detecticon post.
 // Idempotent: createTodaysDetectivoPost skips if the UTC date key already exists.
 triggers.post('/daily-post', async (c) => {
   try {
