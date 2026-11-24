@@ -23,7 +23,7 @@ export const isDevToolsEnabled = (): boolean => {
 const START_DATE_UTC = Date.UTC(2026, 10, 24); // 2026-11-24 UTC
 
 // Launch date (UTC) for displayed puzzle numbering (daysSinceLaunch + 1, clamped to 1).
-export const LAUNCH_DATE_UTC = Date.UTC(2026, 11, 5); // 2026-12-05 UTC
+export const LAUNCH_DATE_UTC = Date.UTC(2026, 10, 26); // 2026-11-26 UTC
 
 export type TodayPuzzle = {
   puzzle: Puzzle;

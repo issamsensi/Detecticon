@@ -169,7 +169,7 @@ resolution order:
    mapping for that UTC date.
 2. **Date-based rotation** — deterministic UTC day cycle anchored at
    `2026-11-24` UTC. Displayed puzzle numbering (`#1`, `#2`, …) is anchored at
-   the `2026-12-05` UTC launch date (`daysSinceLaunch + 1`, clamped to `1`).
+   the `2026-11-26` UTC launch date (`daysSinceLaunch + 1`, clamped to `1`).
 
 Each puzzle has `id`, `number`, `title`, `scene`, and exactly four `suspects`.
 Each suspect has `id`, `name`, `role`, `color`, `testimony`, and `isKiller`.

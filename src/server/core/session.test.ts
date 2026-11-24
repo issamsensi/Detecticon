@@ -91,19 +91,21 @@ test('dev override key in Redis is ignored in production mode', async () => {
   }
 });
 
-test('display puzzle number anchors at 2026-12-05 launch date and clamps pre-launch dates to 1', async () => {
+test('display puzzle number anchors at 2026-11-26 launch date and clamps pre-launch dates to 1', async () => {
   const preLaunch = await getTodayInfo(new Date(Date.UTC(2026, 10, 24, 12, 0, 0)));
   expect(preLaunch.date).toBe('2026-11-24');
   expect(preLaunch.displayNumber).toBe(1);
   expect(preLaunch.puzzle.id).toBe('001');
 
-  const launchDay = await getTodayInfo(new Date(Date.UTC(2026, 11, 5, 12, 0, 0)));
-  expect(launchDay.date).toBe('2026-12-05');
+  const launchDay = await getTodayInfo(new Date(Date.UTC(2026, 10, 26, 12, 0, 0)));
+  expect(launchDay.date).toBe('2026-11-26');
   expect(launchDay.displayNumber).toBe(1);
+  expect(launchDay.puzzle.id).toBe('004');
 
-  const dayTwo = await getTodayInfo(new Date(Date.UTC(2026, 11, 6, 12, 0, 0)));
-  expect(dayTwo.date).toBe('2026-12-06');
+  const dayTwo = await getTodayInfo(new Date(Date.UTC(2026, 10, 27, 12, 0, 0)));
+  expect(dayTwo.date).toBe('2026-11-27');
   expect(dayTwo.displayNumber).toBe(2);
+  expect(dayTwo.puzzle.id).toBe('005');
 });
 
 test('three-level resolution: dev override > schedule > date rotation', async () => {
