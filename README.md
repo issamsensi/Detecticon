@@ -5,7 +5,7 @@ and a tiny grid of 🟥🟩 to share in the comments. Built for Reddit's Game of
 
 ## Play it
 
-- **Demo post:** <TODO link to a public post>
+- **Demo post:** https://www.reddit.com/r/Detecticon/s/g5PxrfG5dk
 - **Test subreddit:** r/Detecticon
 - **App listing:** https://developers.reddit.com/apps/detecticon
 
