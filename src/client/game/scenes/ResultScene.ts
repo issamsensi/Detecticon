@@ -49,7 +49,7 @@ const SHARE_TEXT_WIDTH = PANEL_WIDTH - 2 * (PANEL_PADDING + 4);
 export class ResultScene extends Phaser.Scene {
   private countdownText: Phaser.GameObjects.Text | undefined;
   private countdownEvent: Phaser.Time.TimerEvent | undefined;
-  private statsTitleText: Phaser.GameObjects.Text | undefined;
+  private statsCountText: Phaser.GameObjects.Text | undefined;
 
   constructor() {
     super('ResultScene');
@@ -148,13 +148,18 @@ export class ResultScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.addPanel(centerX, Y.statsBox, Y.statsHeight, 0x141926, 0x6b7280);
-    this.statsTitleText = this.add
-      .text(centerX, Y.statsHeading, 'Detectives today: —', {
-        fontFamily: 'monospace',
-        fontSize: '12px',
-        color: '#f2cc8f',
-      })
-      .setOrigin(0.5);
+    const statsLeft = centerX - PANEL_WIDTH / 2 + PANEL_PADDING;
+    const statsRight = centerX + PANEL_WIDTH / 2 - PANEL_PADDING;
+    const statsHeadingStyle = {
+      fontFamily: 'monospace',
+      fontSize: '12px',
+      color: '#f2cc8f',
+    };
+
+    this.add.text(statsLeft, Y.statsHeading, 'Detectives today', statsHeadingStyle).setOrigin(0, 0.5);
+    this.statsCountText = this.add
+      .text(statsRight, Y.statsHeading, '', statsHeadingStyle)
+      .setOrigin(1, 0.5);
     void this.loadStats(currentState);
 
     this.countdownText = this.add
@@ -379,7 +384,7 @@ export class ResultScene extends Phaser.Scene {
       }
       this.drawStats(stats, bucket);
     } catch {
-      // No chart on fetch errors; the fixed box keeps its placeholder.
+      // No chart on fetch errors; the label stays without a count.
     }
   }
 
@@ -397,7 +402,7 @@ export class ResultScene extends Phaser.Scene {
       { key: 'failed', label: 'Failed' },
     ];
 
-    this.statsTitleText?.setText(`Detectives today: ${total}`);
+    this.statsCountText?.setText(String(total));
 
     const slotWidth = (PANEL_WIDTH - 2 * PANEL_PADDING) / entries.length;
     const firstX = width / 2 - PANEL_WIDTH / 2 + PANEL_PADDING;
