@@ -67,3 +67,32 @@ test('dev override is marked both from stored data and from the active key', asy
   expect(fallback.devOverride).toBe(true);
   expect(fallback.practice).toBe(false);
 });
+
+test('dev override key in Redis is ignored in production mode', async () => {
+  const today = await getTodayInfo();
+  const other = getAllPuzzles().find((puzzle) => puzzle.id !== today.puzzle.id);
+  if (other === undefined) throw new Error('Need at least two puzzles');
+  await redis.set(DEV_PUZZLE_OVERRIDE_KEY, other.id);
+
+  const prevNodeEnv = process.env.NODE_ENV;
+  const prevDevTools = process.env.DETECTICON_DEV_TOOLS;
+  process.env.NODE_ENV = 'production';
+  delete process.env.DETECTICON_DEV_TOOLS;
+  try {
+    const prodToday = await getTodayInfo();
+    expect(prodToday.isDevOverride).toBe(false);
+    expect(prodToday.puzzle.id).toBe(today.puzzle.id);
+  } finally {
+    process.env.NODE_ENV = prevNodeEnv;
+    if (prevDevTools !== undefined) {
+      process.env.DETECTICON_DEV_TOOLS = prevDevTools;
+    }
+  }
+});
+
+test('launch day starts cleanly at Puzzle #1 on 001.json', async () => {
+  const launchDay = await getTodayInfo(new Date(Date.UTC(2026, 10, 24, 12, 0, 0)));
+  expect(launchDay.date).toBe('2026-11-24');
+  expect(launchDay.displayNumber).toBe(1);
+  expect(launchDay.puzzle.id).toBe('001');
+});

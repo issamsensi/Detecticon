@@ -2,15 +2,26 @@ import { redis } from '@devvit/web/server';
 import { puzzles } from '../../shared/puzzles';
 import type { Puzzle, PublicPuzzle, Suspect } from '../../shared/types';
 
-// Redis key for the moderator-only test puzzle override. The key only exists while
-// an override is active; deleting it restores the normal daily rotation.
+// Redis key for the moderator-only test puzzle override. Ignored in production
+// unless dev tools are explicitly enabled.
 export const DEV_PUZZLE_OVERRIDE_KEY = 'detecticon:dev:puzzle-override';
 
-// Past epoch so (days since epoch) stays non-negative for current/future dates.
-const START_DATE_UTC = Date.UTC(2026, 0, 1); // 2026-01-01 UTC
+/**
+ * Dev tools (moderator test actions and the Redis puzzle override key) are
+ * strictly disabled in production. Enable locally with DETECTICON_DEV_TOOLS=true
+ * (also enabled automatically under Vitest).
+ */
+export const isDevToolsEnabled = (): boolean => {
+  if (typeof process === 'undefined' || !process.env) {
+    return false;
+  }
+  return process.env.DETECTICON_DEV_TOOLS === 'true' || process.env.NODE_ENV === 'test';
+};
 
-// Placeholder launch date (UTC) for displayed puzzle numbering.
-export const LAUNCH_DATE_UTC = Date.UTC(2026, 11, 5); // 2026-12-05
+// Launch date (UTC) for both puzzle rotation start and displayed puzzle numbering
+// so Launch Day (#1) starts cleanly on 001.json.
+export const LAUNCH_DATE_UTC = Date.UTC(2026, 10, 24); // 2026-11-24 UTC
+const START_DATE_UTC = LAUNCH_DATE_UTC;
 
 export type TodayPuzzle = {
   puzzle: Puzzle;
@@ -58,26 +69,28 @@ export const getTodayInfo = async (now: Date = new Date()): Promise<TodayPuzzle>
   const date = toUtcDateString(year, month, day);
 
   // The rotation above is intentionally unchanged. A moderator-only Redis key can
-  // replace the puzzle for testing; it is ignored when absent or invalid.
-  const overrideId = await redis.get(DEV_PUZZLE_OVERRIDE_KEY);
-  if (overrideId) {
-    const overridePuzzle = getPuzzleById(overrideId);
-    if (overridePuzzle) {
+  // replace the puzzle for local testing, but is strictly ignored in production.
+  if (isDevToolsEnabled()) {
+    const overrideId = await redis.get(DEV_PUZZLE_OVERRIDE_KEY);
+    if (overrideId) {
+      const overridePuzzle = getPuzzleById(overrideId);
+      if (overridePuzzle) {
+        console.warn(
+          `⚠️  [DETECTICON DEV] PUZZLE OVERRIDE ACTIVE — serving puzzle ${overridePuzzle.id} ` +
+            `instead of the daily rotation puzzle ${rotationPuzzle.id} for ${date}. ` +
+            `Clear it with "Dev: clear puzzle override" (or delete ${DEV_PUZZLE_OVERRIDE_KEY}) before submission.`
+        );
+        return {
+          puzzle: overridePuzzle,
+          date,
+          displayNumber: getDisplayPuzzleNumber(date),
+          isDevOverride: true,
+        };
+      }
       console.warn(
-        `⚠️  [DETECTICON DEV] PUZZLE OVERRIDE ACTIVE — serving puzzle ${overridePuzzle.id} ` +
-          `instead of the daily rotation puzzle ${rotationPuzzle.id} for ${date}. ` +
-          `Clear it with "Dev: clear puzzle override" (or delete ${DEV_PUZZLE_OVERRIDE_KEY}) before submission.`
+        `⚠️  [DETECTICON DEV] Ignoring invalid puzzle override "${overrideId}" at ${DEV_PUZZLE_OVERRIDE_KEY}.`
       );
-      return {
-        puzzle: overridePuzzle,
-        date,
-        displayNumber: getDisplayPuzzleNumber(date),
-        isDevOverride: true,
-      };
     }
-    console.warn(
-      `⚠️  [DETECTICON DEV] Ignoring invalid puzzle override "${overrideId}" at ${DEV_PUZZLE_OVERRIDE_KEY}.`
-    );
   }
 
   return {

@@ -50,7 +50,7 @@ export class CaseFileScene extends Phaser.Scene {
       .setOrigin(0.5);
 
     this.add
-      .text(width / 2, 46, `Puzzle #${this.puzzle.number} - ${this.puzzle.title}`, {
+      .text(width / 2, 46, `Puzzle #${this.state.puzzleNumber} - ${this.puzzle.title}`, {
         fontFamily: 'monospace',
         fontSize: '12px',
         color: '#a7b1c2',

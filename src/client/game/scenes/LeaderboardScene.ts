@@ -66,6 +66,8 @@ export class LeaderboardScene extends Phaser.Scene {
         fontFamily: 'monospace',
         fontSize: '15px',
         color: '#f2cc8f',
+        align: 'center',
+        wordWrap: { width: width - 32 },
       })
       .setOrigin(0.5);
 
@@ -107,11 +109,13 @@ export class LeaderboardScene extends Phaser.Scene {
       this.secondsLeft = board.secondsUntilReset;
       this.renderRows(board);
       this.updateCountdown();
-      this.countdownEvent = this.time.addEvent({
-        delay: 1000,
-        loop: true,
-        callback: () => this.updateCountdown(),
-      });
+      if (board.secondsUntilReset > 0) {
+        this.countdownEvent = this.time.addEvent({
+          delay: 1000,
+          loop: true,
+          callback: () => this.updateCountdown(),
+        });
+      }
     } catch (error) {
       const message = this.errorMessage(error);
       this.statusText.setText(message);
@@ -170,6 +174,12 @@ export class LeaderboardScene extends Phaser.Scene {
   }
 
   private updateCountdown(): void {
+    if (this.secondsLeft <= 0) {
+      this.countdownEvent?.remove(false);
+      this.countdownEvent = undefined;
+      this.countdownText.setText('New week live — tap Back to refresh');
+      return;
+    }
     this.countdownText.setText(formatResetsIn(this.secondsLeft));
     this.secondsLeft = Math.max(0, this.secondsLeft - 1);
   }

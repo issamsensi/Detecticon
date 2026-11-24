@@ -3,7 +3,7 @@ import { createMiddleware } from 'hono/factory';
 import type { UiResponse } from '@devvit/web/shared';
 import { context, redis, reddit } from '@devvit/web/server';
 import { getStoredProgress, progressKey, statsKey } from '../core/game';
-import { isCurrentUserModerator } from '../core/moderation';
+import { requireModerator } from '../core/moderation';
 import { clearWeeklyLeaderboard, revertAwardedPoints } from '../core/leaderboard';
 import { pointsForAttempts } from '../../shared/scoring';
 import {
@@ -11,29 +11,26 @@ import {
   getAllPuzzles,
   getPuzzleById,
   getTodayInfo,
+  isDevToolsEnabled,
 } from '../core/puzzle';
 
 /**
- * Moderator-only developer testing endpoints. Mounted under /internal so the full
- * paths are /internal/menu/dev-* and /internal/form/dev-puzzle-override.
- * They are intentionally kept for moderator testing; the puzzle override must
- * be cleared before submission.
+ * Moderator-only developer testing endpoints. Mounted under /internal only when
+ * DETECTICON_DEV_TOOLS=true (disabled in production).
  */
 export const dev = new Hono();
 
-// Guards BOTH the menu actions and the form submit endpoint. Menu visibility
-// config is not a security boundary, so every dev action re-checks in middleware.
-const requireModerator = createMiddleware(async (c, next) => {
-  if (!(await isCurrentUserModerator())) {
-    console.warn(`[DETECTICON DEV] Blocked non-moderator dev request: ${c.req.path}`);
+const requireDevTools = createMiddleware(async (c, next) => {
+  if (!isDevToolsEnabled()) {
     return c.json<UiResponse>(
-      { showToast: 'Only subreddit moderators can use Detecticon dev actions.' },
-      403
+      { showToast: 'Detecticon dev actions are disabled in production.' },
+      404
     );
   }
   await next();
 });
 
+dev.use('/*', requireDevTools);
 dev.use('/*', requireModerator);
 
 const successToast = (text: string): UiResponse => ({

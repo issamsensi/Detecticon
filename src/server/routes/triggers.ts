@@ -2,20 +2,22 @@ import { context } from '@devvit/web/server';
 import { Hono } from 'hono';
 import type { OnAppInstallRequest, TriggerResponse } from '@devvit/web/shared';
 
-import { createPost, createTodaysDetectivoPost } from '../core/post';
+import { createTodaysDetectivoPost } from '../core/post';
 
 export const triggers = new Hono();
 
 triggers.post('/on-app-install', async (c) => {
   try {
-    const post = await createPost();
+    const result = await createTodaysDetectivoPost();
 
     const input = await c.req.json<OnAppInstallRequest>();
 
     return c.json<TriggerResponse>(
       {
         status: 'success',
-        message: `Post created in subreddit ${context.subredditName} with id ${post.id} (trigger: ${input.type})`,
+        message: result.skipped
+          ? `Today's post already exists in subreddit ${context.subredditName} (${result.date}, trigger: ${input.type})`
+          : `Post created in subreddit ${context.subredditName} with id ${result.postId ?? 'unknown'} (trigger: ${input.type})`,
       },
       200
     );
@@ -31,7 +33,7 @@ triggers.post('/on-app-install', async (c) => {
   }
 });
 
-// Scheduled task: runs daily at 00:05 UTC (configured in devvit.json) to create today's Detecticon post.
+// Scheduled task: runs daily at 00:00 UTC (configured in devvit.json) to create today's Detecticon post.
 // Idempotent: createTodaysDetectivoPost skips if the UTC date key already exists.
 triggers.post('/daily-post', async (c) => {
   try {

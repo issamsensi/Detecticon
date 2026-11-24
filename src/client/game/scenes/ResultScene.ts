@@ -12,36 +12,37 @@ import { createCharacter } from '../ui/Character';
  * wrapped text and long values cannot push into the next section.
  */
 const Y = {
-  headerTop: 8,
-  headerHeight: 150,
-  detective: 38,
-  title: 80,
-  culprit: 105,
-  attempts: 128,
-  badges: 148,
+  headerTop: 26,
+  headerHeight: 158,
+  detective: 56,
+  title: 99,
+  culprit: 125,
+  attempts: 148,
+  badges: 170,
 
-  shareCard: 186,
-  shareCardHeight: 44,
+  shareCard: 222,
+  shareCardHeight: 48,
 
-  statsBox: 260,
-  statsHeight: 86,
-  statsHeading: 230,
-  barBaseline: 278,
-  statsLabels: 284,
+  statsBox: 308,
+  statsHeight: 96,
+  statsHeading: 278,
+  statsCounts: 318,
+  barBaseline: 325,
+  statsLabels: 333,
 
-  countdown: 322,
-  feedback: 352,
+  countdown: 382,
 
-  rankingButton: 404,
-  postButton: 460,
-  cancelHint: 498,
-  footer: 620,
+  rankingButton: 433,
+  postButton: 489,
+  feedback: 520,
+  cancelHint: 556,
+  footer: 548,
+  footerExpanded: 590,
 } as const;
 
 const PANEL_WIDTH = 312;
 const PANEL_PADDING = 24;
 const BAR_WIDTH = 36;
-const BAR_MAX_HEIGHT = 38;
 const BUTTON_WIDTH = 250;
 const BUTTON_HEIGHT = 44;
 const SHARE_TEXT_WIDTH = PANEL_WIDTH - 2 * (PANEL_PADDING + 4);
@@ -49,6 +50,7 @@ const SHARE_TEXT_WIDTH = PANEL_WIDTH - 2 * (PANEL_PADDING + 4);
 export class ResultScene extends Phaser.Scene {
   private countdownText: Phaser.GameObjects.Text | undefined;
   private countdownEvent: Phaser.Time.TimerEvent | undefined;
+  private targetResetMs: number | undefined;
   private statsCountText: Phaser.GameObjects.Text | undefined;
 
   constructor() {
@@ -66,7 +68,7 @@ export class ResultScene extends Phaser.Scene {
     const solved = currentState.solved;
     const shareText = currentState.shareText ?? buildShareText(currentState);
 
-    this.addPanel(centerX, Y.headerTop, Y.headerHeight, 0x141926, 0x3d405b);
+    this.addPanel(centerX, Y.headerTop + Y.headerHeight / 2, Y.headerHeight, 0x141926, 0x3d405b);
 
     // Only draw the detective sprite when it loaded: no green fallback square.
     if (this.textures.exists(DETECTIVE_KEY)) {
@@ -171,12 +173,30 @@ export class ResultScene extends Phaser.Scene {
         wordWrap: { width: PANEL_WIDTH },
       })
       .setOrigin(0.5);
-    this.updateCountdown();
-    this.countdownEvent = this.time.addEvent({
-      delay: 1000,
-      loop: true,
-      callback: () => this.updateCountdown(),
-    });
+
+    if (currentState.practice) {
+      this.targetResetMs = undefined;
+      this.countdownText.setText('Archive case');
+    } else {
+      const now = new Date();
+      this.targetResetMs = Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate() + 1,
+        0,
+        0,
+        0,
+        0
+      );
+      this.updateCountdown();
+      if (Date.now() < this.targetResetMs) {
+        this.countdownEvent = this.time.addEvent({
+          delay: 1000,
+          loop: true,
+          callback: () => this.updateCountdown(),
+        });
+      }
+    }
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.countdownEvent?.remove(false);
       this.countdownEvent = undefined;
@@ -190,7 +210,7 @@ export class ResultScene extends Phaser.Scene {
         align: 'center',
         wordWrap: { width: PANEL_WIDTH },
       })
-      .setOrigin(0.5);
+      .setOrigin(0.5, 0);
 
     const rankingButton = this.add
       .rectangle(centerX, Y.rankingButton, BUTTON_WIDTH, BUTTON_HEIGHT, 0x3d405b)
@@ -232,8 +252,24 @@ export class ResultScene extends Phaser.Scene {
         fontSize: '12px',
         color: '#a7b1c2',
       })
-      .setOrigin(0.5)
+      .setOrigin(0.5, 0)
       .setInteractive({ useHandCursor: true });
+
+    const footerText = this.add
+      .text(centerX, Y.footer, solved ? 'Nice work, Inspector.' : 'Better luck next case.', {
+        fontFamily: 'monospace',
+        fontSize: '12px',
+        color: '#a7b1c2',
+      })
+      .setOrigin(0.5);
+
+    const setFeedback = (text: string, color?: string): void => {
+      if (color) {
+        feedback.setColor(color);
+      }
+      feedback.setText(text);
+      footerText.setY(text.length > 0 ? Y.footerExpanded : Y.footer);
+    };
 
     let posting = false;
     let confirming = false;
@@ -285,7 +321,7 @@ export class ResultScene extends Phaser.Scene {
     const cancelConfirm = (): void => {
       if (posting) return;
       resetPostButton();
-      feedback.setText('');
+      setFeedback('');
     };
     cancelText.on('pointerdown', cancelConfirm);
 
@@ -295,8 +331,7 @@ export class ResultScene extends Phaser.Scene {
         confirming = true;
         postLabel.setText('Confirm post');
         cancelText.setText('Tap here to cancel');
-        feedback.setColor('#f2cc8f');
-        feedback.setText(`Post "${shareText}" as a comment?`);
+        setFeedback(`Post "${shareText}" as a comment?`, '#f2cc8f');
         return;
       }
 
@@ -305,33 +340,27 @@ export class ResultScene extends Phaser.Scene {
       cancelText.setText('');
       setPostEnabled(false);
       postLabel.setText('Posting...');
-      feedback.setColor('#a7b1c2');
-      feedback.setText('Posting to comments...');
+      setFeedback('Posting to comments...', '#a7b1c2');
 
       try {
         const response = await shareResult(currentState.puzzleId);
         currentState = response.state;
         markPosted();
-        feedback.setColor('#81b29a');
-        feedback.setText('Posted to comments!');
+        setFeedback('Posted to comments!', '#81b29a');
       } catch (error) {
         posting = false;
         resetPostButton();
         if (error instanceof ApiError && error.status === 401) {
-          feedback.setColor('#f2cc8f');
-          feedback.setText('Log in to Reddit to post your result.');
+          setFeedback('Log in to Reddit to post your result.', '#f2cc8f');
         } else if (error instanceof ApiError && error.status === 409) {
           // Already posted from another session - keep it one per player per puzzle.
           markPosted();
-          feedback.setColor('#81b29a');
-          feedback.setText('Result already posted to comments.');
+          setFeedback('Result already posted to comments.', '#81b29a');
         } else if (error instanceof NetworkError || error instanceof TypeError) {
-          feedback.setColor('#e07a5f');
-          feedback.setText('Could not post (connection problem). Tap to try again.');
+          setFeedback('Could not post (connection problem). Tap to try again.', '#e07a5f');
         } else {
           const message = error instanceof Error ? error.message : 'Could not post to comments';
-          feedback.setColor('#e07a5f');
-          feedback.setText(`${message}.`);
+          setFeedback(`${message}.`, '#e07a5f');
         }
       }
     };
@@ -341,14 +370,6 @@ export class ResultScene extends Phaser.Scene {
     };
     postButton.on('pointerdown', onPostTap);
     postLabel.on('pointerdown', onPostTap);
-
-    this.add
-      .text(centerX, Y.footer, solved ? 'Nice work, Inspector.' : 'Better luck next case.', {
-        fontFamily: 'monospace',
-        fontSize: '12px',
-        color: '#a7b1c2',
-      })
-      .setOrigin(0.5);
   }
 
   private addPanel(
@@ -394,7 +415,6 @@ export class ResultScene extends Phaser.Scene {
   ): void {
     const { width } = this.scale;
     const total = stats.solved1 + stats.solved2 + stats.solved3 + stats.failed;
-    const max = Math.max(stats.solved1, stats.solved2, stats.solved3, stats.failed, 1);
     const entries: Array<{ key: keyof StatsResponse['stats']; label: string }> = [
       { key: 'solved1', label: '1 try' },
       { key: 'solved2', label: '2 tries' },
@@ -409,47 +429,40 @@ export class ResultScene extends Phaser.Scene {
     entries.forEach((entry, index) => {
       const x = firstX + slotWidth * (index + 0.5);
       const count = stats[entry.key];
-      const barHeight = count === 0 ? 2 : Math.max(4, Math.round((count / max) * BAR_MAX_HEIGHT));
-      const top = Y.barBaseline - barHeight;
       const mine = highlight === entry.key;
-      const color = mine ? '#f4f1de' : '#a7b1c2';
+      const labelColor = mine ? '#f4f1de' : '#a7b1c2';
 
       this.add
-        .rectangle(x, top, BAR_WIDTH, barHeight, 0x3d405b)
-        .setOrigin(0.5, 1)
-        .setStrokeStyle(mine ? 2 : 1, mine ? 0xf4f1de : 0x6b7280);
-      this.add
-        .text(x, Math.max(top + 2, Y.barBaseline - 15), String(count), {
+        .text(x, Y.statsCounts, String(count), {
           fontFamily: 'monospace',
-          fontSize: '10px',
-          color: '#f4f1de',
+          fontSize: '12px',
+          color: mine ? '#f4f1de' : '#d9dde7',
         })
-        .setOrigin(0.5, 0);
+        .setOrigin(0.5, 1);
+      this.add
+        .rectangle(x, Y.barBaseline, BAR_WIDTH, mine ? 3 : 2, mine ? 0xf4f1de : 0x6b7280)
+        .setOrigin(0.5, 0.5);
       this.add
         .text(x, Y.statsLabels, entry.label, {
           fontFamily: 'monospace',
           fontSize: '10px',
-          color,
+          color: labelColor,
         })
         .setOrigin(0.5, 0);
     });
   }
 
   private updateCountdown(): void {
-    if (!this.countdownText) {
+    if (!this.countdownText || this.targetResetMs === undefined) {
       return;
     }
-    const now = new Date();
-    const nextUtcMidnight = Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate() + 1,
-      0,
-      0,
-      0,
-      0
-    );
-    const diffMs = Math.max(0, nextUtcMidnight - now.getTime());
+    const diffMs = this.targetResetMs - Date.now();
+    if (diffMs <= 0) {
+      this.countdownEvent?.remove(false);
+      this.countdownEvent = undefined;
+      this.countdownText.setText('New puzzle is live in the subreddit!');
+      return;
+    }
     const totalSeconds = Math.floor(diffMs / 1000);
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);

@@ -29,14 +29,6 @@ const todayPostData = async () => {
   };
 };
 
-export const createPost = async () => {
-  const { postData } = await todayPostData();
-  return await reddit.submitCustomPost({
-    title: 'detecticon',
-    postData,
-  });
-};
-
 export const createTodaysDetectivoPost = async (): Promise<DailyPostResult> => {
   const { puzzle, date, displayNumber, postData } = await todayPostData();
   const title = `Detecticon #${displayNumber}: ${puzzle.title}`;

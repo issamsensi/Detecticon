@@ -1,31 +1,13 @@
 import { Hono } from 'hono';
 import type { UiResponse } from '@devvit/web/shared';
-import { createPost, createTodaysDetectivoPost } from '../core/post';
+import { requireModerator } from '../core/moderation';
+import { createTodaysDetectivoPost } from '../core/post';
 
 export const menu = new Hono();
 
-menu.post('/post-create', async (c) => {
-  try {
-    const post = await createPost();
+menu.use('/*', requireModerator);
 
-    return c.json<UiResponse>(
-      {
-        navigateTo: `https://reddit.com/comments/${post.id}`,
-      },
-      200
-    );
-  } catch (error) {
-    console.error(`Error creating post: ${error}`);
-    return c.json<UiResponse>(
-      {
-        showToast: 'Failed to create post',
-      },
-      400
-    );
-  }
-});
-
-// Moderator action: create today's Detecticon post on demand (useful for testing/manual posting).
+// Moderator action: create today's Detecticon post on demand (deduplicated per UTC date).
 menu.post('/post-create-today', async (c) => {
   try {
     const result = await createTodaysDetectivoPost();

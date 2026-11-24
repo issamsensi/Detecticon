@@ -1,3 +1,5 @@
+import { createMiddleware } from 'hono/factory';
+import type { UiResponse } from '@devvit/web/shared';
 import { context, reddit } from '@devvit/web/server';
 
 /**
@@ -23,7 +25,18 @@ export const isCurrentUserModerator = async (): Promise<boolean> => {
     const permissions = await user.getModPermissionsForSubreddit(subredditName);
     return permissions.length > 0;
   } catch (error) {
-    console.warn(`[DETECTICON DEV] Moderator check failed for ${subredditName}: ${error}`);
+    console.warn(`[DETECTICON] Moderator check failed for ${subredditName}: ${error}`);
     return false;
   }
 };
+
+export const requireModerator = createMiddleware(async (c, next) => {
+  if (!(await isCurrentUserModerator())) {
+    console.warn(`[DETECTICON] Blocked non-moderator request: ${c.req.path}`);
+    return c.json<UiResponse>(
+      { showToast: 'Only subreddit moderators can use this Detecticon action.' },
+      403
+    );
+  }
+  await next();
+});
