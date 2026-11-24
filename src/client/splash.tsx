@@ -3,6 +3,7 @@ import './index.css';
 import { requestExpandedMode } from '@devvit/web/client';
 import { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { MAX_ATTEMPTS } from '../shared/scoring';
 
 type StatusState = {
   puzzleNumber?: number;
@@ -79,10 +80,10 @@ export const Splash = () => {
         let statusText = 'New case today';
         let ctaText = 'Play';
         if (finished) {
-          statusText = solved ? `Solved in ${attemptsUsed}/3` : 'Case failed';
+          statusText = solved ? `Solved in ${attemptsUsed}/${MAX_ATTEMPTS}` : 'Case failed';
           ctaText = 'View result';
         } else if (attemptsUsed > 0) {
-          const triesLeft = attemptsLeft ?? Math.max(0, 3 - attemptsUsed);
+          const triesLeft = attemptsLeft ?? Math.max(0, MAX_ATTEMPTS - attemptsUsed);
           statusText = `In progress · ${triesLeft} ${triesLeft === 1 ? 'try' : 'tries'} left`;
           ctaText = 'Resume';
         }
@@ -142,7 +143,9 @@ export const Splash = () => {
             Detecticon
           </h1>
           <p className="text-base font-semibold text-[#f2cc8f] sm:text-lg">{puzzleLabel}</p>
-          <p className="text-sm text-[#c9d1e1] sm:text-base">4 suspects. 1 liar. 3 tries.</p>
+          <p className="text-sm text-[#c9d1e1] sm:text-base">
+            4 suspects. 1 liar. {MAX_ATTEMPTS} tries.
+          </p>
           {badges.length > 0 ? (
             <p className="text-xs font-semibold text-[#e07a5f] sm:text-sm">
               {badges.join(' · ')}

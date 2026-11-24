@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import type { PublicPuzzle } from '../../../shared/types';
 import type { GameState } from '../../../shared/game';
+import { formatHowToScoringLine } from '../../../shared/scoring';
 import { DETECTIVE_KEY } from '../assets';
 import { createInterrogationBackdrop } from '../ui/backdrop';
 import { createCharacter } from '../ui/Character';
@@ -10,7 +11,7 @@ import { fetchHowToSeen, markHowToSeen } from '../api';
 const HOW_TO_LINES = [
   '1. Hear 4 testimonies.',
   '2. One suspect is lying.',
-  '3. Three tries: 3 points on the 1st, 2 on the 2nd, 1 on the 3rd.',
+  formatHowToScoringLine(),
 ];
 
 type OverlayObject = Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Depth;

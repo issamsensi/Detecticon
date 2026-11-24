@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { buildShareText, type GameState } from '../../../shared/game';
-import { formatPointsEarned } from '../../../shared/scoring';
+import { formatPointsDelta, MAX_ATTEMPTS } from '../../../shared/scoring';
 import { ApiError, NetworkError, fetchTodayStats, shareResult, type StatsResponse } from '../api';
 import { DETECTIVE_KEY } from '../assets';
 import { createInterrogationBackdrop } from '../ui/backdrop';
@@ -110,7 +110,7 @@ export class ResultScene extends Phaser.Scene {
       .text(
         centerX,
         Y.attempts,
-        `Attempts ${currentState.attemptsUsed}/3 · +${formatPointsEarned(currentState.pointsEarned)}`,
+        `Attempts ${currentState.attemptsUsed}/${MAX_ATTEMPTS} · ${formatPointsDelta(currentState.pointsEarned)}`,
         {
           fontFamily: 'monospace',
           fontSize: '17px',

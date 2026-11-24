@@ -12,16 +12,20 @@ describe('leaderboard score encoding', () => {
     const lateSinglePoint = encodeLeaderboardScore(1, 600_000_000);
     const earlySinglePoint = encodeLeaderboardScore(1, 1_000);
     const lateTwoPoints = encodeLeaderboardScore(2, 600_000_000);
+    const lateThreePoints = encodeLeaderboardScore(3, 600_000_000);
 
     expect(earlySinglePoint).toBeGreaterThan(lateSinglePoint);
     expect(lateTwoPoints).toBeGreaterThan(earlySinglePoint);
+    expect(lateThreePoints).toBeGreaterThan(lateTwoPoints);
   });
 
   test('the time part never spills into another point bucket', () => {
     const lastMsOfWeek = 7 * 86_400 * 1000;
     expect(encodeLeaderboardScore(1, lastMsOfWeek)).toBeLessThan(2 * LEADERBOARD_SCORE_UNIT);
+    expect(decodeLeaderboardPoints(encodeLeaderboardScore(0, lastMsOfWeek))).toBe(0);
     expect(decodeLeaderboardPoints(encodeLeaderboardScore(1, lastMsOfWeek))).toBe(1);
     expect(decodeLeaderboardPoints(encodeLeaderboardScore(2, 0))).toBe(2);
+    expect(decodeLeaderboardPoints(encodeLeaderboardScore(3, lastMsOfWeek))).toBe(3);
   });
 
   test('adds points to an existing weekly total', () => {

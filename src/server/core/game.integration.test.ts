@@ -1,7 +1,8 @@
 import { Context, reddit, redis, runWithContext } from '@devvit/web/server';
 import { expect } from 'vitest';
 import { test } from '../test';
-import { pointsForAttempts } from '../../shared/scoring';
+import { formatPointsDelta, pointsForAttempts } from '../../shared/scoring';
+import { decodeLeaderboardPoints, leaderboardKey } from '../../shared/leaderboard';
 import { getWeekId } from '../../shared/week';
 import { getLeaderboard, revertAwardedPoints } from './leaderboard';
 import { statsKey } from './game';
@@ -41,35 +42,45 @@ const innocentIds = (session: PuzzleSession, count: number): string[] => {
   return ids;
 };
 
-test('a first-attempt solve awards 3 points in both the result and the weekly board', async () => {
+test('a first-attempt solve awards 3 points in both the result and the weekly board', async ({ username }) => {
   const session = await makeSession();
   const result = await accuseSuspect(session, killerId(session));
+  const weekId = getWeekId(new Date());
+  const rawScore = await redis.zScore(leaderboardKey(weekId), username);
 
   expect(result.correct).toBe(true);
   expect(result.state.attemptsUsed).toBe(1);
   expect(result.state.pointsEarned).toBe(3);
+  expect(formatPointsDelta(result.state.pointsEarned)).toBe('+3 points');
   expect(pointsForAttempts(1, true)).toBe(3);
+  expect(rawScore).toBeDefined();
+  expect(decodeLeaderboardPoints(rawScore!)).toBe(3);
   expect((await getLeaderboard()).me?.points).toBe(3);
-  expect(result.progress.awardedWeekId).toBe(getWeekId(new Date()));
+  expect(result.progress.awardedWeekId).toBe(weekId);
   expect(await getStats(session.puzzle.id, session.date)).toMatchObject({ solved1: 1 });
 });
 
-test('a second-attempt solve awards 2 points in both the result and the weekly board', async () => {
+test('a second-attempt solve awards 2 points in both the result and the weekly board', async ({ username }) => {
   const session = await makeSession();
   const [wrong] = innocentIds(session, 1);
   if (wrong === undefined) throw new Error('Missing innocent suspect');
 
   await accuseSuspect(session, wrong);
   const result = await accuseSuspect(session, killerId(session));
+  const weekId = getWeekId(new Date());
+  const rawScore = await redis.zScore(leaderboardKey(weekId), username);
 
   expect(result.state.attemptsUsed).toBe(2);
   expect(result.state.pointsEarned).toBe(2);
+  expect(formatPointsDelta(result.state.pointsEarned)).toBe('+2 points');
   expect(pointsForAttempts(2, true)).toBe(2);
+  expect(rawScore).toBeDefined();
+  expect(decodeLeaderboardPoints(rawScore!)).toBe(2);
   expect((await getLeaderboard()).me?.points).toBe(2);
   expect(await getStats(session.puzzle.id, session.date)).toMatchObject({ solved2: 1 });
 });
 
-test('a correct third accusation awards 1 point in both the result and the weekly board', async () => {
+test('a correct third accusation awards 1 point in both the result and the weekly board', async ({ username }) => {
   const session = await makeSession();
   const [firstWrong, secondWrong] = innocentIds(session, 2);
   if (firstWrong === undefined || secondWrong === undefined) {
@@ -79,16 +90,21 @@ test('a correct third accusation awards 1 point in both the result and the weekl
   await accuseSuspect(session, firstWrong);
   await accuseSuspect(session, secondWrong);
   const result = await accuseSuspect(session, killerId(session));
+  const weekId = getWeekId(new Date());
+  const rawScore = await redis.zScore(leaderboardKey(weekId), username);
 
   expect(result.state.attemptsUsed).toBe(3);
   expect(result.state.solved).toBe(true);
   expect(result.state.pointsEarned).toBe(1);
+  expect(formatPointsDelta(result.state.pointsEarned)).toBe('+1 point');
   expect(pointsForAttempts(3, true)).toBe(1);
+  expect(rawScore).toBeDefined();
+  expect(decodeLeaderboardPoints(rawScore!)).toBe(1);
   expect((await getLeaderboard()).me?.points).toBe(1);
   expect(await getStats(session.puzzle.id, session.date)).toMatchObject({ solved3: 1 });
 });
 
-test('a failed case awards 0 points and counts as failed', async () => {
+test('a failed case awards 0 points and counts as failed', async ({ username }) => {
   const session = await makeSession();
   const wrongIds = innocentIds(session, 3);
   let result;
@@ -97,10 +113,15 @@ test('a failed case awards 0 points and counts as failed', async () => {
   }
 
   if (result === undefined) throw new Error('No accusations were made');
+  const weekId = getWeekId(new Date());
+  const rawScore = await redis.zScore(leaderboardKey(weekId), username);
+
   expect(result.state.finished).toBe(true);
   expect(result.state.solved).toBe(false);
   expect(result.state.attemptsUsed).toBe(3);
   expect(result.state.pointsEarned).toBe(0);
+  expect(formatPointsDelta(result.state.pointsEarned)).toBe('+0 points');
+  expect(rawScore).toBeUndefined();
   expect((await getLeaderboard()).me).toBeNull();
   expect(await getStats(session.puzzle.id, session.date)).toMatchObject({ failed: 1 });
 });
