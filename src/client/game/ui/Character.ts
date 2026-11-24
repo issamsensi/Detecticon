@@ -69,7 +69,7 @@ export const createCharacter = (options: CharacterOptions): Character => {
     }
   };
 
-  scene.events.on(Phaser.Scenes.Events.UPDATE, update);
+  let destroyed = false;
 
   const setTalking = (value: boolean): void => {
     if (talking === value) return;
@@ -79,9 +79,17 @@ export const createCharacter = (options: CharacterOptions): Character => {
   };
 
   const destroy = (): void => {
+    if (destroyed) return;
+    destroyed = true;
     scene.events.off(Phaser.Scenes.Events.UPDATE, update);
-    container.destroy(true);
+    scene.events.off(Phaser.Scenes.Events.SHUTDOWN, destroy);
+    if (container.scene) {
+      container.destroy(true);
+    }
   };
+
+  scene.events.on(Phaser.Scenes.Events.UPDATE, update);
+  scene.events.once(Phaser.Scenes.Events.SHUTDOWN, destroy);
 
   return { container, setTalking, destroy };
 };

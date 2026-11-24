@@ -11,6 +11,8 @@ export type DailyPostResult = {
   displayNumber: number;
 };
 
+const DAILY_POST_TTL_SECONDS = 90 * 86_400;
+
 const dailyPostKey = (date: string): string => `detecticon:daily-post:${date}`;
 
 // Every post carries its own UTC date + puzzle id so old posts keep showing
@@ -47,6 +49,7 @@ export const createTodaysDetectivoPost = async (): Promise<DailyPostResult> => {
       ...(existingPostId && existingPostId !== '1' ? { postId: existingPostId } : {}),
     };
   }
+  await redis.expire(key, DAILY_POST_TTL_SECONDS);
 
   const subredditName = context.subredditName;
   try {
@@ -59,6 +62,7 @@ export const createTodaysDetectivoPost = async (): Promise<DailyPostResult> => {
 
     // Record the created post id for reference (date was already stored before creation).
     await redis.set(key, post.id);
+    await redis.expire(key, DAILY_POST_TTL_SECONDS);
 
     return { created: true, skipped: false, date, title, postId: post.id, displayNumber };
   } catch (error) {

@@ -110,6 +110,17 @@ export class TestimonyScene extends Phaser.Scene {
     });
 
     this.events.on(Phaser.Scenes.Events.UPDATE, this.syncTalking, this);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.events.off(Phaser.Scenes.Events.UPDATE, this.syncTalking, this);
+      if (this.bubble) {
+        this.bubble.destroy();
+        this.bubble = null;
+      }
+      if (this.portrait) {
+        this.portrait.destroy();
+        this.portrait = null;
+      }
+    });
 
     this.suspectIndex = 0;
     this.done = false;

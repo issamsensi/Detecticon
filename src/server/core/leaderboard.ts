@@ -24,10 +24,10 @@ export const getLeaderboard = async (now: Date = new Date()): Promise<Leaderboar
   const total = await redis.zCard(key);
 
   const entries: LeaderboardEntry[] = [];
-  for (const [index, item] of top.entries()) {
+  for (const item of top) {
     const points = decodeLeaderboardPoints(item.score);
     if (points < 1) continue;
-    entries.push({ rank: index + 1, username: item.member, points });
+    entries.push({ rank: entries.length + 1, username: item.member, points });
   }
 
   let me: LeaderboardEntry | null = null;
@@ -38,7 +38,7 @@ export const getLeaderboard = async (now: Date = new Date()): Promise<Leaderboar
     if (rankIndex !== undefined && score !== undefined) {
       // zRank is 0-based from the lowest score; the displayed board is reversed.
       me = {
-        rank: total - rankIndex,
+        rank: Math.max(1, total - rankIndex),
         username,
         points: decodeLeaderboardPoints(score),
       };

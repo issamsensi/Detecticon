@@ -11,6 +11,8 @@ import { getWeekId } from '../../shared/week';
 import { getDisplayPuzzleNumber, getUtcDateString } from './puzzle';
 import type { PuzzleSession } from './session';
 
+const DAILY_DATA_TTL_SECONDS = 90 * 86_400;
+
 export type StoredProgress = {
   attemptsLeft: number;
   attemptsUsed: number;
@@ -81,8 +83,12 @@ const readProgressRecord = (data: Record<string, string> | undefined): StoredPro
   if (!data || Object.keys(data).length === 0) {
     return defaultProgress();
   }
-  const attemptsUsed = Number(data.attemptsUsed ?? 0);
-  const attemptsLeft = Number(data.attemptsLeft ?? 3);
+  const rawAttemptsUsed = Number(data.attemptsUsed ?? 0);
+  const safeAttemptsUsed = Number.isFinite(rawAttemptsUsed) ? Math.max(0, rawAttemptsUsed) : 0;
+  const rawAttemptsLeft = Number(data.attemptsLeft ?? 3);
+  const safeAttemptsLeft = Number.isFinite(rawAttemptsLeft)
+    ? Math.max(0, rawAttemptsLeft)
+    : Math.max(0, 3 - safeAttemptsUsed);
   const results = parseJsonArray<AttemptResult>(data.results, []);
   const eliminatedIds = parseJsonArray<string>(data.eliminatedIds, []);
   const finished = data.finished === '1';
@@ -93,8 +99,8 @@ const readProgressRecord = (data: Record<string, string> | undefined): StoredPro
   const awardedWeekId = data.awardedWeekId || undefined;
 
   return {
-    attemptsUsed: Number.isFinite(attemptsUsed) ? attemptsUsed : 0,
-    attemptsLeft: Number.isFinite(attemptsLeft) ? attemptsLeft : 0,
+    attemptsUsed: safeAttemptsUsed,
+    attemptsLeft: safeAttemptsLeft,
     eliminatedIds,
     results,
     finished,
@@ -146,7 +152,9 @@ export const saveProgress = async (
   if (!player) {
     return; // do not persist anonymous/logged-out users
   }
-  await redis.hSet(progressKey(date, puzzleId, player), progressHash(progress));
+  const key = progressKey(date, puzzleId, player);
+  await redis.hSet(key, progressHash(progress));
+  await redis.expire(key, DAILY_DATA_TTL_SECONDS);
 };
 
 export const getStats = async (puzzleId: string, date: string): Promise<Stats> => {
@@ -287,8 +295,10 @@ export const accuseSuspect = async (
 
       await txn.multi();
       await txn.hSet(pKey, progressHash(next));
+      await txn.expire(pKey, DAILY_DATA_TTL_SECONDS);
       if (shouldCount && statField) {
         await txn.hIncrBy(sKey, statField, 1);
+        await txn.expire(sKey, DAILY_DATA_TTL_SECONDS);
       }
       if (leaderboardScore !== null) {
         await txn.zAdd(lbKey, { member: player, score: leaderboardScore });
@@ -432,6 +442,7 @@ export const shareResultToComments = async (
     };
     await txn.multi();
     await txn.hSet(pKey, progressHash(next));
+    await txn.expire(pKey, DAILY_DATA_TTL_SECONDS);
     if ((await txn.exec()) == null) {
       throw new GameError('Result already posted', 409);
     }
@@ -448,6 +459,7 @@ export const shareResultToComments = async (
       // than risking a duplicate comment.
       try {
         await redis.hSet(pKey, progressHash(current));
+        await redis.expire(pKey, DAILY_DATA_TTL_SECONDS);
       } catch {
         // Keep the claim; a moderator reset can clear it.
       }
